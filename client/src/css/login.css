@@ -1,0 +1,29 @@
+﻿body,
+html {
+    font-family: "Montserrat", sans-serif;
+    background-color: #341cac;
+}
+
+.card {
+    width: 280px;
+    display: block;
+    margin: 60px auto;
+    box-shadow: 10px 5px 40px 20px #2d1896;
+    transition: 0.25s;
+}
+
+    .card:hover {
+        box-shadow: 10px 5px 40px 20px #271580;
+        cursor: pointer;
+    }
+
+        .card:hover .button-primary {
+            transform: translate(10px, 0);
+        }
+
+.card-body {
+    padding: 15px;
+    background-color: #fff;
+    width: 100%;
+}
+

@@ -25,7 +25,6 @@ function Home() {
     return (
         <div>
         <Header />
-            <h1> home page </h1>
         <Footer />
         </div>
         );

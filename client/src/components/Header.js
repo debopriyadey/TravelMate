@@ -25,28 +25,21 @@ const Header = (props) => {
     return (
         <div>
             <Navbar color="dark" dark expand="md">
-                <NavbarBrand href="/">Fight depression</NavbarBrand>
+                <NavbarBrand href="/">Travllers Diary</NavbarBrand>
                 <NavbarToggler onClick={toggle} />
                 <Collapse isOpen={isOpen} navbar>
                     <Nav className="ml-auto" navbar>
-                        {/* <NavItem>
-                            <Link to="/successstories">
-                                <NavLink className="text-white NavStyle">
-                                    Success Stories
-                                </NavLink>
-                            </Link>
-                        </NavItem> */}
                         <NavItem>
                             <Link to="/Find">
                                 <NavLink className="text-white NavStyle">
-                                    Find
+                                    Search
                                 </NavLink>
                             </Link>
                         </NavItem>
                         <NavItem>
                             <Link to="/Upload">
                                 <NavLink className="text-white NavStyle">
-                                    Upload
+                                    Create Review
                                 </NavLink>
                             </Link>
                         </NavItem>

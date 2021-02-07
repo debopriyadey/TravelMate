@@ -1,7 +1,10 @@
 ﻿body,
 html {
     font-family: "Montserrat", sans-serif;
-    background-color: #341cac;
+    background-image: linear-gradient(#171534, black);
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 100vh;
 }
 
 .card {

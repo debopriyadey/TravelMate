@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Button, Form, FormGroup, Label, Input, Navbar, NavbarToggler, NavbarBrand } from 'reactstrap';
 import { Card, CardImg, CardImgOverlay, CardText, CardBody, CardTitle } from 'reactstrap';
+// import { StateDropdown, RegionDropdown } from 'react-indian-state-region-selector';
 import "../css/loginForm.css";
 
 class Login extends Component {
@@ -8,7 +9,9 @@ class Login extends Component {
         super(props);
         this.state = {
             name: '',
-            email: ''
+            email: '',
+            State: '',
+            region: ''
         };
 
         this.handleChange = this.handleInputChange.bind(this);
@@ -32,6 +35,7 @@ class Login extends Component {
     }
 
     render() {
+        const { State, region } = this.state;
         return (
             <div>
                 <Navbar color="dark" dark expand="md">

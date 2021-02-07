@@ -1,14 +1,19 @@
-import React, { Component } from 'react';
-import { Button, Form, FormGroup, Label, Input, Navbar, NavbarToggler, NavbarBrand } from 'reactstrap';
+import React, {Component} from 'react'
+import { Button, Form, FormGroup, FormText, Label, Input, Navbar, NavbarToggler, NavbarBrand } from 'reactstrap';
 import { Card, CardImg, CardImgOverlay, CardText, CardBody, CardTitle } from 'reactstrap';
+import {Container, Row, Col} from 'reactstrap';
 import "../css/login.css";
 
-class Login extends Component {
+class ReviewForm extends Component {
     constructor(props) {
         super(props);
         this.state = {
             name: '',
-            email: ''
+            review: '',
+            photo: '',
+            state: '',
+            city: '',
+            place: ''
         };
 
         this.handleChange = this.handleInputChange.bind(this);
@@ -45,9 +50,17 @@ class Login extends Component {
                                     <Label for="nameImput">Name</Label>
                                     <Input type="text" name="name" value={this.state.name} onChange={this.handleChange} className="form-control" id="nameImput" placeholder="Name" />
                                 </div>
-                                <div className="form-group">
-                                    <Label for="emailImput">Email</Label>
-                                    <Input name="email" type="email" value={this.state.email} onChange={this.handleChange} className="form-control" id="emailImput" placeholder="email@domain.com" />
+                                <div>
+                                    <Label for="exampleText">Review</Label>
+                                    <Input type="textarea" name="review"  value={this.state.review} onChange={this.handleChange} className="form-control" id="reviewImput" placeholder="Review" />
+                                </div>
+                                <div>
+                                    <Label for="exampleFile">Photo</Label>
+                                    <Input type="file" name="photo" value={this.state.photo} onChange={this.handleChange} className="form-control" id="photoImput" />
+                                    <FormText color="muted">
+                                        This is some placeholder block-level help text for the above input.
+                                        It's a bit lighter and easily wraps to a new line.
+                                    </FormText>
                                 </div>
                                 <Input type="submit" value="Submit" className="btn btn-primary" />
                             </fieldset>
@@ -59,4 +72,4 @@ class Login extends Component {
     }
 }
 
-export default Login;
+export default ReviewForm;

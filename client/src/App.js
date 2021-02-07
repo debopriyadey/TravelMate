@@ -3,7 +3,7 @@ import Footer from './components/Footer';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import Find from './components/Find';
 import Upload from './components/Upload';
-import SuccessStories from './components/SuccessStories';
+import MainBody from './components/MainBody';
 
 function App() {
     return (
@@ -13,7 +13,6 @@ function App() {
                     <Route path="/" exact component={Home} />
                     <Route path="/find" component={Find} />
                     <Route path="/upload" component={Upload} />
-                    <Route path="/successstories" component={SuccessStories} />
                 </Switch>
             </div>
         </Router>
@@ -25,7 +24,7 @@ function Home() {
     return (
         <div>
         <Header />
-        <Footer />
+        <MainBody />
         </div>
         );
 }

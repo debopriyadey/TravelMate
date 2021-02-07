@@ -24,7 +24,7 @@ const Header = (props) => {
 
     return (
         <div>
-            <Navbar color="dark" dark expand="md">
+            <Navbar color="dark sticky" dark expand="md">
                 <NavbarBrand href="/">Travllers Diary</NavbarBrand>
                 <NavbarToggler onClick={toggle} />
                 <Collapse isOpen={isOpen} navbar>

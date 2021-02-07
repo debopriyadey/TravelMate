@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Button, Form, FormGroup, Label, Input, Navbar, NavbarToggler, NavbarBrand } from 'reactstrap';
 import { Card, CardImg, CardImgOverlay, CardText, CardBody, CardTitle } from 'reactstrap';
-import "../css/login.css";
 
 class Find extends Component {
     render() {

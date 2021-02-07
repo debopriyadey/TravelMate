@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import { Button, Form, FormGroup, FormText, Label, Input, Navbar, NavbarToggler, NavbarBrand } from 'reactstrap';
 import { Card, CardImg, CardImgOverlay, CardText, CardBody, CardTitle } from 'reactstrap';
 import {Container, Row, Col} from 'reactstrap';
-import "../css/login.css";
+import "../css/reviewForm.css";
 
 class ReviewForm extends Component {
     constructor(props) {

@@ -4,7 +4,7 @@ import Find from './components/Find';
 import Upload from './components/Upload';
 import MainBody from './components/MainBody';
 import SignUp from './components/SignUpForm';
-import Login from './components/loginForm';
+import Login from './components/LoginForm';
 import ReviewForm from './components/ReviewForm';
 
 function App() {

@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react'
-import { Grid, TextField, makeStyles, Paper, Container, Typography, Button, IconButton } from '@material-ui/core';
-import Filebase from 'react-file-base64'
+import React, { useState } from 'react'
+import { Grid, TextField, makeStyles, Paper, Container, Typography, Button, Select, MenuItem, InputLabel, FormControl } from '@material-ui/core';
+// import Filebase from 'react-file-base64'
 import "../css/reviewForm.css";
 
 const useStyles = makeStyles(theme => ({
@@ -15,9 +15,19 @@ const useStyles = makeStyles(theme => ({
         flexDirection: 'column',
         alignItems: 'center',
     },
+
+    topspace: {
+        marginTop: theme.spacing(2)
+    },
+
+    select: {
+        minWidth: 160,
+    },
+
     submit: {
         margin: theme.spacing(3, 0, 2),
     }
+
 }));
 
 const initialFValues = {
@@ -44,7 +54,7 @@ export default function ReviewForm() {
     }
 
     return (
-        <Paper className={classes.pagecontent}>
+        <Paper className={classes.paper}>
             <Grid item xs={12} sm={12}>
                 <form className={classes.root}>
                     <Container maxWidth="sm">
@@ -74,13 +84,58 @@ export default function ReviewForm() {
                             value={values.review}
                             onChange={handleInputChange}
                         />
-                        <input
-                            accept="image/*"
-                            className={classes.input}
-                            id="contained-button-file"
-                            multiple
-                            type="file"
-                        />
+                        <FormControl item className={classes.topspace}>
+                            <input
+                                accept="image/*"
+                                className={classes.input}
+                                id="contained-button-file"
+                                multiple
+                                type="file"
+                            />
+                        </FormControl>
+                        <Grid container>
+                            <Grid item>
+                                <FormControl variant="outlined">
+                                    <InputLabel id="state">State</InputLabel>
+                                    <Select className={classes.select}
+                                        labelId="state"
+                                        id="demo-simple-select-outlined"
+                                        name="state"
+                                        required
+                                        label="State"
+                                        value={values.state}
+                                        onChange={handleInputChange}
+                                    >
+                                        <MenuItem value="">
+                                            <em>None</em>
+                                        </MenuItem>
+                                        <MenuItem value={10}>Ten</MenuItem>
+                                        <MenuItem value={20}>Twenty</MenuItem>
+                                        <MenuItem value={30}>Thirty</MenuItem>
+                                    </Select>
+                                </FormControl>
+                            </Grid>
+                            <Grid item>
+                                <FormControl variant="outlined">
+                                    <InputLabel id="state">City</InputLabel>
+                                    <Select className={classes.select}
+                                        labelId="city"
+                                        id="demo-simple-select-outlined"
+                                        name="city"
+                                        label="City"
+                                        value={values.city}
+                                        onChange={handleInputChange}
+                                    >
+                                        <MenuItem value="">
+                                            <em>None</em>
+                                        </MenuItem>
+                                        <MenuItem value={10}>Ten</MenuItem>
+                                        <MenuItem value={20}>Twenty</MenuItem>
+                                        <MenuItem value={30}>Thirty</MenuItem>
+                                    </Select>
+                                </FormControl>
+                            </Grid>
+                        </Grid>
                         <Button
                             type="submit"
                             fullWidth

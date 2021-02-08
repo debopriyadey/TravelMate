@@ -1,4 +1,3 @@
-import Header from './components/Header';
 import Footer from './components/Footer';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import Find from './components/Find';
@@ -6,6 +5,7 @@ import Upload from './components/Upload';
 import MainBody from './components/MainBody';
 import SignUp from './components/SignUpForm';
 import Login from './components/loginForm';
+import ReviewForm from './components/ReviewForm';
 
 function App() {
     return (
@@ -17,6 +17,7 @@ function App() {
                     <Route path="/upload" component={Upload} />
                     <Route path="/login" component={Login} />
                     <Route path="/SignUp" component={SignUp} />
+                    <Route path="/ReviewForm" component={ReviewForm} />
                 </Switch>
             </div>
         </Router>
@@ -27,8 +28,8 @@ function App() {
 function Home() {
     return (
         <div>
-        <Header />
         <MainBody />
+        <Footer />
         </div>
         );
 }

@@ -29,7 +29,7 @@ function Home() {
     return (
         <div>
         <MainBody />
-        <Footer />
+        {/* <Footer /> */}
         </div>
         );
 }

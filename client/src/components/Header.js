@@ -112,7 +112,7 @@ export default function Header() {
                         </Button>
                     </span>
                     <div>
-                        <Scroll to="Footer" smooth={true}>
+                        <Scroll to="top-reviews" smooth={true}>
                             <IconButton>
                                 <ArrowDropDownCircleIcon className={classes.goDown} />
                             </IconButton>

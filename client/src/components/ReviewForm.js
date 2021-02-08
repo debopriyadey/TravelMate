@@ -9,11 +9,16 @@ const useStyles = makeStyles(theme => ({
             margin: theme.spacing(1)
         }
     },
-    pagecontent: {
-        margin: theme.spacing(5),
-        padding: theme.spacing(3)
+    paper: {
+        marginTop: theme.spacing(8),
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+    },
+    submit: {
+        margin: theme.spacing(3, 0, 2),
     }
-}))
+}));
 
 const initialFValues = {
     id: 0,
@@ -43,24 +48,31 @@ export default function ReviewForm() {
             <Grid item xs={12} sm={12}>
                 <form className={classes.root}>
                     <Container maxWidth="sm">
-                        <Typography varient="h2"> Create Review </Typography>
+                        <Typography component="h1"> Create Review </Typography>
                         <TextField
-                            variant="outlined"
-                            label="Name"
+                            autoComplete="fname"
                             name="fullname"
+                            variant="outlined"
+                            required
                             fullWidth
+                            id="firstName"
+                            label="Name"
+                            autoFocus
                             value={values.name}
                             onChange={handleInputChange}
                         />
                         <TextField
-                            id="outlined-basic"
-                            variant="outlined"
-                            label="YourReview"
+                            autoComplete="fname"
                             name="review"
+                            variant="outlined"
+                            required
+                            id="review"
+                            label="YourReview"
                             multiline
                             fullWidth
                             rows={10}
                             value={values.review}
+                            onChange={handleInputChange}
                         />
                         <input
                             accept="image/*"
@@ -70,11 +82,13 @@ export default function ReviewForm() {
                             type="file"
                         />
                         <Button
-                            className={classes.buttonSubmit}
-                            varitent="contained"
-                            color="primary"
                             type="submit"
-                            fullWidth> CREATE
+                            fullWidth
+                            variant="contained"
+                            color="primary"
+                            className={classes.submit}
+                        >
+                            CREATE
                         </Button>
                     </Container>
                 </form>

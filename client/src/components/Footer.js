@@ -98,16 +98,16 @@ export default function Footer() {
                                 </Typography>
                                 <span className={classes.socialIcons}>
                                     <IconButton>
-                                        <a href="#" title="facebook" className={classes.link}><FacebookIcon></FacebookIcon></a>
+                                        <a href="https://www.instagram.com/" target="_blanck" title="facebook" className={classes.link}><FacebookIcon></FacebookIcon></a>
                                     </IconButton>
                                     <IconButton>
-                                        <a href="#" title="instagram" className={classes.link}><InstagramIcon></InstagramIcon></a>
+                                        <a href="https://www.instagram.com/" target="_blanck" title="instagram" className={classes.link}><InstagramIcon></InstagramIcon></a>
                                     </IconButton>
                                     <IconButton>
-                                        <a href="#" title="twitter" className={classes.link}><TwitterIcon></TwitterIcon></a>
+                                        <a href="https://www.instagram.com/" target="_blanck" title="twitter" className={classes.link}><TwitterIcon></TwitterIcon></a>
                                     </IconButton>
                                     <IconButton>
-                                        <a href="#" title="pinterest" className={classes.link}><PinterestIcon></PinterestIcon></a>
+                                        <a href="https://www.instagram.com/" target="_blanck" title="pinterest" className={classes.link}><PinterestIcon></PinterestIcon></a>
                                     </IconButton>
                                 </span>
                             </Grid>
@@ -129,7 +129,7 @@ export default function Footer() {
                 </Grid>
                 <hr style={{ backgroundColor: 'white' }} />
                 <Typography variant="body2" gutterBottom>
-                    <p style={{ textAlign: 'center' }}>&copy; TravellMate </p>
+                    <h5 style={{ textAlign: 'center' }}>&copy; TravellMate </h5>
                 </Typography>
             </Container>
         </div>

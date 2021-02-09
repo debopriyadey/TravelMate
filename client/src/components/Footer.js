@@ -27,7 +27,7 @@ const useStyles = makeStyles((theme) => ({
         justifyContent: 'center',
     },
 
-    mail: {
+    link: {
         color: 'inherit',
         textDecoration: 'none',
     },
@@ -76,7 +76,7 @@ export default function Footer() {
                                 <Typography variant="body2" gutterBottom>
                                     <h6><strong>DEBOPRIYA DEY</strong></h6>
                                     <small>
-                                        <a href="mailto:debodey158@gmail.com" className={classes.mail} style={{textDecoration: 'none'}}> 
+                                        <a href="mailto:debodey158@gmail.com" className={classes.link} style={{textDecoration: 'none'}}> 
                                             <EmailIcon></EmailIcon> debodey158@gmail.com
                                         </a>
                                     </small>
@@ -84,7 +84,7 @@ export default function Footer() {
                                 <Typography variant="body2" gutterBottom>
                                     <h6><strong>GOURAV MODI</strong></h6>
                                     <small>
-                                        <a href="mailto:gouravmodi321@gmail.com" className={classes.mail} style={{textDecoration: 'none'}}> 
+                                        <a href="mailto:gouravmodi321@gmail.com" className={classes.link} style={{textDecoration: 'none'}}> 
                                             <EmailIcon></EmailIcon> gouravmodi321@gmail.com
                                         </a>
                                     </small>
@@ -98,16 +98,16 @@ export default function Footer() {
                                 </Typography>
                                 <span className={classes.socialIcons}>
                                     <IconButton>
-                                        <FacebookIcon></FacebookIcon>
+                                        <a href="#" title="facebook" className={classes.link}><FacebookIcon></FacebookIcon></a>
                                     </IconButton>
                                     <IconButton>
-                                        <InstagramIcon></InstagramIcon>
+                                        <a href="#" title="instagram" className={classes.link}><InstagramIcon></InstagramIcon></a>
                                     </IconButton>
                                     <IconButton>
-                                        <TwitterIcon></TwitterIcon>
+                                        <a href="#" title="twitter" className={classes.link}><TwitterIcon></TwitterIcon></a>
                                     </IconButton>
                                     <IconButton>
-                                        <PinterestIcon></PinterestIcon>
+                                        <a href="#" title="pinterest" className={classes.link}><PinterestIcon></PinterestIcon></a>
                                     </IconButton>
                                 </span>
                             </Grid>

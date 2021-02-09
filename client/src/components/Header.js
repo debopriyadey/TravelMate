@@ -16,7 +16,8 @@ const useStyles = makeStyles((theme) => ({
     },
 
     appbar: {
-        background: 'none',
+        backgroundColor: '#232423',
+        opacity: '0.7',
     },
 
     appbarWrapper: {

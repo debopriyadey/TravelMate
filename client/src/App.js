@@ -1,10 +1,9 @@
-import Footer from './components/Footer';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import Find from './components/Find';
 import Upload from './components/Upload';
 import MainBody from './components/MainBody';
 import SignUp from './components/SignUpForm';
-import Login from './components/loginForm';
+import Login from './components/LoginForm';
 import ReviewForm from './components/ReviewForm';
 
 function App() {
@@ -28,8 +27,7 @@ function App() {
 function Home() {
     return (
         <div>
-        <MainBody />
-        {/* <Footer /> */}
+            <MainBody />
         </div>
         );
 }

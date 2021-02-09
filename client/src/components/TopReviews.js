@@ -1,12 +1,11 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core';
+import { Grid, makeStyles } from '@material-ui/core';
 import ReviewCard from './ReviewCard';
 import places from '../Reviews';
 
 const useStyles = makeStyles((theme) => ({
     root: {
         minHeight: '100vh',
-        display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
         [theme.breakpoints.down('md')]: {
@@ -20,9 +19,36 @@ export default function TopReviews() {
     const classes = useStyles();
 
     return (
-        <div className={classes.root} id="top-reviews">
-            <ReviewCard places={places[0]} />
-            <ReviewCard places={places[1]} />
+        <div id="top-reviews">
+            <div>
+                <h1 style={{ textAlign: 'center', color: 'white' }}> Top Reviews </h1>
+            </div>
+            <div className={classes.root}>
+                <Grid container spacing={3}>
+                    <Grid item xs>
+                        <ReviewCard places={places[0]} />
+                    </Grid>
+                    <Grid item xs>
+                        <ReviewCard places={places[1]} />
+                    </Grid>
+                    <Grid item xs>
+                        <ReviewCard places={places[2]} />
+                    </Grid>
+                </Grid>
+                <Grid container spacing={3}>
+                    <Grid item xs>
+                        <ReviewCard places={places[3]} />
+                    </Grid>
+                    <Grid item xs>
+                        <ReviewCard places={places[4]} />
+                    </Grid>
+                    <Grid item xs>
+                        <ReviewCard places={places[5]} />
+                    </Grid>
+                </Grid>
+                
+
+            </div>
         </div>
     )
 }

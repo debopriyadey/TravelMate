@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import LoginForm from './loginForm';
+import LoginForm from './LoginForm';
 import ReviewForm from './ReviewForm';
 
 

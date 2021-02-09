@@ -1,12 +1,14 @@
 import React from 'react';
 import Header from './Header';
 import TopReviews from './TopReviews';
-import { makeStyles, Paper } from '@material-ui/core';
+import { makeStyles} from '@material-ui/core';
 import bgimage from '../img/heroimage.jpg';
+import Footer from './Footer';
 
 
 const useStyle = makeStyles((theme) => ({
     root: {
+        overflow: 'hidden',
         backgroundColor: 'black',
         backgroundImage: `url(${bgimage})`,
         backgroundSize: "cover",
@@ -22,6 +24,7 @@ export default function MainBody() {
         <div className={classes.root}>
             <Header />
             <TopReviews />
+            <Footer />
         </div>
     )
 }

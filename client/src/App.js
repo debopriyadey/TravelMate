@@ -1,4 +1,8 @@
+import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+
+import getReviews from './actions/reviews'
 import Find from './components/Find';
 import Upload from './components/Upload';
 import MainBody from './components/MainBody';
@@ -7,6 +11,12 @@ import Login from './components/LoginForm';
 import ReviewForm from './components/ReviewForm';
 
 function App() {
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        dispatch(getReviews());
+    }, [dispatch]);
+
     return (
         <Router>
             <div className="App">
@@ -20,16 +30,15 @@ function App() {
                 </Switch>
             </div>
         </Router>
-  );
+    );
 }
-
 
 function Home() {
     return (
         <div>
             <MainBody />
         </div>
-        );
+    );
 }
 
 export default App;

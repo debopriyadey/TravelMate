@@ -6,11 +6,12 @@ import getRoutes from './routes/reviews.js';
 
 const app = express();
 
-app.use('/ReviewForm', getRoutes);
-
 app.use(bodyParser.json({limit: "30mb", extended: true}))
 app.use(bodyParser.urlencoded({limit: "30mb", extended: true}))
 app.use(cors())
+
+app.use('/ReviewForm', getRoutes);
+
 
 const dbURI = "mongodb+srv://docsarea:1234@cluster0.egnnh.mongodb.net/travellersdiary?retryWrites=true&w=majority";
 mongoose.connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true })

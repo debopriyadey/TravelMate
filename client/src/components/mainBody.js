@@ -1,7 +1,8 @@
 import React from 'react';
+import { makeStyles} from '@material-ui/core';
+
 import Header from './Header';
 import TopReviews from './TopReviews';
-import { makeStyles} from '@material-ui/core';
 import bgimage from '../img/heroimage.jpg';
 import Footer from './Footer';
 

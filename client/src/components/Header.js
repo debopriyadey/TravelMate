@@ -13,6 +13,7 @@ const useStyles = makeStyles((theme) => ({
         height: '100vh',
         textDecoration: "none",
         flexGrow: '1'
+        
     },
 
     appbar: {
@@ -29,12 +30,18 @@ const useStyles = makeStyles((theme) => ({
 
     appbarTitle: {
         flexGrow: '1',
+        [theme.breakpoints.down('xs')]: {
+            fontSize: '20px'
+        }
     },
 
     icon: {
         color: '#fff',
         fontSize: '1.5rem',
         padding: theme.spacing(1),
+        [theme.breakpoints.down('xs')]: {
+            fontSize: '18px'
+        }
     },
 
     button : {
@@ -53,15 +60,24 @@ const useStyles = makeStyles((theme) => ({
         color: '#fff',
         fontSize: '4.5rem',
         fontFamily: 'Lemonada',
+        [theme.breakpoints.down('xs')]: {
+            fontSize: '30px'
+        }
     },
 
     subtitle: {
         fontSize: '4rem',
+        [theme.breakpoints.down('xs')]: {
+            fontSize: '27px'
+        }
     },
 
     goDown: {
         color: '#295ed9',
         fontSize: '3.6rem',
+        [theme.breakpoints.down('xs')]: {
+            fontSize: '40px'
+        }
     },
 }));
 export default function Header() {

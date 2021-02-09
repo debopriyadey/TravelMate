@@ -46,8 +46,6 @@ export default function TopReviews() {
                         <ReviewCard places={places[5]} />
                     </Grid>
                 </Grid>
-                
-
             </div>
         </div>
     )

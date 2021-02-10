@@ -1,38 +1,30 @@
 import React, { useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { AppBar, Toolbar, Collapse, IconButton, Button } from '@material-ui/core';
+import { Collapse, IconButton, Button } from '@material-ui/core';
 import ArrowDropDownCircleIcon from '@material-ui/icons/ArrowDropDownCircle';
 import { Link } from 'react-router-dom';
 import { Link as Scroll } from 'react-scroll';
 
+import NavBar from './NavBar';
+
 const useStyles = makeStyles((theme) => ({
     root: {
-        display: 'flex',
+        marginTop: '18%',
         justifyContent: 'center',
         alignItems: 'center',
         height: '100vh',
         textDecoration: "none",
-        flexGrow: '1'
-        
-    },
-
-    appbar: {
-        backgroundColor: '#232423',
-        opacity: '0.7',
-    },
-
-    appbarWrapper: {
-        width: '80%',
-        margin: '0 auto',
-        justifyContent: "space-between",
-
-    },
-
-    appbarTitle: {
         flexGrow: '1',
+        [theme.breakpoints.down('md')]: {
+            marginTop: '30%'
+        },
+        [theme.breakpoints.down('sm')]: {
+            marginTop: '40%'
+        },
         [theme.breakpoints.down('xs')]: {
-            fontSize: '20px'
+            marginTop: '60%'
         }
+        
     },
 
     icon: {
@@ -88,24 +80,7 @@ export default function Header() {
     }, []);
     return (
         <div className={classes.root} id="header">
-            <AppBar className={classes.appbar} elevation={0} >
-                <Toolbar className={classes.appbarWrapper}>
-                    <Link to="/" style={{ textDecoration: 'none', color: 'inherit' }}>
-                        <h1 className={classes.appbarTitle}>
-                            Travell<span className={classes.colorText}>Mate</span>
-                        </h1>
-                    </Link>
-                    <IconButton>
-                        <Link to="/Login" className={classes.icon} style={{ textDecoration: 'none' }}>
-                            Login
-                        </Link>
-                        <Link to="/SignUp" className={classes.icon} style={{ textDecoration: 'none' }}>
-                            SignUp
-                        </Link>
-                    </IconButton>
-                </Toolbar>
-            </AppBar>
-
+            <NavBar />
             <Collapse
                 in={checked}
                 {...(checked ? { timeout: 1000 } : {})}

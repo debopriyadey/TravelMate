@@ -29,24 +29,22 @@ export default function TopReviews() {
             </div>
             <div className={classes.root}>
                 <Grid container spacing={3}>
-                    <Grid item xs>
+                    <Grid item sm={12} md={6} lg={4}>
                         <ReviewCard places={places[0]} />
                     </Grid>
-                    <Grid item xs>
+                    <Grid item sm={12} md={6} lg={4}>
                         <ReviewCard places={places[1]} />
                     </Grid>
-                    <Grid item xs>
+                    <Grid item sm={12} md={6} lg={4}>
                         <ReviewCard places={places[2]} />
                     </Grid>
-                </Grid>
-                <Grid container spacing={3}>
-                    <Grid item xs>
+                    <Grid item sm={12} md={6} lg={4}>
                         <ReviewCard places={places[3]} />
                     </Grid>
-                    <Grid item xs>
+                    <Grid item sm={12} md={6} lg={4}>
                         <ReviewCard places={places[4]} />
                     </Grid>
-                    <Grid item xs>
+                    <Grid item sm={12} md={6} lg={4}>
                         <ReviewCard places={places[5]} />
                     </Grid>
                 </Grid>

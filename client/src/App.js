@@ -9,6 +9,7 @@ import MainBody from './components/MainBody';
 import SignUp from './components/SignUpForm';
 import Login from './components/LoginForm';
 import ReviewForm from './components/ReviewForm';
+import MyReviews from './components/MyReviews';
 
 function App() {
     const dispatch = useDispatch();
@@ -27,6 +28,7 @@ function App() {
                     <Route path="/login" component={Login} />
                     <Route path="/SignUp" component={SignUp} />
                     <Route path="/ReviewForm" component={ReviewForm} />
+                    <Route path="/MyReviews" component={MyReviews} />
                 </Switch>
             </div>
         </Router>

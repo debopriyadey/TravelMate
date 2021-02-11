@@ -2,7 +2,13 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import mongoose from 'mongoose';
 import cors from 'cors';
-import getRoutes from './routes/reviews.js';
+import getreviews from './routes/reviews/getreviews.js';
+import createreview from './routes/reviews/createreviews.js';
+import myreviews from './routes/reviews/myreviews.js';
+import signup from './routes/auth/signup.js';
+import login from './routes/auth/login.js';
+import { myReviews } from './controllers/reviews.js';
+
 
 const app = express();
 
@@ -10,7 +16,11 @@ app.use(bodyParser.json({limit: "30mb", extended: true}))
 app.use(bodyParser.urlencoded({limit: "30mb", extended: true}))
 app.use(cors())
 
-app.use('/ReviewForm', getRoutes);
+app.use('/fetchreviews', getreviews);
+app.use('/createReviews', createreview);
+app.use('/myreviews', myreviews);
+app.use('/signup', signup);
+app.use('/signin', login);
 
 
 const dbURI = "mongodb+srv://docsarea:1234@cluster0.egnnh.mongodb.net/travellersdiary?retryWrites=true&w=majority";

@@ -3,7 +3,10 @@ import mongoose from 'mongoose';
 const reviewSchema = mongoose.Schema({
     place: String,
     review: String,
-    creator: String,
+    creator: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "users",
+    },
     selectedFile: String,
     tags: [String],
     likes: {
@@ -16,6 +19,6 @@ const reviewSchema = mongoose.Schema({
     }
 });
 
-const ReviewModel = mongoose.model('ReviewModel', reviewSchema);
+const Review = mongoose.model('Review', reviewSchema);
 
-export default ReviewModel;
+export default Review;

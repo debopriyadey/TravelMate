@@ -74,7 +74,7 @@ export default function MyReviews() {
             </div>
             <AppBar position="fixed" color="primary" className={classes.appBar}>
                 <Toolbar>
-                    <Link to="/ReviewForm" style={{ textDecoration: 'none' }}>
+                    <Link to="/reviewform" style={{ textDecoration: 'none' }}>
                         <Fab color="secondary" aria-label="add" className={classes.fabButton}>
                             <AddIcon />
                         </Fab>

@@ -93,13 +93,13 @@ export default function Header() {
                         </h1>
                     </Link>
                     <IconButton>
-                        <Link to="/Login" className={classes.icon} style={{ textDecoration: 'none' }}>
+                        <Link to="/login" className={classes.icon} style={{ textDecoration: 'none' }}>
                             Login
                         </Link>
-                        <Link to="/SignUp" className={classes.icon} style={{ textDecoration: 'none' }}>
+                        <Link to="/signup" className={classes.icon} style={{ textDecoration: 'none' }}>
                             SignUp
                         </Link>
-                        <Link to="/MyReviews" className={classes.icon} style={{ textDecoration: 'none' }}>
+                        <Link to="/myreviews" className={classes.icon} style={{ textDecoration: 'none' }}>
                             MyReviews
                         </Link>
                         <Link to="/" className={classes.icon} style={{ textDecoration: 'none' }}>

@@ -26,9 +26,9 @@ function App() {
                     <Route path="/find" component={Find} />
                     <Route path="/upload" component={Upload} />
                     <Route path="/login" component={Login} />
-                    <Route path="/SignUp" component={SignUp} />
-                    <Route path="/ReviewForm" component={ReviewForm} />
-                    <Route path="/MyReviews" component={MyReviews} />
+                    <Route path="/signup" component={SignUp} />
+                    <Route path="/reviewform" component={ReviewForm} />
+                    <Route path="/myreviews" component={MyReviews} />
                 </Switch>
             </div>
         </Router>

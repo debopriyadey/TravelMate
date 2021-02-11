@@ -1,7 +1,7 @@
 import * as api from '../api';
 
 //action creator
-const getReviews = () => async (dispatch) => {
+export const getReviews = () => async (dispatch) => {
     try {
         const { data } = await api.fetchPost();
 
@@ -11,4 +11,12 @@ const getReviews = () => async (dispatch) => {
     }
 } 
 
-export default getReviews;
+export const signup = (users) => async (dispatch) => {
+    try {
+        const { data } = await api.signup(users);
+
+        dispatch({ type: 'CREATE', payload: data });
+    } catch (error) {
+        console.log(error.message);
+    }
+} 

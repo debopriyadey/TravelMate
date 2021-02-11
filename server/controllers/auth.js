@@ -21,7 +21,7 @@ export const signup = (req, res) => {
 
             user.save()
                 .then(user => {
-                    res.json({ message: "success" });
+                    res.json({ message: "signup success" });
                 })
                 .catch((err) => {
                     console.log(err);

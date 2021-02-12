@@ -24,6 +24,7 @@ export const signup = (users) => async (dispatch) => {
 export const signin = (users) => async (dispatch) => {
     try{
         const { data } = await api.signin(users);
+        localStorage.setItem("jwt", data.token);
 
         dispatch({ type: 'SIGNIN', payload: data});
     } catch (error) {

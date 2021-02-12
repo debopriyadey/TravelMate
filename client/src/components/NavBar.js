@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { AppBar, Toolbar, IconButton } from '@material-ui/core';
+import { AppBar, Toolbar, IconButton, Button } from '@material-ui/core';
 import { Link } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
@@ -78,24 +78,36 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 export default function Header() {
+    const logout = () => {
+        localStorage.removeItem("jwt");
+    }
+
     const renderList = () => {
         if (localStorage.getItem("jwt") === null) {
             return [
-            <Link to="/login" className={classes.icon} style={{ textDecoration: 'none' }}>
-                Login
-            </Link>,
-            <Link to="/signup" className={classes.icon} style={{ textDecoration: 'none' }}>
-                SignUp
-            </Link>
+                <Link to="/login" className={classes.icon} style={{ textDecoration: 'none' }}>
+                    <Button varient="contained" color="secondary" size="small">
+                        Login
+                    </Button>
+                </Link>,
+                <Link to="/signup" className={classes.icon} style={{ textDecoration: 'none' }}>
+                    <Button varient="contained" color="secondary" size="small">
+                        SignUp
+                    </Button>
+                </Link>
             ]
         }
         else {
             return [
                 <Link to="/myreviews" className={classes.icon} style={{ textDecoration: 'none' }}>
-                    MyReviews
+                    <Button varient="contained" color="secondary" size="small">
+                        My Reviews
+                    </Button>
                 </Link>,
-                <Link to="/" className={classes.icon} style={{ textDecoration: 'none' }}>
-                    LogOut
+                <Link to="/" className={classes.icon} style={{ textDecoration: 'none' }} > 
+                    <Button varient="contained" color="secondary" size="small" onClick={logout}>
+                        LogOut
+                    </Button>
                 </Link>
             ]
         }

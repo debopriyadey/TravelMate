@@ -24,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
         [theme.breakpoints.down('xs')]: {
             marginTop: '60%'
         }
-        
+
     },
 
     icon: {
@@ -36,7 +36,7 @@ const useStyles = makeStyles((theme) => ({
         }
     },
 
-    button : {
+    button: {
         margin: theme.spacing(1),
     },
 
@@ -73,6 +73,22 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 export default function Header() {
+    const renderLink = () => {
+        if (localStorage.getItem("jwt") === null) {
+            return [
+                <Link to="/login" style={{ textDecoration: 'none' }}>
+                    Create
+                </Link>
+            ]
+        }
+        else {
+            return [
+                <Link to="/reviewform" style={{ textDecoration: 'none' }}>
+                    Create
+                </Link>
+            ]
+        }
+    }
     const classes = useStyles();
     const [checked, setChecked] = useState(false);
     useEffect(() => {
@@ -95,12 +111,10 @@ export default function Header() {
                         <Button variant="outlined" size="medium" color="primary" className={classes.button}>
                             <Link to="/find" style={{ textDecoration: 'none' }}>
                                 Search
-                            </Link>                    
+                            </Link>
                         </Button>
                         <Button variant="outlined" size="medium" color="primary" className={classes.button}>
-                            <Link to="/reviewform" style={{ textDecoration: 'none' }}>
-                                Create
-                            </Link>
+                            {renderLink()}
                         </Button>
                     </span>
                     <div>

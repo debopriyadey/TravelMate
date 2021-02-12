@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { AppBar, Toolbar, IconButton} from '@material-ui/core';
+import { AppBar, Toolbar, IconButton } from '@material-ui/core';
 import { Link } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
@@ -10,7 +10,7 @@ const useStyles = makeStyles((theme) => ({
         alignItems: 'center',
         textDecoration: "none",
         flexGrow: '1'
-        
+
     },
 
     appbar: {
@@ -41,7 +41,7 @@ const useStyles = makeStyles((theme) => ({
         }
     },
 
-    button : {
+    button: {
         margin: theme.spacing(1),
     },
 
@@ -78,6 +78,29 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 export default function Header() {
+    const renderList = () => {
+        if (localStorage.getItem("jwt") === null) {
+            return [
+            <Link to="/login" className={classes.icon} style={{ textDecoration: 'none' }}>
+                Login
+            </Link>,
+            <Link to="/signup" className={classes.icon} style={{ textDecoration: 'none' }}>
+                SignUp
+            </Link>
+            ]
+        }
+        else {
+            return [
+                <Link to="/myreviews" className={classes.icon} style={{ textDecoration: 'none' }}>
+                    MyReviews
+                </Link>,
+                <Link to="/" className={classes.icon} style={{ textDecoration: 'none' }}>
+                    LogOut
+                </Link>
+            ]
+        }
+    }
+
     const classes = useStyles();
     const [checked, setChecked] = useState(false);
     useEffect(() => {
@@ -93,18 +116,7 @@ export default function Header() {
                         </h1>
                     </Link>
                     <IconButton>
-                        <Link to="/login" className={classes.icon} style={{ textDecoration: 'none' }}>
-                            Login
-                        </Link>
-                        <Link to="/signup" className={classes.icon} style={{ textDecoration: 'none' }}>
-                            SignUp
-                        </Link>
-                        <Link to="/myreviews" className={classes.icon} style={{ textDecoration: 'none' }}>
-                            MyReviews
-                        </Link>
-                        <Link to="/" className={classes.icon} style={{ textDecoration: 'none' }}>
-                            LogOut
-                        </Link>
+                        {renderList()}
                     </IconButton>
                 </Toolbar>
             </AppBar>

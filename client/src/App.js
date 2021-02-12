@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 
-import { getReviews } from './actions/reviews'
+import { getReviews } from './actions/actions'
 import Find from './components/Find';
 import Upload from './components/Upload';
 import MainBody from './components/MainBody';

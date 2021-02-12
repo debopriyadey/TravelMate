@@ -15,8 +15,18 @@ export const signup = (users) => async (dispatch) => {
     try {
         const { data } = await api.signup(users);
 
-        dispatch({ type: 'CREATE', payload: data });
+        dispatch({ type: 'SIGNUP', payload: data });
     } catch (error) {
         console.log(error.message);
     }
 } 
+
+export const signin = (users) => async (dispatch) => {
+    try{
+        const { data } = await api.signin(users);
+
+        dispatch({ type: 'SIGNIN', payload: data});
+    } catch (error) {
+        console.log(error.message);
+    }
+}

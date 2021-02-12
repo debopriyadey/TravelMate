@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -10,8 +10,10 @@ import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 
-import { signup } from '../actions/reviews'
+
+import { signup } from '../actions/actions'
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -34,6 +36,8 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function SignUp() {
+  const user = useSelector((state) => state.reviews)
+
   const [postData, setData] = useState({
     name: "",
     email: "",
@@ -47,6 +51,8 @@ export default function SignUp() {
 
     dispatch(signup(postData))
   }
+  console.log(user)
+
 
   const classes = useStyles();
 

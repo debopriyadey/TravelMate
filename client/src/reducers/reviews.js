@@ -2,7 +2,9 @@ export default (reviews = [], action) => {
     switch (action.type) {
         case 'FETCH_ALL':
             return action.payload;
-        case 'CREATE':
+        case 'SIGNUP':
+            return [...reviews, action.payload];
+        case 'SIGNIN':
             return [...reviews, action.payload];
         default:
             return reviews;

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -10,9 +10,12 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
-import { Link } from 'react-router-dom';
+import { Link , useHistory } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 
+import { signin } from'../actions/actions';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -35,6 +38,25 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function Login() {
+  const user = useSelector((state) => state.reviews)
+  const history = useHistory()
+  const [signinData, setData] = useState({
+    email: "",
+    password: ""
+  })
+
+  const dispatch = useDispatch()
+
+  const handeleSubmit = (e) => {
+    e.preventDefault();
+
+    dispatch(signin(signinData))
+    localStorage.setItem("jwt", user.token)
+    localStorage.setItem("user", JSON.stringify(user.user))
+    history.push('/');
+  }
+  console.log(user)
+
   const classes = useStyles();
 
   return (
@@ -47,28 +69,27 @@ export default function Login() {
         <Typography component="h1" variant="h5">
           Sign in
         </Typography>
-        <form className={classes.form} noValidate>
+        <form className={classes.form} noValidate autoComplete="off" noValidate onSubmit={handeleSubmit}>
           <TextField
+            name="email"
             variant="outlined"
-            margin="normal"
             required
             fullWidth
             id="email"
             label="Email Address"
-            name="email"
-            autoComplete="email"
-            autoFocus
+            value={signinData.email}
+            onChange={(e) => setData({ ...signinData, email: e.target.value })}
           />
           <TextField
+            name="password"
             variant="outlined"
-            margin="normal"
             required
             fullWidth
-            name="password"
             label="Password"
             type="password"
             id="password"
-            autoComplete="current-password"
+            value={signinData.password}
+            onChange={(e) => setData({ ...signinData, password: e.target.value })}
           />
           <FormControlLabel
             control={<Checkbox value="remember" color="primary" />}

@@ -51,8 +51,8 @@ export default function Login() {
     e.preventDefault();
 
     dispatch(signin(signinData))
-    localStorage.setItem("jwt", user.token)
-    localStorage.setItem("user", JSON.stringify(user.user))
+    // localStorage.setItem("jwt", user.token)
+    // localStorage.setItem("user", JSON.stringify(user.user))
     history.push('/');
   }
   console.log(user)

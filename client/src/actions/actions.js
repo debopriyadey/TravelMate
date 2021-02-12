@@ -28,7 +28,8 @@ export const signup = (users) => async (dispatch) => {
 export const signin = (users) => async (dispatch) => {
     try{
         const { data } = await api.signin(users);
-        console.log(data);
+        localStorage.setItem("jwt", data.token);
+
         dispatch({ type: 'SIGNIN', payload: data});
         const user = useSelector((state) => state.reviews)
     } catch (error) {

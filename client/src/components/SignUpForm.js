@@ -8,7 +8,7 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 
@@ -36,6 +36,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function SignUp() {
+  const history = useHistory()
   const user = useSelector((state) => state.reviews)
 
   const [postData, setData] = useState({
@@ -50,6 +51,7 @@ export default function SignUp() {
     e.preventDefault();
 
     dispatch(signup(postData))
+    //history.push('/login');
   }
   console.log(user)
 

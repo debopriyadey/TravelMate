@@ -1,5 +1,9 @@
 import * as api from '../api';
+import { useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 
+
+// import { signin } from'../actions/actions';
 //action creator
 export const getReviews = () => async (dispatch) => {
     try {
@@ -24,8 +28,9 @@ export const signup = (users) => async (dispatch) => {
 export const signin = (users) => async (dispatch) => {
     try{
         const { data } = await api.signin(users);
-
+        console.log(data);
         dispatch({ type: 'SIGNIN', payload: data});
+        const user = useSelector((state) => state.reviews)
     } catch (error) {
         console.log(error.message);
     }

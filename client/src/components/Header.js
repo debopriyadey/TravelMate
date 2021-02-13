@@ -83,7 +83,7 @@ export default function Header() {
         }
         else {
             return [
-                <Link to="/reviewform" style={{ textDecoration: 'none' }}>
+                <Link to="/createreview" style={{ textDecoration: 'none' }}>
                     Create
                 </Link>
             ]

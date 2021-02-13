@@ -1,5 +1,9 @@
 import React, { useState } from 'react'
 import { Grid, TextField, makeStyles, Paper, Container, Typography, Button, Select, MenuItem, InputLabel, FormControl } from '@material-ui/core';
+import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+
+
 // import Filebase from 'react-file-base64'
 import "../css/reviewForm.css";
 
@@ -41,16 +45,14 @@ const initialFValues = {
 }
 
 export default function ReviewForm() {
+    const user = useSelector((state) => state.reviews);
+    console.log(typeof(user[0][0]));
 
     const [values, setValues] = useState(initialFValues);
     const classes = useStyles();
 
     const handleInputChange = e => {
-        const { name, value } = e.target
-        setValues({
-            ...values,
-            [name]: value
-        })
+        
     }
 
     return (
@@ -68,7 +70,7 @@ export default function ReviewForm() {
                             id="firstName"
                             label="Name"
                             autoFocus
-                            value={values.name}
+                            value= {values.fullname}
                             onChange={handleInputChange}
                         />
                         <TextField
@@ -145,6 +147,16 @@ export default function ReviewForm() {
                         >
                             CREATE
                         </Button>
+                        <Link to='/' style={{ textDecoration: 'none' }}>
+                            <Button
+                                fullWidth
+                                variant="contained"
+                                color="secondary"
+                                className={classes.submit}
+                            >
+                                BACK
+                            </Button>
+                        </Link>
                     </Container>
                 </form>
             </Grid>

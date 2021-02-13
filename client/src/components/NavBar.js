@@ -80,6 +80,7 @@ const useStyles = makeStyles((theme) => ({
 export default function Header() {
     const logout = () => {
         localStorage.removeItem("jwt");
+        localStorage.removeItem("users");
     }
 
     const renderList = () => {

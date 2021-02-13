@@ -54,8 +54,8 @@ export const signin = (req, res) => {
              .then((doMatch) => {
                  if(doMatch){
                     const token = jwt.sign({ _id: savedUser._id }, JWT_SECRET);
-                    const username = savedUser.name;
-                    res.json({ token, username });
+                    // const username = savedUser.name;
+                    res.json({ token, savedUser });
                  }
                  else {
                     return res.status(412).json({ error: "invalid" });

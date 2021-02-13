@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route, useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 
 import { getReviews } from './actions/actions'
@@ -12,22 +12,47 @@ import ReviewForm from './components/ReviewForm';
 import MyReviews from './components/MyReviews';
 
 function App() {
-    const dispatch = useDispatch();
+    const history = useHistory()
 
-    useEffect(() => {
-        dispatch(getReviews());
-    }, [dispatch]);
+    // useEffect(() => {
+    //     const user = JSON.parse(localStorage.getItem("users"))
+    //     if(user) {
+    //         history.push('/')
+    //     }
+    //     else {
+    //         history.push('/signup')
+    //     }
+    // }, [])
+
+
+    // const renderRoutes = () => {
+    //     if (localStorage.getItem("jwt") === null) {
+    //         return [
+    //             <Route path="/" exact component={Home} />,
+    //             <Route path="/login" component={Login} />,
+    //             <Route path="/signup" component={SignUp} />,
+    //             <Route path="/find" component={Find} />
+    //         ]
+    //     }
+    //     else {
+    //         return [
+    //             <Route path="/" exact component={Home} />,
+    //             <Route path="/createreview" component={ReviewForm} />,
+    //             <Route path="/myreviews" component={MyReviews} />,
+    //             <Route path="/find" component={Find} />
+    //         ]
+    //     }
+    // }
 
     return (
         <Router>
             <div className="App">
                 <Switch>
                     <Route path="/" exact component={Home} />
-                    <Route path="/find" component={Find} />
-                    <Route path="/upload" component={Upload} />
                     <Route path="/login" component={Login} />
                     <Route path="/signup" component={SignUp} />
-                    <Route path="/reviewform" component={ReviewForm} />
+                    <Route path="/find" component={Find} />
+                    <Route path="/createreview" component={ReviewForm} />
                     <Route path="/myreviews" component={MyReviews} />
                 </Switch>
             </div>

@@ -6,6 +6,8 @@ export default (reviews = [], action) => {
             return [...reviews, action.payload];
         case 'SIGNIN':
             return [...reviews, action.payload];
+        case 'CREATE_REVIEW':
+            return [...reviews, action.payload];
         default:
             return reviews;
     }

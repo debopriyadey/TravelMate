@@ -10,12 +10,13 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
-import { Link , useHistory } from 'react-router-dom';
+import CircularProgress from '@material-ui/core/CircularProgress';
+import { Link, useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 
 
-import { signin } from'../actions/actions';
+import { signin } from '../actions/actions';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -47,13 +48,18 @@ export default function Login() {
 
   const dispatch = useDispatch()
 
+  const render = () => {
+    history.push('/');
+  }
+
   const handeleSubmit = (e) => {
     e.preventDefault();
 
     dispatch(signin(signinData))
-    // localStorage.setItem("jwt", user.token)
-    // localStorage.setItem("user", JSON.stringify(user.user))
-    history.push('/');
+    setTimeout(function () {
+      render()
+    }, 3000);
+
   }
   console.log(user)
 
@@ -69,10 +75,11 @@ export default function Login() {
         <Typography component="h1" variant="h5">
           Sign in
         </Typography>
-        <form className={classes.form} noValidate autoComplete="off" noValidate onSubmit={handeleSubmit}>
+        <form className={classes.form} noValidate onSubmit={handeleSubmit}>
           <TextField
             name="email"
             variant="outlined"
+            autoComplete="email"
             required
             fullWidth
             id="email"

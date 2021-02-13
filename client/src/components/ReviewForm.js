@@ -46,7 +46,7 @@ const initialFValues = {
 
 export default function ReviewForm() {
     const user = useSelector((state) => state.reviews);
-    console.log(typeof(user[0][0]));
+    console.log(user[0].savedUser.name);
 
     const [values, setValues] = useState(initialFValues);
     const classes = useStyles();

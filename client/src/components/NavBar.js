@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { AppBar, Toolbar, IconButton, Button } from '@material-ui/core';
 import { Link } from 'react-router-dom';
-
+import {useSelector,useDispatch} from 'react-redux'
 const useStyles = makeStyles((theme) => ({
     root: {
         display: 'flex',
@@ -78,10 +78,12 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 export default function Header() {
+    const userInfo =useSelector(state => state.userInfo)
     const logout = () => {
         localStorage.removeItem("jwt");
         localStorage.removeItem("users");
     }
+    
 
     const renderList = () => {
         if (localStorage.getItem("jwt") === null) {
@@ -103,6 +105,7 @@ export default function Header() {
                 <Link to="/myreviews" className={classes.icon} style={{ textDecoration: 'none' }}>
                     <Button varient="contained" color="secondary" size="small">
                         My Reviews
+                        {userInfo.name}
                     </Button>
                 </Link>,
                 <Link to="/" className={classes.icon} style={{ textDecoration: 'none' }} > 

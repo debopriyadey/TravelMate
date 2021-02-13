@@ -1,7 +1,7 @@
 const state = {  
     userInfo:{},
     message:'',
-    reviews:[],
+    // reviews:[],
     createdReview:{}
 }
  const  review =(initialState = state, action) => {
@@ -9,7 +9,7 @@ const state = {
         case 'FETCH_ALL':
             return {
                 ...state,
-                reviews:action.payload
+                // reviews:action.payload
             };
         case 'SIGNUP':
             return{
@@ -21,7 +21,6 @@ const state = {
             return {
                 ...state,
                 userInfo: action.payload
-
             };
         case 'CREATE_REVIEW':
             return {

@@ -39,7 +39,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function Login() {
-  const user = useSelector((state) => state)
+  // const user = useSelector((state) => state.userInfo)
   const history = useHistory()
   const [signinData, setData] = useState({
     email: "",
@@ -61,7 +61,7 @@ export default function Login() {
     }, 3000);
 
   }
-  console.log(user)
+  // console.log(user)
 
   const classes = useStyles();
 

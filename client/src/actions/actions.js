@@ -26,7 +26,6 @@ export const createreviews = (review) => async (dispatch) => {
 export const signup = (users) => async (dispatch) => {
     try {
         const { data } = await api.signup(users);
-
         dispatch({ type: 'SIGNUP', payload: data });
     } catch (error) {
         console.log(error.message);
@@ -35,11 +34,15 @@ export const signup = (users) => async (dispatch) => {
 
 export const signin = (users) => async (dispatch) => {
     try{
-        const { data } = await api.signin(users);
+        const {data}  = await api.signin(users);
         localStorage.setItem("jwt", data.token);
         localStorage.setItem("users", JSON.stringify(data.savedUser))
-
-        dispatch({ type: 'SIGNIN', payload: data});
+        let useinfo={}
+        for(const property in data.savedUser)
+        useinfo[property]=data.savedUser[property]
+        useinfo["token"]=data.token
+        console.log("actin",useinfo)
+        dispatch({ type: 'SIGNIN', payload: useinfo});
     } catch (error) {
         console.log(error.message);
     }

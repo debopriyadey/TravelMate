@@ -37,7 +37,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function SignUp() {
   const history = useHistory()
-  const user = useSelector((state) => state)
+  // const user = useSelector((state) => state)
 
   const [postData, setData] = useState({
     name: "",
@@ -51,9 +51,9 @@ export default function SignUp() {
     e.preventDefault();
 
     dispatch(signup(postData))
-    //history.push('/login');
+    history.push('/login');
   }
-  console.log(user)
+  // console.log(user)
 
 
   const classes = useStyles();

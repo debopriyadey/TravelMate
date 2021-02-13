@@ -1,14 +1,36 @@
-export default (reviews = [], action) => {
+const state = {  
+    userInfo:{},
+    message:'',
+    reviews:[],
+    createdReview:{}
+}
+ const  review =(initialState = state, action) => {
     switch (action.type) {
         case 'FETCH_ALL':
-            return action.payload;
+            return {
+                ...state,
+                reviews:action.payload
+            };
         case 'SIGNUP':
-            return [...reviews, action.payload];
+            return{
+                ...state,
+                userInfo: {}
+        
+            };
         case 'SIGNIN':
-            return [...reviews, action.payload];
+            return {
+                ...state,
+                userInfo: action.payload
+
+            };
         case 'CREATE_REVIEW':
-            return [...reviews, action.payload];
+            return {
+                ...state,
+                createdReview:action.payload
+            };
         default:
-            return reviews;
+            return state;
     }
 }
+
+export default review

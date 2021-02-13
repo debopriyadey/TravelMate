@@ -17,10 +17,10 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function TopReviews() {
-    // const reviews = useSelector((state) => state.reviews);
+    const reviews = useSelector((state) => state);
     const classes = useStyles();
 
-    // console.log(reviews);
+    console.log("review",reviews);
 
     return (
         <div id="top-reviews">

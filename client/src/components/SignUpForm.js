@@ -37,7 +37,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function SignUp() {
   const history = useHistory()
-  const user = useSelector((state) => state.reviews)
+  const user = useSelector((state) => state)
 
   const [postData, setData] = useState({
     name: "",

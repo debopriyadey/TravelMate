@@ -39,7 +39,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function Login() {
-  const user = useSelector((state) => state.reviews)
+  const user = useSelector((state) => state)
   const history = useHistory()
   const [signinData, setData] = useState({
     email: "",

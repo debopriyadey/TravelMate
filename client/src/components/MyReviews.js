@@ -2,6 +2,8 @@ import React from 'react'
 import { AppBar, Fab, makeStyles, Paper, Toolbar, Typography } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
 import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+
 
 import NavBar from './NavBar'
 import TopReviews from './TopReviews';
@@ -55,7 +57,8 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function MyReviews() {
-
+    const user = useSelector((state) => state.reviews);
+    const username = user[0].savedUser.name;
     const classes = useStyles();
 
     return (
@@ -64,7 +67,7 @@ export default function MyReviews() {
             <div>
                 <Paper elevation={3} className={classes.paper} >
                     <Typography className={classes.userInfo}>
-                        <h1> NAME </h1>
+                        <h1> {username} </h1>
                         <h3> Reviews : 12 </h3>
                     </Typography>
                 </Paper>

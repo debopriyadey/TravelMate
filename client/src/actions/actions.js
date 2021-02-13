@@ -1,6 +1,5 @@
 import * as api from '../api';
-import { useDispatch } from 'react-redux';
-import { useSelector } from 'react-redux';
+
 
 
 // import { signin } from'../actions/actions';
@@ -31,7 +30,6 @@ export const signin = (users) => async (dispatch) => {
         localStorage.setItem("jwt", data.token);
 
         dispatch({ type: 'SIGNIN', payload: data});
-        const user = useSelector((state) => state.reviews)
     } catch (error) {
         console.log(error.message);
     }

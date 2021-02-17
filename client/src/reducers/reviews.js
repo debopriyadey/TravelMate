@@ -25,7 +25,7 @@ const state = {
         case 'CREATE_REVIEW':
             return {
                 ...state,
-                createdReview:action.payload
+                createdReview: action.payload
             };
         default:
             return state;

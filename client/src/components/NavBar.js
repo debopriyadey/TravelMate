@@ -104,8 +104,7 @@ export default function Header() {
             return [
                 <Link to="/myreviews" className={classes.icon} style={{ textDecoration: 'none' }}>
                     <Button varient="contained" color="secondary" size="small">
-                        My Reviews
-                        {userInfo.name}
+                        {userInfo.name} Reviews
                     </Button>
                 </Link>,
                 <Link to="/" className={classes.icon} style={{ textDecoration: 'none' }} > 

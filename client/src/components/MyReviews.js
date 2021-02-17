@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
 
-import NavBar from './NavBar'
+import NavBar from './NavBar';
 import TopReviews from './TopReviews';
 
 const useStyles = makeStyles((theme) => ({
@@ -57,8 +57,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function MyReviews() {
-    const user = useSelector((state) => state.reviews);
-    const username = user[0].savedUser.name;
+    const userInfo =useSelector(state => state.userInfo)
     const classes = useStyles();
 
     return (
@@ -67,7 +66,7 @@ export default function MyReviews() {
             <div>
                 <Paper elevation={3} className={classes.paper} >
                     <Typography className={classes.userInfo}>
-                        <h1> {username} </h1>
+                        <h1> {userInfo.name} </h1>
                         <h3> Reviews : 12 </h3>
                     </Typography>
                 </Paper>

@@ -1,9 +1,9 @@
 import express from 'express';
-import { getReviews } from '../../controllers/reviews.js';
-import requiredLogin from '../../middleware/requireAuth.js';
+import { createReview } from '../../controllers/reviews.js';
+//import requiredLogin from '../../middleware/requireAuth.js';
 
 const router = express.Router();
 
-router.post('/', requiredLogin, getReviews);
+router.get('/', createReview);
 
 export default router;

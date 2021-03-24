@@ -20,12 +20,12 @@ app.use('/myreviews', myreviews);
 app.use('/signup', signup);
 app.use('/signin', login);
 
-
+const PORT = process.env.PORT||5000
 // const dbURI = "mongodb+srv://docsarea:1234@cluster0.egnnh.mongodb.net/travellersdiary?retryWrites=true&w=majority";
 const dbURI ="mongodb://localhost/travellersdiary";
 // 'mongodb://localhost/node-api'
 mongoose.connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true })
-  .then(result => app.listen(5000, () => console.log("server running on port 5000")))
+  .then(result => app.listen(PORT, () => console.log("server running on port 5000")))
   .catch((err) => console.log(err));
 
 mongoose.set('useFindAndModify', false);

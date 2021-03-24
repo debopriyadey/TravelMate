@@ -5,7 +5,6 @@ import bcrypt from 'bcryptjs';
 
 export const signup = (req, res) => {
     const { name, email, password } = req.body;
-    console.log(name,email,password);
 
     if (!email || !name || !password) {
         return res.status(422).json("please enter all fields");

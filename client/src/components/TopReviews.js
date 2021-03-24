@@ -20,7 +20,7 @@ export default function TopReviews() {
     const reviews = useSelector((state) => state);
     const classes = useStyles();
 
-    console.log("review",reviews);
+    // console.log("review",reviews);
 
     return (
         <div id="top-reviews">

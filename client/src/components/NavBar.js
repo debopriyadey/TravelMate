@@ -2,7 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { AppBar, Toolbar, IconButton, Button } from '@material-ui/core';
 import { Link } from 'react-router-dom';
-import {useSelector,useDispatch} from 'react-redux'
+import {useSelector,useDispatch} from 'react-redux';
+import {logout} from '../actions/actions';
 const useStyles = makeStyles((theme) => ({
     root: {
         display: 'flex',
@@ -78,15 +79,13 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 export default function Header() {
-    const userInfo =useSelector(state => state.userInfo)
-    const logout = () => {
-        localStorage.removeItem("jwt");
-        localStorage.removeItem("users");
+    const loggedIn =useSelector(state => state.loggedIn)
+    const dispatch=useDispatch();
+    const logoutT=()=>{
+        dispatch(logout())
     }
-    
-
     const renderList = () => {
-        if (localStorage.getItem("jwt") === null) {
+        if (!loggedIn) {
             return [
                 <Link to="/login" className={classes.icon} style={{ textDecoration: 'none' }}>
                     <Button varient="contained" color="secondary" size="small">
@@ -105,11 +104,10 @@ export default function Header() {
                 <Link to="/myreviews" className={classes.icon} style={{ textDecoration: 'none' }}>
                     <Button varient="contained" color="secondary" size="small">
                         My Reviews
-                        {userInfo.name}
                     </Button>
                 </Link>,
                 <Link to="/" className={classes.icon} style={{ textDecoration: 'none' }} > 
-                    <Button varient="contained" color="secondary" size="small" onClick={logout}>
+                    <Button varient="contained" color="secondary" size="small" onClick={logoutT}>
                         LogOut
                     </Button>
                 </Link>

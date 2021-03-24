@@ -5,6 +5,7 @@ import bcrypt from 'bcryptjs';
 
 export const signup = (req, res) => {
     const { name, email, password } = req.body;
+    console.log(name,email,password);
 
     if (!email || !name || !password) {
         return res.status(422).json("please enter all fields");
@@ -43,7 +44,7 @@ export const signin = (req, res) => {
     const { email, password } = req.body;
 
     if (!email || !password) {
-        return res.status(422).json("please enter all");
+        return res.status(422).json({error:"please enter all fileds"});
     }
     Users.findOne({ email: email })
         .then((savedUser) => {

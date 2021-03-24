@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Switch, Route, useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-
 import { getReviews } from './actions/actions'
 import Find from './components/Find';
 import Upload from './components/Upload';
@@ -10,10 +9,16 @@ import SignUp from './components/SignUpForm';
 import Login from './components/LoginForm';
 import ReviewForm from './components/ReviewForm';
 import MyReviews from './components/MyReviews';
-
+import setAuthenticationToken from './actions/setAuthenticationToken';
+import { useSelector } from 'react-redux';
+import history from './history'
+import {setCurrentUser,signin} from './actions/actions'
 function App() {
-    const history = useHistory()
-
+    const dispatch=useDispatch();
+    if(localStorage.jwt){
+        setAuthenticationToken(localStorage.jwt)
+        dispatch(setCurrentUser(localStorage.users))
+    }
     // useEffect(() => {
     //     const user = JSON.parse(localStorage.getItem("users"))
     //     if(user) {
@@ -45,7 +50,7 @@ function App() {
     // }
 
     return (
-        <Router>
+        <Router history={history}>
             <div className="App">
                 <Switch>
                     <Route path="/" exact component={Home} />

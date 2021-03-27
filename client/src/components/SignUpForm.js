@@ -11,8 +11,8 @@ import Container from '@material-ui/core/Container';
 import { Link, useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
-
-
+import { Redirect } from 'react-router-dom';
+import Alert from '@material-ui/lab/Alert'
 import { signup } from '../actions/actions'
 
 const useStyles = makeStyles((theme) => ({
@@ -33,16 +33,25 @@ const useStyles = makeStyles((theme) => ({
   submit: {
     margin: theme.spacing(3, 0, 2),
   },
+  error_msg_style:{
+    padding: '0 16px',
+    outline:'none'
+  },
+  error_msg:{
+    display:'none'
+  }
 }));
 
 function SignUp() {
   const history = useHistory()
+  const message=useSelector(state=>state.signupMessage.error)
   // const user = useSelector((state) => state)
 
   const [postData, setData] = useState({
     name: "",
     email: "",
-    password: ""
+    password: "",
+    showError:false
   })
 
   const dispatch = useDispatch()
@@ -50,6 +59,7 @@ function SignUp() {
   const handeleSubmit = (e) => {
     e.preventDefault();
     dispatch(signup(postData))
+    setData({ ...setData, showError: true })
   }
   // console.log(user)
 
@@ -67,6 +77,10 @@ function SignUp() {
         <Typography component="h1" variant="h5">
           Sign up
         </Typography>
+
+        <Alert className={  postData.showError ? classes.error_msg_style: classes.error_msg }  severity="error" variant="filled" onClose={(e) => setData({ ...postData, showError: false })}>{message}</Alert>
+
+
         <form className={classes.form} autoComplete="off" noValidate onSubmit={handeleSubmit}>
           <Grid container spacing={2}>
             <Grid item xs={12}>
@@ -138,9 +152,13 @@ function SignUp() {
 
 
 export default function SignUpForm() {
+
+  const log=useSelector(state=>state.signupSuccess)
+  const success=log 
   return (
-    <div>
-      
-    </div>
+    <>
+      {!success?<SignUp/>:<Redirect to='/login' />}
+    </>
   )
+
 }

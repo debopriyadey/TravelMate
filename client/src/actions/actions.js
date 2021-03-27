@@ -29,7 +29,7 @@ export const signup = (users) => async (dispatch) => {
         const { data } = await api.signup(users);
         dispatch({ type: 'SIGNUP', payload: data });
     } catch (error) {
-        console.log(error.message);
+        dispatch({type:'SIGNUPFAILS',payload: error.response.data})
     }
 } 
 
@@ -48,7 +48,7 @@ export const signin = (users) => async (dispatch) => {
         dispatch(setCurrentUser(useinfo))
         dispatch({ type: 'SIGNIN', payload: useinfo});
     } catch (error) {
-        console.error();
+        
         dispatch({ type: 'SIGNINFAILS', payload: error.response.data});
     }
 }

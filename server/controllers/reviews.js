@@ -15,7 +15,6 @@ export const createReview = (req, res) => {
     if (!place || !review){
         return res.status(422).json({error: "add all the fields"});
     }
-    console.log(req.users);
     const newReview = new Review({
         place,
         review,
@@ -31,7 +30,6 @@ export const createReview = (req, res) => {
         console.log(err);
     })
 }
-
 export const myReviews = (req, res) => {
     Review.find({creator: req.users._id})
      .then((myReviews) => {

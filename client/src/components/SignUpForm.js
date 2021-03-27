@@ -35,7 +35,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function SignUp() {
+function SignUp() {
   const history = useHistory()
   // const user = useSelector((state) => state)
 
@@ -49,9 +49,7 @@ export default function SignUp() {
 
   const handeleSubmit = (e) => {
     e.preventDefault();
-
     dispatch(signup(postData))
-    history.push('/login');
   }
   // console.log(user)
 
@@ -136,4 +134,13 @@ export default function SignUp() {
       </div>
     </Container>
   );
+}
+
+
+export default function SignUpForm() {
+  return (
+    <div>
+      
+    </div>
+  )
 }

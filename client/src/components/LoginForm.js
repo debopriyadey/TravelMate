@@ -14,8 +14,8 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import { Link, useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
-
-
+import api from '../api/index'
+import { Redirect } from 'react-router-dom';
 import { signin } from '../actions/actions';
 
 const useStyles = makeStyles((theme) => ({
@@ -36,30 +36,21 @@ const useStyles = makeStyles((theme) => ({
   submit: {
     margin: theme.spacing(3, 0, 2),
   },
+  error_msg:{
+    color:"red"
+  }
 }));
 
-export default function Login() {
-  // const user = useSelector((state) => state.userInfo)
-  const history = useHistory()
+ function Login() {
+  const message=useSelector(state=>state.message.error)
   const [signinData, setData] = useState({
     email: "",
     password: ""
   })
-
   const dispatch = useDispatch()
-
-  const render = () => {
-    history.push('/');
-  }
-
   const handeleSubmit = (e) => {
     e.preventDefault();
-
     dispatch(signin(signinData))
-    setTimeout(function () {
-      render()
-    }, 3000);
-
   }
   // console.log(user)
 
@@ -75,6 +66,10 @@ export default function Login() {
         <Typography component="h1" variant="h5">
           Sign in
         </Typography>
+        <Typography component="h3" className={classes.error_msg}>
+          {message}
+        </Typography>
+        
         <form className={classes.form} noValidate onSubmit={handeleSubmit}>
           <TextField
             name="email"
@@ -127,4 +122,14 @@ export default function Login() {
       </div>
     </Container>
   );
+}
+
+export default function LoginForm() {
+  const log=useSelector(state=>state.loggedIn)
+  const success=log 
+  return (
+    <>
+      {!success?<Login/>:<Redirect to='/' />}
+    </>
+  )
 }

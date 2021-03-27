@@ -43,7 +43,7 @@ export const signin = (req, res) => {
     const { email, password } = req.body;
 
     if (!email || !password) {
-        return res.status(422).json("please enter all");
+        return res.status(422).json({error:"please enter all fileds"});
     }
     Users.findOne({ email: email })
         .then((savedUser) => {

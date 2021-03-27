@@ -57,16 +57,17 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function MyReviews() {
-    const userInfo =useSelector(state => state.userInfo)
+    const user = useSelector((state) => state.userInfo);
+    console.log(user);
+    // const username = user[0].savedUser.name;
     const classes = useStyles();
-
     return (
         <div className={classes.root}>
             <NavBar />
             <div>
                 <Paper elevation={3} className={classes.paper} >
                     <Typography className={classes.userInfo}>
-                        <h1> {userInfo.name} </h1>
+                        <h1> {user["name"]} </h1>
                         <h3> Reviews : 12 </h3>
                     </Typography>
                 </Paper>

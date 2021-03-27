@@ -2,10 +2,9 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import mongoose from 'mongoose';
 import cors from 'cors';
-// import getreviews from './routes/reviews/getreviews.js';
-// import createreview from './routes/reviews/createreviews.js';
-// import myreviews from './routes/reviews/myreviews.js';
-import reviewsRoutes from './routes/reviews.js';
+import getreviews from './routes/reviews/getreviews.js';
+import createreview from './routes/reviews/createreviews.js';
+import myreviews from './routes/reviews/myreviews.js';
 import signup from './routes/auth/signup.js';
 import login from './routes/auth/login.js';
 

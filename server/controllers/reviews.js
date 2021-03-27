@@ -11,17 +11,17 @@ export const getReviews = async (req, res) => {
 }
 
 export const createReview = async (req, res) => {
-    const review = req.body;
+    // const review = req.body;
 
-    const newReview = new Review(review);
+    // const newReview = new Review(review);
 
-    try {
-        await newReview.save();
-        res.status(201).json(newReview)
+    // try {
+    //     await newReview.save();
+    //     res.status(201).json(newReview)
 
-    } catch (error) {
-        res.status(409).json({message: error.message});
-    }
+    // } catch (error) {
+    //     res.status(409).json({message: error.message});
+    // }
 
 
     const {title, review, selectedFile, tags} = req.body;

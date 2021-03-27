@@ -7,7 +7,7 @@ export const signup = (req, res) => {
     const { name, email, password } = req.body;
 
     if (!email || !name || !password) {
-        return res.status(422).json("please enter all fields");
+        return res.status(422).json({error:"please enter all fields"});
     }
     Users.findOne({ email: email })
         .then((savedUser) => {
@@ -43,7 +43,7 @@ export const signin = (req, res) => {
     const { email, password } = req.body;
 
     if (!email || !password) {
-        return res.status(422).json({error:"please enter all fileds"});
+        return res.status(422).json({error:"please enter all fields"});
     }
     Users.findOne({ email: email })
         .then((savedUser) => {

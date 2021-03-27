@@ -1,6 +1,7 @@
 const initialState = {  
     userInfo: JSON.parse(localStorage.getItem("users")) === null ? [] : JSON.parse(localStorage.getItem("users")),
     message:'',
+    signupMessage:'',
     // reviews:[],
     createdReview:{},
     signupSuccess:false,
@@ -17,8 +18,19 @@ const initialState = {
         case 'SIGNUP':
             return{
                 ...state,
-                userInfo: {}
-        
+                userInfo: {},
+                signupSuccess:true
+                
+            };
+        case 'SIGNUPFAILS':
+            return{
+                ...state,
+                signupMessage: action.payload
+            };
+        case 'SIGNUPTOLOGIN':
+            return{
+                ...state,
+                signupSuccess:false
             };
         case 'SIGNIN':
             return {

@@ -18,6 +18,8 @@ import api from '../api/index'
 import { Redirect } from 'react-router-dom';
 import { signin } from '../actions/actions';
 
+import Alert from '@material-ui/lab/Alert';
+
 const useStyles = makeStyles((theme) => ({
   paper: {
     marginTop: theme.spacing(8),
@@ -31,13 +33,17 @@ const useStyles = makeStyles((theme) => ({
   },
   form: {
     width: '100%', // Fix IE 11 issue.
-    marginTop: theme.spacing(1),
+    marginTop: theme.spacing(3),
   },
   submit: {
-    margin: theme.spacing(3, 0, 2),
+    margin: theme.spacing(0, 0, 2),
+  },
+  error_msg_style:{
+    padding: '0 16px',
+    outline:'none'
   },
   error_msg:{
-    color:"red"
+    display:'none'
   }
 }));
 
@@ -45,15 +51,18 @@ const useStyles = makeStyles((theme) => ({
   const message=useSelector(state=>state.message.error)
   const [signinData, setData] = useState({
     email: "",
-    password: ""
+    password: "",
+    showError:false
   })
   const dispatch = useDispatch()
+  // dispatch({type:'SIGNUPTOLOGIN'});
   const handeleSubmit = (e) => {
     e.preventDefault();
-    dispatch(signin(signinData))
+    dispatch(signin(signinData)) 
+    setData({ ...signinData, showError: true })
   }
   // console.log(user)
-
+ 
   const classes = useStyles();
 
   return (
@@ -66,12 +75,14 @@ const useStyles = makeStyles((theme) => ({
         <Typography component="h1" variant="h5">
           Sign in
         </Typography>
-        <Typography component="h3" className={classes.error_msg}>
-          {message}
-        </Typography>
+        
+      <Alert className={  signinData.showError ? classes.error_msg_style: classes.error_msg }  severity="error" variant="filled" onClose={(e) => setData({ ...signinData, showError: false })}>{message}</Alert>
         
         <form className={classes.form} noValidate onSubmit={handeleSubmit}>
-          <TextField
+          <Grid container spacing={2}>
+           
+           <Grid item xs={12}>
+           <TextField
             name="email"
             variant="outlined"
             autoComplete="email"
@@ -82,7 +93,9 @@ const useStyles = makeStyles((theme) => ({
             value={signinData.email}
             onChange={(e) => setData({ ...signinData, email: e.target.value })}
           />
-          <TextField
+           </Grid>
+           <Grid item xs={12}>
+           <TextField
             name="password"
             variant="outlined"
             required
@@ -93,10 +106,16 @@ const useStyles = makeStyles((theme) => ({
             value={signinData.password}
             onChange={(e) => setData({ ...signinData, password: e.target.value })}
           />
+           </Grid>
+
+          </Grid>
+
           <FormControlLabel
             control={<Checkbox value="remember" color="primary" />}
             label="Remember me"
           />
+
+
           <Button
             type="submit"
             fullWidth

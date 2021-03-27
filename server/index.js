@@ -8,7 +8,7 @@ import myreviews from './routes/reviews/myreviews.js';
 import signup from './routes/auth/signup.js';
 import login from './routes/auth/login.js';
 
-
+ 
 const app = express();
 app.use(bodyParser.json({limit: "30mb", extended: true}))
 app.use(bodyParser.urlencoded({limit: "30mb", extended: true}))
@@ -19,7 +19,7 @@ app.use('/createreviews', createreview);
 app.use('/myreviews', myreviews);
 app.use('/signup', signup);
 app.use('/signin', login);
-
+  
 const PORT = process.env.PORT||5000
 const dbURI ="mongodb://localhost/travellersdiary";
 

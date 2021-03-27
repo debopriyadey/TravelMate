@@ -11,41 +11,40 @@ export const getReviews = async (req, res) => {
 }
 
 export const createReview = async (req, res) => {
-    const review = req.body;
+    // const review = req.body;
 
-    const newReview = new Review(review);
+    // const newReview = new Review(review);
 
-    try {
-        await newReview.save();
-        res.status(201).json(newReview)
+    // try {
+    //     await newReview.save();
+    //     res.status(201).json(newReview)
 
-    } catch (error) {
-        res.status(409).json({message: error.message});
-    }
-
-
-    // const {title, review, selectedFile, tags} = req.body;
-    // if (!title || !review){
-    //     return res.status(412).json({message: "add all the fields"});
+    // } catch (error) {
+    //     res.status(409).json({message: error.message});
     // }
-    // console.log(req.users);
-    // const newReview = new Review({
-    //     title,
-    //     review,
-    //     selectedFile,
-    //     tags,
-    //     creator: req.users,
-    //     likes
-    // })
-    // newReview.save()
-    //  .then((result) => {
-    //     res.json({newReview: result})
-    // })
-    // .catch((err) => {
-    //     console.log(err);
-    // })
-}
 
+
+    const {title, review, selectedFile, tags} = req.body;
+    if (!title || !review){
+        return res.status(412).json({message: "add all the fields"});
+    }
+    console.log(req.users);
+    const newReview = new Review({
+        title,
+        review,
+        selectedFile,
+        tags,
+        creator: req.users,
+        likes
+    })
+    newReview.save()
+     .then((result) => {
+        res.json({newReview: result})
+    })
+    .catch((err) => {
+        console.log(err);
+    })
+}
 export const myReviews = (req, res) => {
     Review.find({creator: req.users._id})
      .then((myReviews) => {

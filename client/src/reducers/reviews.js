@@ -1,5 +1,5 @@
-const state = {  
-    userInfo:{},
+const initialState = {  
+    userInfo: JSON.parse(localStorage.getItem("users")) === null ? [] : JSON.parse(localStorage.getItem("users")),
     message:'',
     signupMessage:'',
     // reviews:[],
@@ -8,7 +8,7 @@ const state = {
     loggedIn:false ,
     userT:{}
 }
- const  review =(initialState = state, action) => {
+ const  review =(state = initialState , action) => {
     switch (action.type) {
         case 'FETCH_ALL':
             return {

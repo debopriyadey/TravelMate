@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
 
-import NavBar from './NavBar'
+import NavBar from './NavBar';
 import TopReviews from './TopReviews';
 
 const useStyles = makeStyles((theme) => ({
@@ -61,7 +61,6 @@ export default function MyReviews() {
     console.log(user);
     // const username = user[0].savedUser.name;
     const classes = useStyles();
-    const username="gor";
     return (
         <div className={classes.root}>
             <NavBar />

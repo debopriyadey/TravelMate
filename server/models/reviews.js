@@ -1,14 +1,14 @@
 import mongoose from 'mongoose';
 
 const reviewSchema = mongoose.Schema({
-    place: String,
+    title: String,
     review: String,
+    selectedFile: String,
+    tags: [String],
     creator: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "users",
     },
-    selectedFile: String,
-    tags: [String],
     likes: {
         type: Number,
         default: 0

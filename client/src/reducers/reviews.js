@@ -14,7 +14,8 @@ const initialState = {
         case 'FETCH_ALL':
             return {
                 ...state,
-                allreviews:action.payload
+                allreviews:action.payload[1],
+                myreviews:action.payload[0]
             };
         case 'SIGNUP':
             return{

@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { Grid, TextField, makeStyles, Paper, Container, Typography, Button } from '@material-ui/core';
 import { Link, useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-//import Filebase from 'react-file-base64';
+import Filebase from 'react-file-base64';
 
 import "../css/reviewForm.css";
 import { createreviews } from '../actions/actions';
@@ -105,6 +105,15 @@ export default function ReviewForm() {
                                 onDone={({base64}) => setData({...reviewData, selectedFile: base64})}
                             />
                         </FormControl> */}
+                        <div className={classes.fileInput}>
+                        <Filebase
+                                type="file"
+                                multiple={false}
+                                onDone={({base64}) => setData({...reviewData, selectedFile: base64})}
+                            />
+                        </div>
+
+
                         <TextField
                             name="tags"
                             variant="outlined"

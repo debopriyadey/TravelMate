@@ -12,17 +12,18 @@ export const getReviews = async (req, res) => {
 
 export const createReview = async (req, res) => {
 
-    const {title, review, tags, likes, creator} = req.body;
+    const {title, review, tags, likes, creator,selectedFile} = req.body;
     if (!title || !review){
         return res.status(412).json({message: "add all the fields"});
     }
-    console.log(req.users);
+    // console.log(req);
     const newReview = new Review({
         title,
         review,
         tags,
-        creator: req.users,
-        likes
+        selectedFile,
+        likes,
+        creator
     })
     newReview.save()
      .then((result) => {

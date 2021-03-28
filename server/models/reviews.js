@@ -4,10 +4,12 @@ const reviewSchema = mongoose.Schema({
     title: String,
     review: String,
     tags: [String],
+    
     creator: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "users",
     },
+    selectedFile: String,
     likes: {
         type: Number,
         default: 0

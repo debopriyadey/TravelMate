@@ -1,14 +1,26 @@
 import * as api from '../api';
 import setAuthenticationToken from './setAuthenticationToken'
 import jwt from 'jsonwebtoken'
+
 // import history from '../history';
 // import { Link, useHistory } from 'react-router-dom';
 // import { signin } from'../actions/actions';
 //action creator
+
+
 export const getReviews = () => async (dispatch) => {
     try {
         const { data } = await api.fetchPost();
-        dispatch({ type: 'FECTCH_ALL', payload: data });
+        const myreviews=[];
+        if(localStorage.getItem("users")  !== null){
+            const  user = JSON.parse(localStorage.getItem("users"));
+            data.forEach(element => {
+                if(element.creator===user._id){
+                   myreviews.push(element);
+                }
+             });
+        }
+        dispatch({ type: 'FETCH_ALL', payload: [myreviews,data] });
     } catch (error) {
         console.log(error.message);
     }

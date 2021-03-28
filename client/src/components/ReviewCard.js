@@ -40,7 +40,7 @@ export default function ReviewCard({ places }) {
         <Card className={classes.root}>
             <CardMedia
                 className={classes.media}
-                image={places.imageUrl}
+                image={places.selectedFile}
                 title="Contemplative Reptile"
             />
             <CardContent>

@@ -1,7 +1,7 @@
-import React from 'react';
+import React, {useEffect } from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-//import { getReviews } from './actions/actions'
+import { getReviews } from './actions/actions'
 import Find from './components/Find';
 import MainBody from './components/MainBody';
 import SignUp from './components/SignUpForm';
@@ -18,15 +18,10 @@ function App() {
         setAuthenticationToken(localStorage.jwt)
         dispatch(setCurrentUser(localStorage.users))
     }
-    // useEffect(() => {
-    //     const user = JSON.parse(localStorage.getItem("users"))
-    //     if(user) {
-    //         history.push('/')
-    //     }
-    //     else {
-    //         history.push('/signup')
-    //     }
-    // }, [])
+    useEffect(() => {
+         dispatch(getReviews())
+        }
+    , [dispatch])
 
 
     // const renderRoutes = () => {

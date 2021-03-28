@@ -8,6 +8,7 @@ import SignUp from './components/SignUpForm';
 import Login from './components/LoginForm';
 import ReviewForm from './components/ReviewForm';
 import MyReviews from './components/MyReviews';
+import CurrentReview from './components/CurrentReview'
 import setAuthenticationToken from './actions/setAuthenticationToken';
 //import { useSelector } from 'react-redux';
 import history from './history'
@@ -53,6 +54,7 @@ function App() {
                     <Route path="/find" component={Find} />
                     <Route path="/createreview" component={ReviewForm} />
                     <Route path="/myreviews" component={MyReviews} />
+                    <Route path="/review" component={CurrentReview} />
                 </Switch>
             </div>
         </Router>

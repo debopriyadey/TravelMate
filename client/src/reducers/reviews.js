@@ -7,7 +7,8 @@ const initialState = {
     signupSuccess:false,
     loggedIn:false ,
     myreviews:[],
-    allreviews:[]
+    allreviews:[],
+    currentReview: null,
 }
  const  review =(state = initialState , action) => {
     switch (action.type) {
@@ -60,6 +61,11 @@ const initialState = {
             return {
                 ...state,
                 myreviews: state.myreviews.push(action.payload)
+            };
+        case 'CURRENT_REVIEW':
+            return {
+                ...state,
+                currentReview: action.payload
             };
         default:
             return state;

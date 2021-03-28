@@ -106,10 +106,10 @@ export default function ReviewForm() {
                             />
                         </FormControl> */}
                         <div className={classes.fileInput}>
-                        <Filebase
+                            <Filebase
                                 type="file"
                                 multiple={false}
-                                onDone={({base64}) => setData({...reviewData, selectedFile: base64})}
+                                onDone={({ base64 }) => setData({ ...reviewData, selectedFile: base64 })}
                             />
                         </div>
 

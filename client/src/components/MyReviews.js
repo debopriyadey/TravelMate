@@ -6,7 +6,7 @@ import { useSelector } from 'react-redux';
 
 
 import NavBar from './NavBar';
-import TopReviews from './TopReviews';
+import Reviews from './Reviews';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -58,6 +58,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function MyReviews() {
     const user = useSelector((state) => JSON.parse(state.userInfo));
+    const reviewsPost=useSelector( (state)=> state.myreviews );
     //console.log(user.name);
     const classes = useStyles();
     return (
@@ -71,7 +72,7 @@ export default function MyReviews() {
                     </Typography>
                 </Paper>
                 <div className={classes.content} >
-                    <TopReviews />
+                    <Reviews reviews={ reviewsPost } />
                 </div>
             </div>
             <AppBar position="fixed" color="primary" className={classes.appBar}>

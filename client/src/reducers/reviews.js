@@ -6,14 +6,15 @@ const initialState = {
     createdReview:{},
     signupSuccess:false,
     loggedIn:false ,
-    userT:{}
+    myreviews:[],
+    allreviews:[]
 }
  const  review =(state = initialState , action) => {
     switch (action.type) {
         case 'FETCH_ALL':
             return {
                 ...state,
-                // reviews:action.payload
+                allreviews:action.payload
             };
         case 'SIGNUP':
             return{

@@ -34,7 +34,7 @@ export const createReview = async (req, res) => {
     })
 }
 export const myReviews = (req, res) => {
-    Review.find({creator: req.users._id})
+    Review.find({creator: req.users})
      .then((myReviews) => {
          res.json({myReviews})
      })

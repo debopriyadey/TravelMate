@@ -29,8 +29,8 @@ export const getReviews = () => async (dispatch) => {
 export const createreviews = (review) => async (dispatch) => {
     try {
         const { data } = await api.createreview(review);
-        console.log(data);
-        dispatch({type: 'CREATE_REVIEW', payload: data});
+        dispatch({type: 'CREATE_REVIEW', payload: data.newReview});
+        console.log( typeof(data));
     } catch (error) {
         console.log(error);
     }

@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
-import { Grid, TextField, makeStyles, Paper, Container, Typography, Button, Select, MenuItem, InputLabel, FormControl } from '@material-ui/core';
+import { Grid, TextField, makeStyles, Paper, Container, Typography, Button } from '@material-ui/core';
 import { Link, useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import Filebase from 'react-file-base64';
+//import Filebase from 'react-file-base64';
 
 import "../css/reviewForm.css";
 import { createreviews } from '../actions/actions';
@@ -36,11 +36,10 @@ const useStyles = makeStyles(theme => ({
 
 
 export default function ReviewForm() {
-    const userInfo = useSelector(state => state.userInfo)
+    const userInfo = useSelector(state => JSON.parse(state.userInfo))
     const initialFValues = {
         title: '',
         review: '',
-        selectedFile: '',
         tags: '',
         creator: userInfo._id,
     }
@@ -57,10 +56,11 @@ export default function ReviewForm() {
         history.push('/myreviews');
     }
 
-    const handeleSubmit = e => {
+    const handeleSubmit = (e) => {
         e.preventDefault();
 
         dispatch(createreviews(reviewData))
+        console.log(reviewData);
         setTimeout(function () {
             render()
         }, 3000);
@@ -98,13 +98,13 @@ export default function ReviewForm() {
                             value={reviewData.review}
                             onChange={(e) => setData({ ...reviewData, review: e.target.value })}
                         />
-                        <FormControl item className={classes.topspace}>
+                        {/* <FormControl item className={classes.topspace}>
                             <Filebase
                                 type="file"
                                 multiple={false}
                                 onDone={({base64}) => setData({...reviewData, selectedFile: base64})}
                             />
-                        </FormControl>
+                        </FormControl> */}
                         <TextField
                             name="tags"
                             variant="outlined"

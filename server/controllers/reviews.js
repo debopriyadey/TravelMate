@@ -11,20 +11,8 @@ export const getReviews = async (req, res) => {
 }
 
 export const createReview = async (req, res) => {
-    // const review = req.body;
 
-    // const newReview = new Review(review);
-
-    // try {
-    //     await newReview.save();
-    //     res.status(201).json(newReview)
-
-    // } catch (error) {
-    //     res.status(409).json({message: error.message});
-    // }
-
-
-    const {title, review, selectedFile, tags} = req.body;
+    const {title, review, tags, likes, creator} = req.body;
     if (!title || !review){
         return res.status(412).json({message: "add all the fields"});
     }
@@ -32,7 +20,6 @@ export const createReview = async (req, res) => {
     const newReview = new Review({
         title,
         review,
-        selectedFile,
         tags,
         creator: req.users,
         likes
@@ -42,6 +29,7 @@ export const createReview = async (req, res) => {
         res.json({newReview: result})
     })
     .catch((err) => {
+        res.json({err})
         console.log(err);
     })
 }

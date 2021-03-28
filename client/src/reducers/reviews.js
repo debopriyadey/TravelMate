@@ -1,5 +1,5 @@
 const initialState = {  
-    userInfo: JSON.parse(localStorage.getItem("users")) === null ? [] : JSON.parse(localStorage.getItem("users")),
+    userInfo: JSON.parse(localStorage.getItem("users")) === null ? {} : JSON.parse(localStorage.getItem("users")),
     message:'',
     signupMessage:'',
     // reviews:[],
@@ -18,7 +18,7 @@ const initialState = {
         case 'SIGNUP':
             return{
                 ...state,
-                userInfo: {},
+                userInfo: [],
                 signupSuccess:true
                 
             };

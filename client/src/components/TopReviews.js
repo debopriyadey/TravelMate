@@ -1,6 +1,5 @@
 import React from 'react';
 import { Grid, makeStyles } from '@material-ui/core';
-import { useSelector } from 'react-redux';
 
 import ReviewCard from './ReviewCard';
 import places from '../Reviews';
@@ -17,10 +16,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function TopReviews() {
-    const reviews = useSelector((state) => state);
     const classes = useStyles();
-
-    // console.log("review",reviews);
 
     return (
         <div id="top-reviews">

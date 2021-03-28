@@ -11,7 +11,7 @@ const requiredLogin = (req, res, next) => {
     const token = authorization.replace("Bearer ", "");
     jwt.verify(token, JWT_SECRET, (err, payload) => {
         if(err){
-            return res.status(401).json({error: "must be login"});
+            return res.status(401).json({error: "wrong token"});
         }
 
         const{_id} = payload

@@ -4,6 +4,6 @@ import requiredLogin from '../../middleware/requireAuth.js';
 
 const router = express.Router();
 
-router.get('/', requiredLogin, getReviews);
+router.get('/', getReviews);
 
 export default router;

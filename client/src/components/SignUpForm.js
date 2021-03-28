@@ -8,7 +8,7 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
-import { Link, useHistory } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 import { Redirect } from 'react-router-dom';
@@ -43,7 +43,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function SignUp() {
-  const history = useHistory()
+  //const history = useHistory()
   const message=useSelector(state=>state.signupMessage.error)
   // const user = useSelector((state) => state)
 

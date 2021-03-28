@@ -3,7 +3,6 @@ import mongoose from 'mongoose';
 const reviewSchema = mongoose.Schema({
     title: String,
     review: String,
-    selectedFile: String,
     tags: [String],
     creator: {
         type: mongoose.Schema.Types.ObjectId,

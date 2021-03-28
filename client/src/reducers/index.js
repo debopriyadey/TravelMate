@@ -1,3 +1,3 @@
-import { combineReducers } from 'redux';
+//import { combineReducers } from 'redux';
 import reviews from './reviews';
 export default  reviews ;

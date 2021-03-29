@@ -12,6 +12,7 @@ import setAuthenticationToken from './actions/setAuthenticationToken';
 //import { useSelector } from 'react-redux';
 import history from './history'
 import {setCurrentUser} from './actions/actions'
+import Search from './components/Search.js'
 function App() {
     const dispatch=useDispatch();
     if(localStorage.jwt){
@@ -51,6 +52,7 @@ function App() {
                     <Route path="/login" component={Login} />
                     <Route path="/signup" component={SignUp} />
                     <Route path="/find" component={Find} />
+                    <Route path="/search" component={Search} />
                     <Route path="/createreview" component={ReviewForm} />
                     <Route path="/myreviews" component={MyReviews} />
                 </Switch>

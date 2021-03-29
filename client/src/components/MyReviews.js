@@ -58,9 +58,8 @@ const useStyles = makeStyles((theme) => ({
 
 export default function MyReviews() {
     const user = useSelector((state) => JSON.parse(state.userInfo));
-    const reviewsPost=useSelector( (state)=> state.allreviews);
+    const reviewsPost=useSelector( (state)=> state.myreviews);
     console.log(" calling ", reviewsPost );
-    //console.log(user.name);
     const classes = useStyles();
     return (
         <div className={classes.root}>
@@ -69,7 +68,7 @@ export default function MyReviews() {
                 <Paper elevation={3} className={classes.paper} >
                     <Typography className={classes.userInfo}>
                         <h1> {user.name} </h1>
-                        <h3> Reviews : 12 </h3>
+                        <h3> Reviews : { reviewsPost.length } </h3>
                     </Typography>
                 </Paper>
                 <div className={classes.content} >

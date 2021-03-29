@@ -16,6 +16,7 @@ export const getReviews = () => async (dispatch) => {
             const  user = JSON.parse(localStorage.getItem("users"));
             data.forEach(element => {
                 if(element.creator===user._id){
+                    console.log();
                    myreviews.push(element);
                 }
              });

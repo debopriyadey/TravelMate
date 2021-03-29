@@ -58,7 +58,6 @@ export default function ReviewForm() {
 
     const handeleSubmit = (e) => {
         e.preventDefault();
-
         dispatch(createreviews(reviewData))
         console.log(reviewData);
         setTimeout(function () {

@@ -58,7 +58,7 @@ export default function ReviewCard({ places }) {
                     component="p"
                     className={classes.desc}
                 >
-                    {places.desc}
+                    {places.review}
                 </Typography>
             </CardContent>
             <CardActions>

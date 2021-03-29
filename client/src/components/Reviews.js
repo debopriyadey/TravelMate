@@ -21,8 +21,8 @@ export default function Reviews(props) {
             <div className={classes.root}>
                 <Grid container spacing={3}>
                     {
-                        props.reviews.map( (review)=>(
-                        <Grid item sm={12} md={6} lg={4}>
+                        props.reviews.map( (review,index)=>(
+                        <Grid item sm={12} md={6} lg={4} key={index}  >
                             <ReviewCard places={review} />
                         </Grid>
                     ) )

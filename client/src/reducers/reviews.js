@@ -59,7 +59,7 @@ const initialState = {
         case 'CREATE_REVIEW':
             return {
                 ...state,
-                myreviews: state.myreviews.push(action.payload)
+                myreviews: [ ...state.myreviews , action.payload]
             };
         default:
             return state;

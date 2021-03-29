@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 import { makeStyles } from '@material-ui/core/styles';
 import { FormControl, Grid, InputAdornment, TextField } from '@material-ui/core';
 import SearchIcon from '@material-ui/icons/Search'
@@ -103,32 +104,53 @@ const useStyles = makeStyles((theme) => ({
     margin: {
         margin: theme.spacing(1),
     },
+    hei:{
+        fontSize:"40px"
+    },
+    dark:{
+        color:'black'
+    }
 
 }));
 
 export default function Main() {
     const classes = useStyles();
-
+    var count=0;
     const [query, setQuery] = useState({
-        movie: ""
+        review: "",
+        alltags:[]
     });
 
    const [results, setResults] = useState([]);
-
-    const onChange = (e) => {
+   
+    const onChange = async (e) => {
         e.preventDefault();
-        setQuery(e.target.value);
+        setQuery({ ...query, review:e.target.value });
+        
+        // fetch(`https://api.themoviedb.org/3/search/movie?api_key=620bcff5c65556bbc5abc99f82b7164a&language=en-US&page=1&include_adult=false&query=${e.target.value}`)
+        //     .then((res) => res.json())
+        //     .then((data) => {
+        //         console.log(data);
+        //         if (!data.errors) {
+        //             setResults(data.results);
+        //         } else {
+        //             setResults([]);
+        //         }
+        //     });
+        let search={
+            "tags":e.target.value
+        }
+       
+        axios.post('http://localhost:5000/searchreview', search)
+        .then( res=>{
+             setQuery({ review:e.target.value  , alltags: res.data });
+             console.log( res.data );
+        } ).catch((error)=>{
+            console.log(error)
+        })
 
-        fetch(`https://api.themoviedb.org/3/search/movie?api_key=620bcff5c65556bbc5abc99f82b7164a&language=en-US&page=1&include_adult=false&query=${e.target.value}`)
-            .then((res) => res.json())
-            .then((data) => {
-                console.log(data);
-                if (!data.errors) {
-                    setResults(data.results);
-                } else {
-                    setResults([]);
-                }
-            });
+
+
     };
 
     return (
@@ -144,7 +166,7 @@ export default function Main() {
                                     variant="outlined"
                                     autoComplete="query"
                                     id="query"
-                                    value={query.movie}
+                                    value={query.review}
                                     onChange={onChange}
                                     InputProps={{
                                         endAdornment: <InputAdornment position="end"> <h1 style={{color: "white"}}><SearchIcon /> </h1></InputAdornment>,
@@ -157,17 +179,44 @@ export default function Main() {
                         </div>
 
                     </div>
+
+                    
                 </Grid>
+
+               
+                <Grid container>
+                    <div className={classes.search}>
+                        <div className={classes.searchContent}>
+                            <h1 className={classes.searchText}> Search a review of your destination </h1>
+                            {query.alltags.length > 0 && (query.alltags.map((movie,index) => (
+                        <Grid className={classes.card} key={index}>
+                            <h1 className={classes.dark}> {movie} </h1>
+                        </Grid>
+                        ))
+                        )}
+                        </div>
+
+                    </div>
+
+                    
+                </Grid>
+
+               
+               
+
+               
             </div>
+
             <div>
-                <Grid container spacing={3} className={classes.container}>
-                    {results.length > 0 && (results.map((movie) => (
+                {/* <Grid container spacing={3} className={classes.container}>
+                    {query.alltags.length > 0 && (query.alltags.map((movie) => (
                         <Grid className={classes.card} key={movie.id}>
-                            {/* <MovieCard movie={movie} /> */}
+                            <h1 className={classes.dark}> Search a review of your destination </h1>
                         </Grid>
                     ))
                     )}
-                </Grid>
+                </Grid> */}
+               
             </div>
         </div>
     )

@@ -17,6 +17,9 @@ const useStyles = makeStyles((theme) => ({
     appbar: {
         backgroundColor: '#232423',
         opacity: '0.7',
+        [theme.breakpoints.down('xs')]: {
+            height: '5%',
+        },
     },
 
     appbarWrapper: {
@@ -29,16 +32,27 @@ const useStyles = makeStyles((theme) => ({
     appbarTitle: {
         flexGrow: '1',
         [theme.breakpoints.down('xs')]: {
-            fontSize: '20px'
+            marginTop: "0",
+            paddingTop: "0",
+            fontSize: '15px',
         }
     },
 
     icon: {
         color: '#fff',
-        fontSize: '1.5rem',
+        //fontSize: '1.5rem',
         padding: theme.spacing(1),
         [theme.breakpoints.down('xs')]: {
-            fontSize: '18px'
+            marginTop: "0",
+            paddingTop: "0",
+            fontSize: '5px',
+        }
+    },
+
+    iconSize: {
+        [theme.breakpoints.down('xs')]: {
+            marginTop: "0",
+            fontSize: '8px'
         }
     },
 
@@ -88,12 +102,12 @@ export default function Header() {
         if (!loggedIn) {
             return [
                 <Link to="/login" className={classes.icon} style={{ textDecoration: 'none' }}>
-                    <Button varient="contained" color="secondary" size="small">
+                    <Button varient="contained" color="secondary">
                         Login
                     </Button>
                 </Link>,
                 <Link to="/signup" className={classes.icon} style={{ textDecoration: 'none' }}>
-                    <Button varient="contained" color="secondary" size="small">
+                    <Button varient="contained" color="secondary">
                         SignUp
                     </Button>
                 </Link>
@@ -102,12 +116,12 @@ export default function Header() {
         else {
             return [
                 <Link to="/myreviews" className={classes.icon} style={{ textDecoration: 'none' }}>
-                    <Button varient="contained" color="secondary" size="small">
+                    <Button varient="contained" color="secondary">
                         My Reviews
                     </Button>
                 </Link>,
                 <Link to="/" className={classes.icon} style={{ textDecoration: 'none' }} > 
-                    <Button varient="contained" color="secondary" size="small" onClick={logoutT}>
+                    <Button varient="contained" color="secondary" onClick={logoutT}>
                         LogOut
                     </Button>
                 </Link>

@@ -115,13 +115,13 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Main() {
     const classes = useStyles();
-    var count=0;
+    // var count=0;
     const [query, setQuery] = useState({
         review: "",
         alltags:[]
     });
 
-   const [results, setResults] = useState([]);
+   // const [results, setResults] = useState([]);
    
     const onChange = async (e) => {
         e.preventDefault();
@@ -178,45 +178,8 @@ export default function Main() {
                             </FormControl>
                         </div>
 
-                    </div>
-
-                    
-                </Grid>
-
-               
-                <Grid container>
-                    <div className={classes.search}>
-                        <div className={classes.searchContent}>
-                            <h1 className={classes.searchText}> Search a review of your destination </h1>
-                            {query.alltags.length > 0 && (query.alltags.map((movie,index) => (
-                        <Grid className={classes.card} key={index}>
-                            <h1 className={classes.dark}> {movie} </h1>
-                        </Grid>
-                        ))
-                        )}
-                        </div>
-
-                    </div>
-
-                    
-                </Grid>
-
-               
-               
-
-               
-            </div>
-
-            <div>
-                {/* <Grid container spacing={3} className={classes.container}>
-                    {query.alltags.length > 0 && (query.alltags.map((movie) => (
-                        <Grid className={classes.card} key={movie.id}>
-                            <h1 className={classes.dark}> Search a review of your destination </h1>
-                        </Grid>
-                    ))
-                    )}
-                </Grid> */}
-               
+                    </div>                    
+                </Grid>               
             </div>
         </div>
     )

@@ -109,7 +109,7 @@ export default function Header() {
                     </h1>
                     <span>
                         <Button variant="outlined" size="medium" color="primary" className={classes.button}>
-                            <Link to="/find" style={{ textDecoration: 'none' }}>
+                            <Link to="/search" style={{ textDecoration: 'none' }}>
                                 Search
                             </Link>
                         </Button>

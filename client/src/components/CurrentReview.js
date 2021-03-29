@@ -1,29 +1,26 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
-import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
 import { IconButton, Button } from '@material-ui/core';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import ShareIcon from '@material-ui/icons/Share';
-import { useHistory } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 
-import { currentreview } from '../actions/actions'
 
 const useStyles = makeStyles({
     root: {
         color: 'black',
-        maxWidth: 435,
         background: 'white',
-        margin: '20px',
+        maxHeight: "435",
+        marginTop: '20px',
     },
 
     media: {
         height: 240,
+        textAlign: 'center',
     },
 
     title: {
@@ -36,38 +33,26 @@ const useStyles = makeStyles({
         fontSize: '1.1rem',
         color: 'black',
     },
+
+    button: {
+        maxWidth: '300px', 
+        margin: '0 auto', 
+        display: 'block'
+    }
 });
 
-export default function ReviewCard({ places }) {
+export default function CurrentReview() {
     const classes = useStyles();
-
-    var maxDescLength = 350
-    var reviewDesc = places.review.slice(0, maxDescLength)
-    reviewDesc = reviewDesc.slice(0, Math.min(reviewDesc.length, reviewDesc.lastIndexOf(" ")))
-
-    const dispatch = useDispatch();
-    const history = useHistory();
-
-
-    const render = () => {
-        history.push(`/review/${places._id}`);
-    }
-
-    const handelSubmit = (e) => {
-        e.preventDefault();
-
-        dispatch(currentreview(places))
-        render()
-
-    }
+    //const item  = useSelector((state) => state.currentReview)
+    const item = JSON.parse(sessionStorage.getItem("currentreview"));
+    //item2 = JSON.parse(item2)
+    //console.log(item2);
 
     return (
-        <Card className={classes.root}>
-            <CardMedia
-                className={classes.media}
-                image={places.selectedFile}
-                title={places.title}
-            />
+        <div maxWidth="sm" className={classes.root}>
+            <div className={classes.media}>
+                <img src={item.selectedFile} alt={item.title} className={classes.media} />
+            </div>
             <CardContent>
                 <Typography
                     gutterBottom
@@ -75,7 +60,7 @@ export default function ReviewCard({ places }) {
                     component="h1"
                     className={classes.title}
                 >
-                    {places.title}
+                    {item.title}
                 </Typography>
                 <Typography
                     variant="body2"
@@ -83,22 +68,28 @@ export default function ReviewCard({ places }) {
                     component="p"
                     className={classes.desc}
                 >
-                    {reviewDesc+"..."}
+                    {item.review}
                 </Typography>
             </CardContent>
             <CardActions>
                 <IconButton aria-label="add to favorites">
                     <FavoriteIcon />
-                    {places.likes}
+                    {item.likes}
                 </IconButton>
                 <IconButton aria-label="share">
                     <ShareIcon />
                 </IconButton>
-                
-                <Button onClick={handelSubmit} size="small" color="primary">
-                    Read More
-                </Button>
             </CardActions>
-        </Card>
+            <Link to='/' style={{ textDecoration: 'none' }}>
+                <Button
+                    className={classes.button}
+                    fullWidth
+                    variant="contained"
+                    color="secondary"
+                >
+                    BACK
+                </Button>
+            </Link>
+        </div>
     );
 }

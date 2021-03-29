@@ -13,22 +13,26 @@ const useStyles = makeStyles((theme) => ({
             flexDirection: 'column',
         },
     },
+
+    container: {
+        justifyContent: "center",
+        marginTop: "5%"
+    },
+
 }));
 
 export default function Reviews(props) {
     const classes = useStyles();
     return (
             <div className={classes.root}>
-                <Grid container spacing={3}>
+                <Grid container spacing={3} className={classes.container}>
                     {
-                        props.reviews.map( (review,index)=>(
-                        <Grid item sm={12} md={6} lg={4} key={index}  >
+                        props.reviews.map( (review)=>(
+                        <Grid >
                             <ReviewCard places={review} />
                         </Grid>
                     ) )
-                    
                     }
-                   
                 </Grid>
             </div>
     )

@@ -1,6 +1,6 @@
 import React from 'react';
 import Reviews from './Reviews'
-import places from '../Reviews';
+// import places from '../Reviews';
 import { useSelector } from 'react-redux';
 
 export default function TopReviews() {
@@ -10,9 +10,7 @@ export default function TopReviews() {
             <div>
                 <h1 style={{ textAlign: 'center', color: 'white' }}> Top Reviews </h1>
             </div>
-             { console.log(allreviews)  }
             <Reviews reviews={allreviews} />
-            
         </div>
     )
 }

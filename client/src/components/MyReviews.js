@@ -14,12 +14,16 @@ const useStyles = makeStyles((theme) => ({
         overflow: 'hidden',
     },
 
+    container: {
+        display: 'content',
+    },
+
     paper: {
         backgroundColor: 'white',
         margin: '0 auto',
-        marginTop: 100,
+        marginTop: "5em",
         maxWidth: theme.spacing(100),
-        height: theme.spacing(25),
+        //height: theme.spacing(25),
         [theme.breakpoints.down('md')]: {
             maxWidth: theme.spacing(80),
         },
@@ -34,6 +38,7 @@ const useStyles = makeStyles((theme) => ({
 
     userInfo: {
         textAlign: 'center',
+        margin: "0 auto",
     },
 
     content: {
@@ -58,21 +63,24 @@ const useStyles = makeStyles((theme) => ({
 
 export default function MyReviews() {
     const user = useSelector((state) => JSON.parse(state.userInfo));
-    const reviewsPost=useSelector( (state)=> state.myreviews);
-    console.log(" calling ", reviewsPost );
+    const reviewsPost = useSelector((state) => state.myreviews);
+    //console.log(" calling ", reviewsPost);
+    //console.log(user.name);
     const classes = useStyles();
     return (
         <div className={classes.root}>
             <NavBar />
-            <div>
+            <div className={classes.container}>
                 <Paper elevation={3} className={classes.paper} >
-                    <Typography className={classes.userInfo}>
-                        <h1> {user.name} </h1>
-                        <h3> Reviews : { reviewsPost.length } </h3>
-                    </Typography>
+                    <div className={classes.userInfo}>
+                        <Typography>
+                            <h1> <strong> {user.name} </strong>  </h1>
+                            <h3> Reviews : {reviewsPost.length} </h3>
+                        </Typography>
+                    </div>
                 </Paper>
                 <div className={classes.content} >
-                    <Reviews reviews={ reviewsPost } />
+                    <Reviews reviews={reviewsPost} />
                 </div>
             </div>
             <AppBar position="fixed" color="primary" className={classes.appBar}>

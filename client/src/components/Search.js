@@ -13,7 +13,7 @@ import NavBar from './NavBar';
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    // backgroundColor: 'currentColor',
+    backgroundColor: 'currentColor',
     overflow: 'hidden',
   },
 

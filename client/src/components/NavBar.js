@@ -21,7 +21,7 @@ const useStyles = makeStyles((theme) => ({
 
     appbar: {
         backgroundColor: '#232423',
-        opacity: '0.7',
+        opacity: '0.9',
         [theme.breakpoints.down('xs')]: {
             height: '5%',
         },

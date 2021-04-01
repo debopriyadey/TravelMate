@@ -2,11 +2,10 @@
 // import fetch from 'cross-fetch';
 import axios from 'axios'
 import React from 'react';
-import { Grid, TextField, makeStyles, InputAdornment } from '@material-ui/core';
+import { Grid, TextField, makeStyles } from '@material-ui/core';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Reviews from './Reviews';
-import SearchIcon from '@material-ui/icons/Search'
 
 import searchbg from '../img/searchimg.jpg'
 import NavBar from './NavBar';

@@ -9,7 +9,7 @@ import { IconButton, Button } from '@material-ui/core';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import ShareIcon from '@material-ui/icons/Share';
 import { useHistory } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 
 
 import { currentreview } from '../actions/actions'
@@ -47,7 +47,7 @@ export default function ReviewCard({ places }) {
 
     const dispatch = useDispatch();
     const history = useHistory();
-
+    const loggedIn = useSelector(state => state.loggedIn);
 
     const render = () => {
         history.push(`/review/${places._id}`);
@@ -87,7 +87,7 @@ export default function ReviewCard({ places }) {
                 </Typography>
             </CardContent>
             <CardActions>
-                <IconButton aria-label="add to favorites">
+                <IconButton aria-label="add to favorites" disabled={!loggedIn}>
                     <FavoriteIcon />
                     {places.likes}
                 </IconButton>
@@ -95,7 +95,7 @@ export default function ReviewCard({ places }) {
                     <ShareIcon />
                 </IconButton>
                 
-                <Button onClick={handelSubmit} size="small" color="primary">
+                <Button onClick={handelSubmit} size="small" color="primary" className="ml-auto">
                     Read More
                 </Button>
             </CardActions>

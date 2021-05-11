@@ -95,37 +95,40 @@ export default function Header() {
         setChecked(true);
     }, []);
     return (
-        <div className={classes.root} id="header">
+        <div>
             <NavBar />
-            <Collapse
-                in={checked}
-                {...(checked ? { timeout: 1000 } : {})}
-                collapsedHeight={50}
-            >
-                <div className={classes.container}>
-                    <h1 className={classes.title}>
-                        Welcome to <br />
-                        <span className={classes.subtitle}>Travell<span className={classes.colorText}>Mate</span></span>
-                    </h1>
-                    <span>
-                        <Button variant="outlined" size="medium" color="primary" className={classes.button}>
-                            <Link to="/find" style={{ textDecoration: 'none' }}>
-                                Search
+            <div className={classes.root} id="header">
+                <Collapse
+                    in={checked}
+                    {...(checked ? { timeout: 1000 } : {})}
+                    collapsedHeight={50}
+                >
+                    <div className={classes.container}>
+                        <h1 className={classes.title}>
+                            Welcome to <br />
+                            <span className={classes.subtitle}>Travell<span className={classes.colorText}>Mate</span></span>
+                        </h1>
+                        <span>
+                            <Button variant="outlined" size="medium" color="primary" className={classes.button}>
+                                <Link to="/search" style={{ textDecoration: 'none' }}>
+                                    Search
                             </Link>
-                        </Button>
-                        <Button variant="outlined" size="medium" color="primary" className={classes.button}>
-                            {renderLink()}
-                        </Button>
-                    </span>
-                    <div>
-                        <Scroll to="top-reviews" smooth={true}>
-                            <IconButton>
-                                <ArrowDropDownCircleIcon className={classes.goDown} />
-                            </IconButton>
-                        </Scroll>
+                            </Button>
+                            <Button variant="outlined" size="medium" color="primary" className={classes.button}>
+                                {renderLink()}
+                            </Button>
+                        </span>
+                        <div>
+                            <Scroll to="top-reviews" smooth={true}>
+                                <IconButton>
+                                    <ArrowDropDownCircleIcon className={classes.goDown} />
+                                </IconButton>
+                            </Scroll>
+                        </div>
                     </div>
-                </div>
-            </Collapse>
+                </Collapse>
+            </div>
         </div>
+
     );
 }

@@ -87,3 +87,21 @@ export const getPostByTag=(req,res)=>{
     })
 
 }
+
+export const increaseLike= (req, res)=>{
+    console.log(req.body.id);
+    Review.findOne({_id: req.body.id})
+    .then((myReviews) => {
+         myReviews.likes = myReviews.likes +1;
+         myReviews.save()
+         .then((reviews) =>{
+            res.json({"likes":myReviews.likes,"id":myReviews._id});
+         })
+         .catch((error)=>{
+             console.log(error);
+         })
+    })
+    .catch((err) => {
+        console.log(err);
+    })
+}

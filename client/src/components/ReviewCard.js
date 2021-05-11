@@ -1,19 +1,25 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
+import MuiAlert from '@material-ui/lab/Alert';
+import Snackbar from '@material-ui/core/Snackbar';
 import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
 import { IconButton, Button } from '@material-ui/core';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import ShareIcon from '@material-ui/icons/Share';
 import { useHistory } from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector, useDispatch} from 'react-redux';
 
 
-import { currentreview } from '../actions/actions'
+import { currentreview,increaseLike } from '../actions/actions'
 
+
+function Alert(props) {
+    return <MuiAlert elevation={6} variant="filled" {...props} />;
+  }
 const useStyles = makeStyles({
     root: {
         color: 'black',
@@ -39,15 +45,19 @@ const useStyles = makeStyles({
 });
 
 export default function ReviewCard({ places }) {
+ 
     const classes = useStyles();
-
+    const [open, setOpen] = useState(false);
+    const [likes,setLikes]=useState(places.likes);
     var maxDescLength = 350
     var reviewDesc = places.review.slice(0, maxDescLength)
     reviewDesc = reviewDesc.slice(0, Math.min(reviewDesc.length, reviewDesc.lastIndexOf(" ")))
 
+
     const dispatch = useDispatch();
     const history = useHistory();
     const loggedIn = useSelector(state => state.loggedIn);
+    const Likes= useSelector(state => state.Like);
 
     const render = () => {
         history.push(`/review/${places._id}`);
@@ -59,6 +69,20 @@ export default function ReviewCard({ places }) {
         dispatch(currentreview(places))
         render()
 
+    }
+
+    const handleClose = (event, reason) => {
+        if (reason === 'clickaway') {
+          return;
+        }
+        setOpen(false);
+      };
+
+
+
+    const IncreaseLike = (e) =>{
+        dispatch(increaseLike(places._id));
+        setLikes(likes+1);
     }
 
     return (
@@ -83,18 +107,35 @@ export default function ReviewCard({ places }) {
                     component="p"
                     className={classes.desc}
                 >
-                    {reviewDesc+"..."}
+                    {reviewDesc + "..."}
                 </Typography>
             </CardContent>
             <CardActions>
-                <IconButton aria-label="add to favorites" disabled={!loggedIn}>
-                    <FavoriteIcon />
-                    {places.likes}
-                </IconButton>
+                {
+                    loggedIn ? (
+                        <IconButton aria-label="add to favorites" onClick={IncreaseLike}>
+                            <FavoriteIcon />
+                            {likes}
+                        </IconButton>
+                    ) : (
+                        <>
+                            <IconButton aria-label="add to favorites"  onClick={()=>setOpen(true)}>
+                                <FavoriteIcon />
+                                {likes}
+                            </IconButton>
+                            <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+                                <Alert onClose={handleClose} severity="success">
+                                    Please Login 
+                                 </Alert>
+                            </Snackbar>
+                        </>
+                    )
+                }
+               
                 <IconButton aria-label="share">
                     <ShareIcon />
                 </IconButton>
-                
+
                 <Button onClick={handelSubmit} size="small" color="primary" className="ml-auto">
                     Read More
                 </Button>

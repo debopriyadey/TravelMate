@@ -9,9 +9,11 @@ const initialState = {
     myreviews:[],
     allreviews:[],
     currentReview: null,
+    Like:{"id":null},
 }
  const  review =(state = initialState , action) => {
     switch (action.type) {
+       
         case 'FETCH_ALL':
             return {
                 ...state,
@@ -66,6 +68,11 @@ const initialState = {
             return {
                 ...state,
                 currentReview: action.payload
+            };
+        case 'IncreaseLike':
+            return {
+                ...state,
+                Like:action.payload
             };
         default:
             return state;

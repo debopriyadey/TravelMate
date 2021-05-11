@@ -7,8 +7,9 @@ import createreview from './routes/reviews/createreviews.js';
 import myreviews from './routes/reviews/myreviews.js';
 import signup from './routes/auth/signup.js';
 import login from './routes/auth/login.js';
-import searchreview from './routes/reviews/searchreview.js'
-import getpostbytag from './routes/reviews/getpostbytag.js'
+import searchreview from './routes/reviews/searchreview.js';
+import getpostbytag from './routes/reviews/getpostbytag.js';
+import increaseLike from './routes/reviews/increaseLike.js';
 const app = express();
 app.use(express.json({limit: "30mb", extended: true}))
 app.use(express.urlencoded({limit: "30mb", extended: true}))
@@ -21,6 +22,7 @@ app.use('/searchreview',searchreview)
 app.use('/getpostbytag',getpostbytag)
 app.use('/signup', signup);
 app.use('/signin', login);
+app.use('/increaseLike',increaseLike);
   
 const PORT = process.env.PORT||5000
 //const dbURI ="mongodb://localhost/travellersdiary";

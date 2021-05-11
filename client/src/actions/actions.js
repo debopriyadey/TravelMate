@@ -7,7 +7,6 @@ import jwt from 'jsonwebtoken'
 // import { signin } from'../actions/actions';
 //action creator
 
-
 export const getReviews = () => async (dispatch) => {
     try {
         const { data } = await api.fetchPost();
@@ -91,5 +90,16 @@ export const currentreview = (review) => {
     return {
         type: "CURRENT_REVIEW",
         payload: review
+    }
+}
+
+
+export const increaseLike = (id) => async (dispatch) => {
+    try {
+        const postId= { "id":id};
+        const { data } = await api.increaseLikeapi(postId);
+        dispatch({ type: 'IncreaseLike', payload: data});
+    } catch (error) {
+        console.log(error);
     }
 }

@@ -37,7 +37,7 @@ export default function Search() {
     axios.post('http://localhost:5000/searchreview', search).then(res => {
       setOptions(res.data);
     }).catch((error) => {
-      console.log(error)
+      console.log(error.message)
     })
     return () => {
       active = false;

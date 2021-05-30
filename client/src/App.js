@@ -56,7 +56,7 @@ function App() {
                     <Route path="/search" component={Search} />
                     <Route path="/createreview" component={ReviewForm} />
                     <Route path="/myreviews" component={MyReviews} />
-                    <Route path="/review" component={CurrentReview} />
+                    <Route path="/currentreview" component={CurrentReview} />
                 </Switch>
             </div>
         </Router>

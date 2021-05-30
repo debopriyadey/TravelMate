@@ -1,25 +1,20 @@
 import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import Card from '@material-ui/core/Card';
-import CardActions from '@material-ui/core/CardActions';
-import CardContent from '@material-ui/core/CardContent';
+import { Card, CardActions, CardContent, CardMedia, Snackbar, Typography, IconButton, Button } from '@material-ui/core';
 import MuiAlert from '@material-ui/lab/Alert';
-import Snackbar from '@material-ui/core/Snackbar';
-import CardMedia from '@material-ui/core/CardMedia';
-import Typography from '@material-ui/core/Typography';
-import { IconButton, Button } from '@material-ui/core';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import ShareIcon from '@material-ui/icons/Share';
+import DeleteIcon from '@material-ui/icons/Delete';
 import { useHistory } from 'react-router-dom';
-import { useSelector, useDispatch} from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 
 
-import { currentreview,increaseLike } from '../actions/actions'
+import { currentreview, increaseLike } from '../actions/actions';
 
 
 function Alert(props) {
     return <MuiAlert elevation={6} variant="filled" {...props} />;
-  }
+}
 const useStyles = makeStyles({
     root: {
         color: 'black',
@@ -45,10 +40,10 @@ const useStyles = makeStyles({
 });
 
 export default function ReviewCard({ places }) {
- 
+
     const classes = useStyles();
     const [open, setOpen] = useState(false);
-    const [likes,setLikes]=useState(places.likes);
+    const [likes, setLikes] = useState(places.likes);
     var maxDescLength = 350
     var reviewDesc = places.review.slice(0, maxDescLength)
     reviewDesc = reviewDesc.slice(0, Math.min(reviewDesc.length, reviewDesc.lastIndexOf(" ")))
@@ -56,33 +51,48 @@ export default function ReviewCard({ places }) {
 
     const dispatch = useDispatch();
     const history = useHistory();
+    var user = useSelector(state => state.userInfo);
+    if (user && Object.keys(user).length === 0){
+        console.log("if")
+    } else {
+        user = JSON.parse(user);
+        console.log(user._id)
+    }
     const loggedIn = useSelector(state => state.loggedIn);
-    const Likes= useSelector(state => state.Like);
+    const Likes = useSelector(state => state.Like);
+    // if (loggedIn) {
+    //     
+    //     const userId = user._id;
+    // }
+    // console.log(user._id)
+    let userId;
+    // loggedIn ? userId = useSelector(state => JSON.parse(state.userInfo)) : userId = null;
 
     const render = () => {
-        history.push(`/review/${places._id}`);
+        history.push(`/currentreview/${places._id}`);
     }
 
-    const handelSubmit = (e) => {
+    const handelSubmit = async (e) => {
         e.preventDefault();
-
-        dispatch(currentreview(places))
+        await dispatch(currentreview(places._id));
+        console.log(places._id);
         render()
-
     }
 
     const handleClose = (event, reason) => {
         if (reason === 'clickaway') {
-          return;
+            return;
         }
         setOpen(false);
-      };
+    };
 
-
-
-    const IncreaseLike = (e) =>{
+    const IncreaseLike = (e) => {
         dispatch(increaseLike(places._id));
-        setLikes(likes+1);
+        setLikes(likes + 1);
+    }
+
+    const handleDelete = (e) => {
+
     }
 
     return (
@@ -108,7 +118,11 @@ export default function ReviewCard({ places }) {
                     className={classes.desc}
                 >
                     {reviewDesc + "..."}
+                    <Button onClick={handelSubmit} size="small" color="primary" className="">
+                        Read More
+                    </Button>
                 </Typography>
+
             </CardContent>
             <CardActions>
                 {
@@ -119,26 +133,62 @@ export default function ReviewCard({ places }) {
                         </IconButton>
                     ) : (
                         <>
-                            <IconButton aria-label="add to favorites"  onClick={()=>setOpen(true)}>
+                            <IconButton aria-label="add to favorites" onClick={() => setOpen(true)}>
                                 <FavoriteIcon />
                                 {likes}
                             </IconButton>
                             <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
                                 <Alert onClose={handleClose} severity="success">
-                                    Please Login 
+                                    Please Login
                                  </Alert>
                             </Snackbar>
                         </>
                     )
                 }
-               
+
                 <IconButton aria-label="share">
                     <ShareIcon />
                 </IconButton>
+                {
+                    loggedIn && user._id == places.creator ? (
+                        <Button onClick={handleDelete} size="small" color="primary" className="ml-auto">
+                            <DeleteIcon />
+                        </Button>
+                    ) : (
+                        <>
+                            <Button onClick={handleDelete} size="small" color="primary" className="ml-auto">
+                                {/* <DeleteIcon /> */}
+                            </Button>
+                        </>
+                    )
+                }
+                {/* {
+                    loggedIn ? (
+                         ?
+                            (
+                                <Button onClick={handleDelete} size="small" color="primary" className="ml-auto">
+                                    <DeleteIcon />
+                                </Button>
+                            ) : (
+                                <>
+                                    <IconButton aria-label="add to favorites" onClick={() => setOpen(true)}>
+                                        <FavoriteIcon />
+                                        {likes}
+                                    </IconButton>
+                                    <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+                                        <Alert onClose={handleClose} severity="success">
+                                            Please Login
+                                    </Alert>
+                                    </Snackbar>
+                                </>
+                            )
+                    ) : (
+                        <Button></Button>
+                    )
 
-                <Button onClick={handelSubmit} size="small" color="primary" className="ml-auto">
-                    Read More
-                </Button>
+                } */}
+
+
             </CardActions>
         </Card>
     );

@@ -5,7 +5,7 @@ import jwt from 'jsonwebtoken'
 // import history from '../history';
 // import { Link, useHistory } from 'react-router-dom';
 // import { signin } from'../actions/actions';
-//action creator
+// action creator
 
 export const getReviews = () => async (dispatch) => {
     try {
@@ -23,6 +23,16 @@ export const getReviews = () => async (dispatch) => {
         }
         console.log(myreviews);
         dispatch({ type: 'FETCH_ALL', payload: [myreviews, data] });
+    } catch (error) {
+        console.log(error.message);
+    }
+}
+
+export const currentreview = (review) => async (dispatch) => {
+    try {
+        const { data } = await api.currentReview(review);
+        dispatch({ type: 'CURRENT_REVIEW', payload: data });
+        console.log(data)
     } catch (error) {
         console.log(error.message);
     }
@@ -63,7 +73,7 @@ export const signin = (users) => async (dispatch) => {
         dispatch({ type: 'SIGNIN', payload: users });
     } catch (error) {
 
-        dispatch({ type: 'SIGNINFAILS', payload: error.response.data });
+        dispatch({ type: 'SIGNINFAILS', payload: error.response });
     }
 }
 
@@ -82,14 +92,6 @@ export const logout = () => {
         setAuthenticationToken(false);
         dispatch(setCurrentUser({}))
         dispatch({ type: "LOGOUT" })
-    }
-}
-
-export const currentreview = (review) => {
-    sessionStorage.setItem("currentreview", JSON.stringify(review));
-    return {
-        type: "CURRENT_REVIEW",
-        payload: review
     }
 }
 

@@ -34,6 +34,7 @@ export const createReview = async (req, res) => {
         console.log(err);
     })
 }
+
 export const myReviews = (req, res) => {
     Review.find({creator: req.users})
      .then((myReviews) => {
@@ -88,6 +89,16 @@ export const getPostByTag=(req,res)=>{
 
 }
 
+export const currentReview = async (req, res) => {
+    try {
+        const review = await Review.findOne({_id: req.params.id});
+        res.status(200).json(review);
+
+    } catch (error) {
+        res.json({message: error.message });
+    }
+}
+
 export const increaseLike= (req, res)=>{
     console.log(req.body.id);
     Review.findOne({_id: req.body.id})
@@ -104,4 +115,23 @@ export const increaseLike= (req, res)=>{
     .catch((err) => {
         console.log(err);
     })
+}
+
+export const updateReview = async (req, rea) => {
+    try {
+        
+    } catch (error) {
+        
+    }
+}
+
+export const deleteReview = async (req, res) => {
+    try {
+        const { id } = req.params
+        await Review.findByIdAndRemove(id)
+        res.json({message: `review deleted with id: ${id}`})
+    } catch (error) {
+        res.json(error)   
+    }
+
 }

@@ -21,7 +21,6 @@ export const getReviews = () => async (dispatch) => {
                 }
             });
         }
-        console.log(myreviews);
         dispatch({ type: 'FETCH_ALL', payload: [myreviews, data] });
     } catch (error) {
         console.log(error.message);
@@ -94,11 +93,10 @@ export const currentreview = (review) => {
 }
 
 
-export const increaseLike = (id) => async (dispatch) => {
+export const increaseLike = (likeData) => async (dispatch) => {
     try {
-        const postId= { "id":id};
-        const { data } = await api.increaseLikeapi(postId);
-        dispatch({ type: 'IncreaseLike', payload: data});
+        const  {data}  = await api.increaseLikeapi(likeData);
+        dispatch({type:"IncreaseLike",payload:data});
     } catch (error) {
         console.log(error);
     }

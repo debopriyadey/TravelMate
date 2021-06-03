@@ -1,6 +1,6 @@
 import React, {useEffect } from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import {useSelector, useDispatch } from 'react-redux';
 import { getReviews } from './actions/actions'
 import Find from './components/Find';
 import MainBody from './components/MainBody';
@@ -22,9 +22,8 @@ function App() {
     }
     useEffect(() => {
          dispatch(getReviews())
-        }
+    }
     , [dispatch])
-
 
     // const renderRoutes = () => {
     //     if (localStorage.getItem("jwt") === null) {
@@ -46,6 +45,7 @@ function App() {
     // }
 
     return (
+        
         <Router history={history}>
             <div className="App">
                 <Switch>
@@ -57,6 +57,7 @@ function App() {
                     <Route path="/createreview" component={ReviewForm} />
                     <Route path="/myreviews" component={MyReviews} />
                     <Route path="/review" component={CurrentReview} />
+
                 </Switch>
             </div>
         </Router>

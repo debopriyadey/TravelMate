@@ -1,14 +1,37 @@
 import Review from '../models/reviews.js'
+import Users from '../models/users.js';
 
-export const getReviews = async (req, res) => {
-    try {
-        const review = await Review.find();
-        res.status(200).json(review);
+// export const getReviews = async (req, res) => {
+//     try {
+//         const review = await Review.find();
+//         res.status(200).json(review);
 
-    } catch (error) {
-        res.status(402).json({message: error.message });
-    }
-}
+//     } catch (error) {
+//         res.status(402).json({message: error.message });
+//     }
+// }
+
+
+export const getReviews =  (req, res) => {
+    Review.find({},{selectedFile:0,tags:0,creator:0,review:0,createdAt:0}).lean().then((posts)=>{
+     posts.forEach((post,index)=>{
+        Users.find({likes: post._id.toString()}).then((doc)=>{
+            console.log(post._id, doc.length);
+            // posts[index].likes=doc.length;
+            // review.push(post);
+            // console.log(review);
+            // query inside for loop in mongoose?
+            // https://stackoverflow.com/questions/44499299/mongoose-findone-inside-loop
+        }).catch((err)=>{
+            throw err;
+        })
+     })
+     console.log(posts);
+     res.send(posts);
+   }).catch((err)=>{
+       throw err;
+   })
+}   
 
 export const createReview = async (req, res) => {
 
@@ -89,17 +112,32 @@ export const getPostByTag=(req,res)=>{
 }
 
 export const increaseLike= (req, res)=>{
-    console.log(req.body.id);
-    Review.findOne({_id: req.body.id})
-    .then((myReviews) => {
-         myReviews.likes = myReviews.likes +1;
-         myReviews.save()
-         .then((reviews) =>{
-            res.json({"likes":myReviews.likes,"id":myReviews._id});
-         })
-         .catch((error)=>{
-             console.log(error);
-         })
+    const {placeId, userId}= req.body;
+    console.log(req.body);
+    Users.findOne({_id: userId})
+    .then((user) => {
+        console.log(user);
+        if(user.likes.includes(placeId)){
+            user.likes= user.likes.filter(item=> item!==placeId);
+            console.log(" decrease ", user.likes);
+            user.save()
+            .then((user)=>{
+                res.json({message:"Decrease Like","postId":placeId});
+            }).catch((err)=>{
+                console.log(err);
+            })
+            
+        }else {
+
+            user.likes.push(placeId);
+            user.save()
+            .then((user)=>{
+                console.log(" increase ",user.likes);
+                res.json({message:"Increase Like","postId":placeId});
+            }).catch((err)=>{
+                console.log(err);
+            })
+        }
     })
     .catch((err) => {
         console.log(err);

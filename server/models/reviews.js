@@ -10,10 +10,7 @@ const reviewSchema = mongoose.Schema({
         ref: "users",
     },
     selectedFile: String,
-    likes: {
-        type: Number,
-        default: 0
-    },
+
     createdAt: {
         type: Date,
         default: new Date()

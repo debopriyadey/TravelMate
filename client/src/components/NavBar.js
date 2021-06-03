@@ -101,7 +101,6 @@ export default function Header() {
     const [isOpen, setIsOpen] = useState(false);
 
     const toggle = () => setIsOpen(!isOpen);
-
     const loggedIn = useSelector(state => state.loggedIn)
     const dispatch = useDispatch();
     const logoutT = () => {

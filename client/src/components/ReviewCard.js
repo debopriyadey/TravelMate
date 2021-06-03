@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
@@ -45,9 +45,15 @@ const useStyles = makeStyles({
 });
 
 export default function ReviewCard({ places }) {
- 
     const classes = useStyles();
+    let user = useSelector((state) => state.userInfo);
+    if(user && Object.keys(user).length===0);
+    else 
+        {
+            user=JSON.parse(user);
+        }
     const [open, setOpen] = useState(false);
+    const [alreadyLiked,setalreadyLiked]= useState(false);
     const [likes,setLikes]=useState(places.likes);
     var maxDescLength = 350
     var reviewDesc = places.review.slice(0, maxDescLength)
@@ -58,11 +64,9 @@ export default function ReviewCard({ places }) {
     const history = useHistory();
     const loggedIn = useSelector(state => state.loggedIn);
     const Likes= useSelector(state => state.Like);
-
     const render = () => {
         history.push(`/review/${places._id}`);
     }
-
     const handelSubmit = (e) => {
         e.preventDefault();
 
@@ -78,11 +82,24 @@ export default function ReviewCard({ places }) {
         setOpen(false);
       };
 
-
+      useEffect(() => {
+        setLikes(places.likes)
+        if(user && Object.keys(user).length===0);else {
+            if(user.likes.includes(places._id)){
+                setalreadyLiked(true);
+            }else 
+                setalreadyLiked(false);  
+        }
+      }, [places.likes])
+       
+  
 
     const IncreaseLike = (e) =>{
-        dispatch(increaseLike(places._id));
-        setLikes(likes+1);
+
+        dispatch(increaseLike({
+            "placeId":places._id,
+            "userId":user._id
+        }));
     }
 
     return (
@@ -114,13 +131,13 @@ export default function ReviewCard({ places }) {
                 {
                     loggedIn ? (
                         <IconButton aria-label="add to favorites" onClick={IncreaseLike}>
-                            <FavoriteIcon />
+                            {alreadyLiked ?(<FavoriteIcon  color="primary"/>):(  <FavoriteIcon  />)}
                             {likes}
                         </IconButton>
                     ) : (
                         <>
                             <IconButton aria-label="add to favorites"  onClick={()=>setOpen(true)}>
-                                <FavoriteIcon />
+                                <FavoriteIcon/>
                                 {likes}
                             </IconButton>
                             <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>

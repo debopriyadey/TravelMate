@@ -12,7 +12,12 @@ const userSchema = mongoose.Schema({
     password: {
         type: String,
         require: true
+    },
+    likes: {
+        type: Array,
+        default: []
     }
+
 });
 
 const Users = mongoose.model('Users', userSchema);

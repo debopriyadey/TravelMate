@@ -132,7 +132,7 @@ export default function ReviewCard({ places }) {
                 {
                     loggedIn ? (
                         <IconButton aria-label="add to favorites" onClick={IncreaseLike}>
-                            {alreadyLiked ?(<FavoriteIcon  color="primary"/>):(  <FavoriteIcon  />)}
+                            {alreadyLiked ?(<FavoriteIcon  color="error"/>):(  <FavoriteIcon  />)}
                             {likes}
                         </IconButton>
                     ) : (

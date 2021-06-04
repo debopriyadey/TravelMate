@@ -1,12 +1,15 @@
+import mongoose from 'mongoose';
 import Review from '../models/reviews.js'
 import Users from '../models/users.js';
 
+const ObjectId = mongoose.Types.ObjectId;
 export const getReviews =  (req, res) => {
+    
     let allPosts=[];
     Review.find({}).lean().then((posts)=>{
         allPosts= posts;
     let reviews= posts.map((post)=>{
-       const totalLikes= Users.countDocuments({likes: post._id.toString()}).exec();
+       const totalLikes= Users.countDocuments({likes: post._id}).exec();
        return totalLikes;
     });
      return Promise.all(reviews);
@@ -15,6 +18,7 @@ export const getReviews =  (req, res) => {
        reviews.forEach((review,index,reviews)=>{
          allPosts[index]={...allPosts[index],likes:review};
        });
+
        res.send(allPosts);
    })
    .catch((err)=>{ 
@@ -23,9 +27,8 @@ export const getReviews =  (req, res) => {
 }   
 
 
-
 export const createReview = async (req, res) => {
-
+    
     const {title, review, tags, likes, creator,selectedFile} = req.body;
     if (!title || !review){
         return res.status(412).json({message: "add all the fields"});
@@ -62,8 +65,6 @@ export const searchReview=( req,res)=>{
     const reg=new RegExp('^' + req.body.tags,'i')
     Review.find({ tags: {$all: reg} }, { tags:1 , _id: 0})
     .then((Reviews) => {
-        // res.json({myReviews})
-        // console.log(myReviews);
         let data=[]
         Reviews.forEach(element => {
             element.tags.forEach(tag => {
@@ -71,7 +72,6 @@ export const searchReview=( req,res)=>{
             });
 
         });
-        // console.log(data);
         data.sort();
         let alltags=[]
         if(data.length>0){
@@ -104,13 +104,10 @@ export const getPostByTag=(req,res)=>{
 
 export const increaseLike= (req, res)=>{
     const {placeId, userId}= req.body;
-    console.log(req.body);
     Users.findOne({_id: userId})
     .then((user) => {
-        console.log(user);
-        if(user.likes.includes(placeId)){
-            user.likes= user.likes.filter(item=> item!==placeId);
-            console.log(" decrease ", user.likes);
+        if(user.likes.includes(ObjectId(placeId))){
+            user.likes= user.likes.filter(item=> !(ObjectId(placeId).equals(item)));
             user.save()
             .then((user)=>{
                 res.json({message:"Decrease Like","postId":placeId});
@@ -120,10 +117,9 @@ export const increaseLike= (req, res)=>{
             
         }else {
 
-            user.likes.push(placeId);
+            user.likes.push(ObjectId(placeId));
             user.save()
             .then((user)=>{
-                console.log(" increase ",user.likes);
                 res.json({message:"Increase Like","postId":placeId});
             }).catch((err)=>{
                 console.log(err);

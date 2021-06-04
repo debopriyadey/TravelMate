@@ -1,5 +1,5 @@
 const initialState = {  
-    userInfo: JSON.parse(localStorage.getItem("users")) === null ? {} : JSON.parse(localStorage.getItem("users")),
+    userInfo: JSON.parse(localStorage.getItem("users")) === null ? {} : localStorage.getItem("users"),
     message:'',
     signupMessage:'',
     // reviews:[],
@@ -40,7 +40,6 @@ const initialState = {
         case 'SIGNIN':
             return {
                 ...state,
-                userInfo: action.payload,
                 loggedIn:true
             };
         case 'SIGNINFAILS':
@@ -51,7 +50,6 @@ const initialState = {
         case 'SET_CURRENT_USER':
             return {
                 ...state,
-                userInfo:action.payload,
                 loggedIn:true
             };
         case 'LOGOUT':

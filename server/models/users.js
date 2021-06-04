@@ -13,10 +13,7 @@ const userSchema = mongoose.Schema({
         type: String,
         require: true
     },
-    likes: {
-        type: Array,
-        default: []
-    }
+    likes: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Review' }]
 
 });
 

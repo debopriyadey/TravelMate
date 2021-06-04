@@ -60,9 +60,10 @@ export const signin = (users) => async (dispatch) => {
         console.log(jwt.decode(useinfo["token"]))
         dispatch(setCurrentUser(useinfo))
         dispatch({ type: 'SIGNIN', payload: users });
+        
     } catch (error) {
 
-        dispatch({ type: 'SIGNINFAILS', payload: error.response.data });
+        dispatch({ type: 'SIGNINFAILS', payload: error});
     }
 }
 

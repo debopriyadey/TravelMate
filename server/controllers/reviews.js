@@ -1,37 +1,28 @@
 import Review from '../models/reviews.js'
 import Users from '../models/users.js';
 
-// export const getReviews = async (req, res) => {
-//     try {
-//         const review = await Review.find();
-//         res.status(200).json(review);
-
-//     } catch (error) {
-//         res.status(402).json({message: error.message });
-//     }
-// }
-
-
 export const getReviews =  (req, res) => {
-    Review.find({},{selectedFile:0,tags:0,creator:0,review:0,createdAt:0}).lean().then((posts)=>{
-     posts.forEach((post,index)=>{
-        Users.find({likes: post._id.toString()}).then((doc)=>{
-            console.log(post._id, doc.length);
-            // posts[index].likes=doc.length;
-            // review.push(post);
-            // console.log(review);
-            // query inside for loop in mongoose?
-            // https://stackoverflow.com/questions/44499299/mongoose-findone-inside-loop
-        }).catch((err)=>{
-            throw err;
-        })
-     })
-     console.log(posts);
-     res.send(posts);
-   }).catch((err)=>{
+    let allPosts=[];
+    Review.find({}).lean().then((posts)=>{
+        allPosts= posts;
+    let reviews= posts.map((post)=>{
+       const totalLikes= Users.countDocuments({likes: post._id.toString()}).exec();
+       return totalLikes;
+    });
+     return Promise.all(reviews);
+   }).then((reviews)=>{
+       
+       reviews.forEach((review,index,reviews)=>{
+         allPosts[index]={...allPosts[index],likes:review};
+       });
+       res.send(allPosts);
+   })
+   .catch((err)=>{ 
        throw err;
    })
 }   
+
+
 
 export const createReview = async (req, res) => {
 

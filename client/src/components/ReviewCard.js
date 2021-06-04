@@ -85,6 +85,7 @@ export default function ReviewCard({ places }) {
       useEffect(() => {
         setLikes(places.likes)
         if(user && Object.keys(user).length===0);else {
+
             if(user.likes.includes(places._id)){
                 setalreadyLiked(true);
             }else 

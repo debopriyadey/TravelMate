@@ -2,16 +2,13 @@ import React, { useState } from 'react'
 import { Grid, TextField, makeStyles, Paper, Container, Typography, Button, Select, InputLabel, MenuItem, FormControl } from '@material-ui/core';
 import { Link, useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import Filebase from 'react-file-base64';
 // import { StateDropdown, RegionDropdown } from 'react-indian-state-region-selector';
 // import { CountryDropdown, RegionDropdown, CountryRegionData } from 'react-country-region-selector';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 
 
 import "../css/reviewForm.css";
-import { createreviews } from '../actions/actions';
-import formimg from '../img/formimg.jpg';
-
+import { updateReview } from '../api';
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -20,7 +17,6 @@ const useStyles = makeStyles(theme => ({
         // backgroundSize: "cover",
         // backgroundRepeat: "no-repeat",
         // backgroundAttachment: "fixed",
-        // // position: 'fixed',
         // zIndex: '-100',
 
     },
@@ -87,27 +83,16 @@ const useStyles = makeStyles(theme => ({
 }));
 
 
-export default function ReviewForm() {
-    const userInfo = useSelector(state => JSON.parse(state.userInfo))
+export default function UpdateReview() {
+    const toUpdate = JSON.parse(sessionStorage.getItem('toUpdate'))
     const initialFValues = {
-        title: '',
-        review: '',
-        tags: '',
-        creator: userInfo._id,
-        creatorName: userInfo.name,
+        title: toUpdate.title,
+        review: toUpdate.review,
+        tags: toUpdate.tags,
     }
 
-    const separatedVlues = {
-        like: '',
-        speciality: '',
-        expence: '',
-        time: '',
-    }
-    //const user = useSelector((state) => state.reviews);
-    //console.log(user[0].savedUser.name);
     const history = useHistory();
     const [reviewData, setData] = useState(initialFValues);
-    const [placeData, setPlaceData] = useState(separatedVlues);
     const classes = useStyles();
 
     const dispatch = useDispatch();
@@ -116,15 +101,10 @@ export default function ReviewForm() {
         history.push('/myreviews');
     }
 
-    const handeleSubmit = (e) => {
+    const handeleSubmit = async(e) => {
         e.preventDefault();
-        reviewData.review = placeData.like + ' ' + placeData.speciality + ' ' +  placeData.expence + ' ' + placeData.time;
-        dispatch(createreviews(reviewData))
-        console.log(reviewData);
-        setTimeout(function () {
-            render()
-        }, 3000);
-
+        const { data } =  await updateReview(toUpdate._id, reviewData)
+        render()
     }
 
     return (
@@ -137,7 +117,7 @@ export default function ReviewForm() {
                     <Grid item xs={12} sm={12}>
                         <form className={classes.formContainer2} noValidate onSubmit={handeleSubmit}>
                             <Container maxWidth="sm">
-                                <Typography className={classes.heading}> <h1> Create Review </h1>  </Typography>
+                                <Typography className={classes.heading}> <h1> Update Review </h1>  </Typography>
                                 <FormControl fullWidth>
                                     <p className={classes.formheadings}> Title </p>
                                     <TextField
@@ -167,62 +147,9 @@ export default function ReviewForm() {
                                         multiline
                                         fullWidth
                                         rows={4}
-                                        value={placeData.like}
-                                        onChange={(e) => setPlaceData({ ...placeData, like: e.target.value })}
+                                        value={reviewData.review}
+                                        onChange={(e) => setData({ ...reviewData, review: e.target.value })}
                                     />
-                                    <div className={classes.spacing}></div>
-                                    <TextField
-                                        autoComplete="fname"
-                                        name="speciality"
-                                        placeholder="Speaciality of that place..."
-                                        variant="outlined"
-                                        required
-                                        id="review"
-                                        multiline
-                                        fullWidth
-                                        rows={4}
-                                        value={placeData.speciality}
-                                        onChange={(e) => setPlaceData({ ...placeData, speciality: e.target.value })}
-                                    />
-                                    <div className={classes.spacing}></div>
-                                    <TextField
-                                        autoComplete="fname"
-                                        name="expences"
-                                        placeholder="Total Expence..."
-                                        variant="outlined"
-                                        required
-                                        id="review"
-                                        multiline
-                                        fullWidth
-                                        rows={4}
-                                        value={placeData.expence}
-                                        onChange={(e) => setPlaceData({ ...placeData, expence: e.target.value })}
-                                    />
-                                    <div className={classes.spacing}></div>
-                                    <TextField
-                                        autoComplete="fname"
-                                        name="Time"
-                                        placeholder="Best Time to vivsit...."
-                                        variant="outlined"
-                                        required
-                                        id="review"
-                                        multiline
-                                        fullWidth
-                                        rows={4}
-                                        value={placeData.time}
-                                        onChange={(e) => setPlaceData({ ...placeData, time: e.target.value })}
-                                    />
-                                </FormControl>
-
-                                <FormControl item className={classes.bottomfield}>
-                                    <p className={classes.formheadings}> Upload Photo </p>
-                                    <div className={classes.fileInput}>
-                                        <Filebase
-                                            type="file"
-                                            multiple={false}
-                                            onDone={({ base64 }) => setData({ ...reviewData, selectedFile: base64 })}
-                                        />
-                                    </div>
                                 </FormControl>
                                 <FormControl variant="outlined" item className={classes.bottomfield}>
                                 <p className={classes.formheadings}> State </p>
@@ -276,13 +203,6 @@ export default function ReviewForm() {
                                         <MenuItem value="West Bengal">West Bengal</MenuItem>
                                     </Select>
                                 </FormControl>
-                                {/* <CountryDropdown
-                                    value={reviewData.state}
-                                    onChange={(e) => setData({ ...reviewData, state: e.target.value })} />
-                                <RegionDropdown
-                                    State={reviewData.state}
-                                    value={reviewData.region}
-                                    onChange={(e) => setData({ ...reviewData, region: e.target.value })} />*/}
                                 <Button
                                     type="submit"
                                     fullWidth
@@ -290,7 +210,7 @@ export default function ReviewForm() {
                                     color="primary"
                                     className={classes.submit}
                                 >
-                                    CREATE
+                                    UPDATE
                                 </Button>
                                 <Grid item className='text-right'>
                                     <Link to='/' style={{ textDecoration: 'none' }}>

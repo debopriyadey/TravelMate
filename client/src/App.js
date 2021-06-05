@@ -14,6 +14,7 @@ import setAuthenticationToken from './actions/setAuthenticationToken';
 import history from './history'
 import {setCurrentUser} from './actions/actions'
 import Search from './components/Search.js'
+import UpdateReview from './components/UpdateReview.js';
 function App() {
     const dispatch=useDispatch();
     if(localStorage.jwt){
@@ -57,6 +58,7 @@ function App() {
                     <Route path="/createreview" component={ReviewForm} />
                     <Route path="/myreviews" component={MyReviews} />
                     <Route path="/currentreview" component={CurrentReview} />
+                    <Route path="/update" component={UpdateReview} />
                 </Switch>
             </div>
         </Router>

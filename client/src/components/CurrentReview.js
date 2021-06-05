@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
@@ -7,9 +7,6 @@ import { IconButton, Button } from '@material-ui/core';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import ShareIcon from '@material-ui/icons/Share';
 import { Link } from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux';
-
-import { currentreview, increaseLike } from '../actions/actions';
 import { currentReview } from '../api/index';
 
 const useStyles = makeStyles({
@@ -45,18 +42,18 @@ const useStyles = makeStyles({
 
 export default function CurrentReview() {
     const classes = useStyles();
-    const [item, setItem] = useState([])
+
+    const item2 = JSON.parse(sessionStorage.getItem("currentreview"))
+    console.log(item2)
+    const [item, setItem] = useState(item2 === null ? [] : item2)
+
     const url = window.location.href
     const lastItem = url.substring(url.lastIndexOf('/') + 1)
-
-    useEffect(() => {
-
-    }, [item])
 
     window.onload = async (e) => {
         const data = await currentReview(lastItem);
         setItem(data.data)
-    };
+    }
 
     const renderReview = (item) => {
         if (item == '') {

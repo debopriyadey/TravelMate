@@ -1,15 +1,17 @@
 import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { Card, CardActions, CardContent, CardMedia, Snackbar, Typography, IconButton, Button } from '@material-ui/core';
+import { Card, CardActions, CardContent, CardMedia, Snackbar, Typography, IconButton, Button, CardHeader, Avatar } from '@material-ui/core';
 import MuiAlert from '@material-ui/lab/Alert';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import ShareIcon from '@material-ui/icons/Share';
 import DeleteIcon from '@material-ui/icons/Delete';
-import { useHistory } from 'react-router-dom';
+import MoreVertIcon from '@material-ui/icons/MoreVert';
+import { Link, useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 
 
-import { currentreview, increaseLike } from '../actions/actions';
+import { increaseLike } from '../actions/actions';
+import { deleteReview } from '../api/index';
 
 
 function Alert(props) {
@@ -52,30 +54,19 @@ export default function ReviewCard({ places }) {
     const dispatch = useDispatch();
     const history = useHistory();
     var user = useSelector(state => state.userInfo);
-    if (user && Object.keys(user).length === 0){
-        console.log("if")
+    if (user && Object.keys(user).length === 0) {
     } else {
         user = JSON.parse(user);
-        console.log(user._id)
     }
     const loggedIn = useSelector(state => state.loggedIn);
     const Likes = useSelector(state => state.Like);
-    // if (loggedIn) {
-    //     
-    //     const userId = user._id;
-    // }
-    // console.log(user._id)
-    let userId;
-    // loggedIn ? userId = useSelector(state => JSON.parse(state.userInfo)) : userId = null;
 
     const render = () => {
         history.push(`/currentreview/${places._id}`);
     }
 
     const handelSubmit = async (e) => {
-        e.preventDefault();
-        await dispatch(currentreview(places._id));
-        console.log(places._id);
+        sessionStorage.setItem("currentreview", JSON.stringify(places))
         render()
     }
 
@@ -91,26 +82,44 @@ export default function ReviewCard({ places }) {
         setLikes(likes + 1);
     }
 
-    const handleDelete = (e) => {
-
+    const handelUpdate = (e) => {
+        e.preventDefault()
+        console.log(places)
+        sessionStorage.setItem('toUpdate', JSON.stringify(places))
+        history.push(`/update`)
     }
+
+    const handleDelete = async (e) => {
+        await deleteReview(places._id)
+        window.location.reload()
+    }
+
+    console.log(typeof (places.creatorName))
 
     return (
         <Card className={classes.root}>
+            <CardHeader
+                avatar={
+                    <Avatar aria-label="recipe" className={classes.avatar}>
+                        {places.creatorName.charAt(0)}
+                    </Avatar>
+                }
+                action={
+                    <IconButton aria-label="settings">
+                        <Button onClick={handelUpdate}>
+                            <MoreVertIcon />
+                        </Button>
+                    </IconButton>
+                }
+                title={places.title}
+                subheader={places.createdAt.slice(0, 10)}
+            />
             <CardMedia
                 className={classes.media}
                 image={places.selectedFile}
                 title={places.title}
             />
             <CardContent>
-                <Typography
-                    gutterBottom
-                    variant="h5"
-                    component="h1"
-                    className={classes.title}
-                >
-                    {places.title}
-                </Typography>
                 <Typography
                     variant="body2"
                     color="textSecondary"
@@ -121,6 +130,8 @@ export default function ReviewCard({ places }) {
                     <Button onClick={handelSubmit} size="small" color="primary" className="">
                         Read More
                     </Button>
+                    <br />
+                    <small> <i> A review given by {places.creatorName} </i></small>
                 </Typography>
 
             </CardContent>
@@ -138,7 +149,7 @@ export default function ReviewCard({ places }) {
                                 {likes}
                             </IconButton>
                             <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
-                                <Alert onClose={handleClose} severity="success">
+                                <Alert onClose={handleClose} severity="error">
                                     Please Login
                                  </Alert>
                             </Snackbar>
@@ -162,33 +173,6 @@ export default function ReviewCard({ places }) {
                         </>
                     )
                 }
-                {/* {
-                    loggedIn ? (
-                         ?
-                            (
-                                <Button onClick={handleDelete} size="small" color="primary" className="ml-auto">
-                                    <DeleteIcon />
-                                </Button>
-                            ) : (
-                                <>
-                                    <IconButton aria-label="add to favorites" onClick={() => setOpen(true)}>
-                                        <FavoriteIcon />
-                                        {likes}
-                                    </IconButton>
-                                    <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
-                                        <Alert onClose={handleClose} severity="success">
-                                            Please Login
-                                    </Alert>
-                                    </Snackbar>
-                                </>
-                            )
-                    ) : (
-                        <Button></Button>
-                    )
-
-                } */}
-
-
             </CardActions>
         </Card>
     );

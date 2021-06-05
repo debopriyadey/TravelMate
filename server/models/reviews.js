@@ -9,6 +9,10 @@ const reviewSchema = mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: "users",
     },
+    creatorName: {
+        type: String,
+        ref: "users"
+    },
     selectedFile: String,
     likes: {
         type: Number,

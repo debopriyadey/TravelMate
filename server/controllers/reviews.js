@@ -12,7 +12,7 @@ export const getReviews = async (req, res) => {
 
 export const createReview = async (req, res) => {
 
-    const {title, review, tags, likes, creator,selectedFile} = req.body;
+    const {title, review, tags, likes, creator, creatorName, selectedFile} = req.body;
     if (!title || !review){
         return res.status(412).json({message: "add all the fields"});
     }
@@ -23,7 +23,8 @@ export const createReview = async (req, res) => {
         tags:tagsArray,
         selectedFile,
         likes,
-        creator
+        creator,
+        creatorName,
     })
     newReview.save()
      .then((result) => {
@@ -117,11 +118,21 @@ export const increaseLike= (req, res)=>{
     })
 }
 
-export const updateReview = async (req, rea) => {
+export const updateReview = async (req, res) => {
     try {
-        
+        const id = req.params.id
+        const {title, review, tags} = req.body;
+        const updateReview = {
+            title,
+            review,
+            tags
+        }
+
+        await Review.findOneAndUpdate({ _id: id }, updateReview);
+        return res.json({ msg: "Data updated Successfully" });
+
     } catch (error) {
-        
+        return res.status(400).json(error)
     }
 }
 

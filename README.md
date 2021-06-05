@@ -14,3 +14,5 @@
 3. createreview window open without login
 4. error handling in email
 5. if we create user profile for view then we have to search from many reviews to find the review that particular user has written, we can store the review object id in user data and then just itterate only on those and print them
+6. 1 refresh to fetch new revies on homepage
+7. Remember me

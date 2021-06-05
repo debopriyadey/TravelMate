@@ -28,7 +28,7 @@ export default function Reviews(props) {
                 <Grid container spacing={3} className={classes.container}>
                     {
                         props.reviews.map( (review)=>(
-                        <Grid >
+                        <Grid key={review._id}>
                             <ReviewCard places={review} />
                         </Grid>
                     ) )

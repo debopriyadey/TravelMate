@@ -1,5 +1,5 @@
 const initialState = {  
-    userInfo: JSON.parse(localStorage.getItem("users")) === null ? {} : JSON.parse(localStorage.getItem("users")),
+    userInfo: JSON.parse(localStorage.getItem("users")) === null ? {} : localStorage.getItem("users"),
     message:'',
     signupMessage:'',
     // reviews:[],
@@ -40,7 +40,6 @@ const initialState = {
         case 'SIGNIN':
             return {
                 ...state,
-                userInfo: action.payload,
                 loggedIn:true
             };
         case 'SIGNINFAILS':
@@ -51,7 +50,6 @@ const initialState = {
         case 'SET_CURRENT_USER':
             return {
                 ...state,
-                userInfo:action.payload,
                 loggedIn:true
             };
         case 'LOGOUT':
@@ -70,9 +68,27 @@ const initialState = {
                 currentReview: action.payload
             };
         case 'IncreaseLike':
+            const reviews=[];
+            const userInfo=JSON.parse(state.userInfo);
+            state.allreviews.map((review)=>{
+                if(review._id===action.payload.postId){
+                    if(action.payload.message==="Increase Like"){
+                        userInfo.likes.push(review._id);
+                        reviews.push({...review,"likes":review.likes+1});
+                    }else if(action.payload.message==="Decrease Like"){
+                        reviews.push({...review,"likes":review.likes-1});
+                        userInfo.likes= userInfo.likes.filter((id)=> id!= review._id);
+                    }else {
+                        reviews.push(review);
+                    }
+                }else
+                    reviews.push(review);
+            });
+            localStorage.setItem("users", JSON.stringify(userInfo))
             return {
                 ...state,
-                Like:action.payload
+                allreviews:reviews,
+                userInfo:JSON.stringify(userInfo)
             };
         default:
             return state;

@@ -10,5 +10,7 @@
 ## Unsolved errors
 
 1. Time complexity of item load.
-2. Fisrt time open of MYREVIEWS showing error ( solving after 1 refresh )
-3. Read More not working with new entries added
+2. after login 1 refresh required
+3. createreview window open without login
+4. error handling in email
+5. if we create user profile for view then we have to search from many reviews to find the review that particular user has written, we can store the review object id in user data and then just itterate only on those and print them

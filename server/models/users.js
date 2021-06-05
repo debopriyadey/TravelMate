@@ -12,7 +12,9 @@ const userSchema = mongoose.Schema({
     password: {
         type: String,
         require: true
-    }
+    },
+    likes: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Review' }]
+
 });
 
 const Users = mongoose.model('Users', userSchema);

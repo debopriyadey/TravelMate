@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Card, CardActions, CardContent, CardMedia, Snackbar, Typography, IconButton, Button, CardHeader, Avatar } from '@material-ui/core';
 import MuiAlert from '@material-ui/lab/Alert';
@@ -42,25 +42,26 @@ const useStyles = makeStyles({
 });
 
 export default function ReviewCard({ places }) {
-
     const classes = useStyles();
+    let user = useSelector((state) => state.userInfo);
+    console.log(user)
+    if(user && Object.keys(user).length===0);
+    else 
+        {
+            user=JSON.parse(user);
+        }
     const [open, setOpen] = useState(false);
-    const [likes, setLikes] = useState(places.likes);
+    const [alreadyLiked,setalreadyLiked]= useState(false);
+    const [likes,setLikes]=useState(places.likes);
     var maxDescLength = 350
     var reviewDesc = places.review.slice(0, maxDescLength)
     reviewDesc = reviewDesc.slice(0, Math.min(reviewDesc.length, reviewDesc.lastIndexOf(" ")))
 
 
     const dispatch = useDispatch();
-    const history = useHistory();
-    var user = useSelector(state => state.userInfo);
-    if (user && Object.keys(user).length === 0) {
-    } else {
-        user = JSON.parse(user);
-    }
+    const history = useHistory();    
     const loggedIn = useSelector(state => state.loggedIn);
-    const Likes = useSelector(state => state.Like);
-
+    const Likes= useSelector(state => state.Like);
     const render = () => {
         history.push(`/currentreview/${places._id}`);
     }
@@ -77,9 +78,24 @@ export default function ReviewCard({ places }) {
         setOpen(false);
     };
 
-    const IncreaseLike = (e) => {
-        dispatch(increaseLike(places._id));
-        setLikes(likes + 1);
+      useEffect(() => {
+        setLikes(places.likes)
+        if(user && Object.keys(user).length===0);else {
+
+            if(user.likes.includes(places._id)){
+                setalreadyLiked(true);
+            }else 
+                setalreadyLiked(false);  
+        }
+      }, [places.likes])
+ 
+
+    const IncreaseLike = (e) =>{
+
+        dispatch(increaseLike({
+            "placeId":places._id,
+            "userId":user._id
+        }));
     }
 
     const handelUpdate = (e) => {
@@ -139,13 +155,13 @@ export default function ReviewCard({ places }) {
                 {
                     loggedIn ? (
                         <IconButton aria-label="add to favorites" onClick={IncreaseLike}>
-                            <FavoriteIcon />
+                            {alreadyLiked ?(<FavoriteIcon  color="error"/>):(  <FavoriteIcon  />)}
                             {likes}
                         </IconButton>
                     ) : (
                         <>
-                            <IconButton aria-label="add to favorites" onClick={() => setOpen(true)}>
-                                <FavoriteIcon />
+                            <IconButton aria-label="add to favorites"  onClick={()=>setOpen(true)}>
+                                <FavoriteIcon/>
                                 {likes}
                             </IconButton>
                             <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>

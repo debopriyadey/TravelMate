@@ -15,6 +15,7 @@ import history from './history'
 import {setCurrentUser} from './actions/actions'
 import Search from './components/Search.js'
 import UpdateReview from './components/UpdateReview.js';
+import { ProtectedRoute } from './components/ProtectedRoutes';
 function App() {
     const dispatch=useDispatch();
     if(localStorage.jwt){
@@ -26,26 +27,6 @@ function App() {
         }
     , [dispatch])
 
-
-    // const renderRoutes = () => {
-    //     if (localStorage.getItem("jwt") === null) {
-    //         return [
-    //             <Route path="/" exact component={Home} />,
-    //             <Route path="/login" component={Login} />,
-    //             <Route path="/signup" component={SignUp} />,
-    //             <Route path="/find" component={Find} />
-    //         ]
-    //     }
-    //     else {
-    //         return [
-    //             <Route path="/" exact component={Home} />,
-    //             <Route path="/createreview" component={ReviewForm} />,
-    //             <Route path="/myreviews" component={MyReviews} />,
-    //             <Route path="/find" component={Find} />
-    //         ]
-    //     }
-    // }
-
     return (
         <Router history={history}>
             <div className="App">
@@ -55,10 +36,10 @@ function App() {
                     <Route path="/signup" component={SignUp} />
                     <Route path="/find" component={Find} />
                     <Route path="/search" component={Search} />
-                    <Route path="/createreview" component={ReviewForm} />
-                    <Route path="/myreviews" component={MyReviews} />
+                    <ProtectedRoute path="/createreview" component={ReviewForm} />
+                    <ProtectedRoute path="/myreviews" component={MyReviews} />
                     <Route path="/currentreview" component={CurrentReview} />
-                    <Route path="/update" component={UpdateReview} />
+                    <ProtectedRoute path="/update" component={UpdateReview} />
                 </Switch>
             </div>
         </Router>

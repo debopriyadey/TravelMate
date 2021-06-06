@@ -8,23 +8,23 @@ import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 
 
 import "../css/reviewForm.css";
+import NavBar from './NavBar'
 import { updateReview } from '../api';
 
 const useStyles = makeStyles(theme => ({
     root: {
         backgroundColor: '#1f1f1f',
-        // backgroundImage: `url(${formimg})`,
-        // backgroundSize: "cover",
-        // backgroundRepeat: "no-repeat",
-        // backgroundAttachment: "fixed",
-        // zIndex: '-100',
+        height: '100vh',
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'space-around',
 
     },
     bgimage: {
 
     },
     formContainer2: {
-        marginTop: '50px',
+        marginTop: '0 auto',
         '& .MuiOutlinedInput-input': {
             color: 'white',
         },
@@ -101,17 +101,15 @@ export default function UpdateReview() {
         history.push('/myreviews');
     }
 
-    const handeleSubmit = async(e) => {
+    const handeleSubmit = async (e) => {
         e.preventDefault();
-        const { data } =  await updateReview(toUpdate._id, reviewData)
+        const { data } = await updateReview(toUpdate._id, reviewData)
         render()
     }
 
     return (
         <div className={classes.root}>
-            <div className={classes.bgimage}></div>
-            {/* <Paper className={classes.paper}> */}
-            <hr style={{ backgroundColor: '#806ac1', margin: 0 }} />
+            <NavBar />
             <div className={classes.formContainer}>
                 <Paper className={classes.paper}>
                     <Grid item xs={12} sm={12}>
@@ -152,7 +150,7 @@ export default function UpdateReview() {
                                     />
                                 </FormControl>
                                 <FormControl variant="outlined" item className={classes.bottomfield}>
-                                <p className={classes.formheadings}> State </p>
+                                    <p className={classes.formheadings}> State </p>
                                     {/* <InputLabel id="demo-simple-select-filled-label"> State </InputLabel> */}
                                     <Select
                                         id="tags"

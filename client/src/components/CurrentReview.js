@@ -8,13 +8,13 @@ import FavoriteIcon from '@material-ui/icons/Favorite';
 import ShareIcon from '@material-ui/icons/Share';
 import { Link } from 'react-router-dom';
 import { currentReview } from '../api/index';
+import NavBar from './NavBar';
 
 const useStyles = makeStyles({
     root: {
         color: 'black',
         background: 'white',
         maxHeight: "435",
-        marginTop: '20px',
     },
 
     media: {
@@ -63,6 +63,8 @@ export default function CurrentReview() {
         } else {
             return [
                 <>
+                    <NavBar />
+                    <br />
                     <div className={classes.media}>
                         <img src={item.selectedFile} alt={item.title} className={classes.media} />
                     </div>
@@ -85,10 +87,6 @@ export default function CurrentReview() {
                         </Typography>
                     </CardContent>
                     <CardActions>
-                        <IconButton aria-label="add to favorites">
-                            <FavoriteIcon />
-                            {item.likes}
-                        </IconButton>
                         <IconButton aria-label="share">
                             <ShareIcon />
                         </IconButton>

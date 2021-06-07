@@ -119,10 +119,10 @@ const useStyles = makeStyles((theme) => ({
 
           </Grid>
 
-          <FormControlLabel
+          {/* <FormControlLabel
             control={<Checkbox value="remember" color="primary" />}
             label="Remember me"
-          />
+          /> */}
 
 
           <Button
@@ -136,11 +136,6 @@ const useStyles = makeStyles((theme) => ({
              {signinData.submitting?('Submitting...'):('Sign In')}
           </Button>
           <Grid container>
-            <Grid item xs>
-              <Link to="#" variant="body2">
-                Forgot password?
-              </Link>
-            </Grid>
             <Grid item>
                 <Link to="/signup" variant="body2" onClick={()=>{dispatch({type:'SIGNUPTOLOGIN'})}}>
                  <p>Don't have an account? Sign Up</p> 

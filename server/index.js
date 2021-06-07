@@ -19,9 +19,9 @@ app.use(express.json({limit: "30mb", extended: true}))
 app.use(express.urlencoded({limit: "30mb", extended: true}))
 app.use(cors())
 // simulate delay response
-// app.use((req, res, next) => { 
-//   setTimeout(() => next(), 5000);
-// });
+app.use((req, res, next) => { 
+  setTimeout(() => next(), 1000);
+});
 
 app.use('/fetchreviews', getreviews);
 app.use('/createreviews', createreview);

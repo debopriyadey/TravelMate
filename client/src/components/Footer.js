@@ -53,9 +53,8 @@ export default function Footer() {
             <Container className={classes.paper}>
                 <Grid container spacing={2}>
                     <Grid item>
-                        <Typography gutterBottom variant="subtitle1">
-                            <h1>About</h1>
-                            <p>
+                            <Typography variant="h5">About</Typography>
+                            <Typography>
                                 Lorem Ipsum is simply dummy text of the printing and typesetting industry.
                                 Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
                                 when an unknown printer took a galley of type and scrambled it to make a type
@@ -64,25 +63,24 @@ export default function Footer() {
                                 the 1960s with the release of Letraset sheets containing Lorem Ipsum passages,
                                 and more recently with desktop publishing software like Aldus PageMaker including
                                 versions of Lorem Ipsum.
-                            </p>
-                        </Typography>
+                            </Typography>
                     </Grid>
                     <Grid container spacing={1}>
                         <Grid item xs={12} sm={6} md={3}>
                             <Grid className={classes.paper}>
-                                <Typography gutterBottom variant="subtitle1">
-                                    <h4 style={{borderBottom: 'groove'}}>Meet The Team</h4>
+                                <Typography gutterBottom variant="subtitle1" style={{borderBottom: 'groove'}}>
+                                    Meet The Team
                                 </Typography>
-                                <Typography variant="body2" gutterBottom>
                                     <h6><strong>DEBOPRIYA DEY</strong></h6>
+                                <Typography variant="body2" gutterBottom>
                                     <small>
                                         <a href="mailto:debodey158@gmail.com" className={classes.link} style={{textDecoration: 'none'}}> 
                                             <EmailIcon></EmailIcon> debodey158@gmail.com
                                         </a>
                                     </small>
                                 </Typography>
-                                <Typography variant="body2" gutterBottom>
                                     <h6><strong>GOURAV MODI</strong></h6>
+                                <Typography variant="body2" gutterBottom>
                                     <small>
                                         <a href="mailto:gouravmodi321@gmail.com" className={classes.link} style={{textDecoration: 'none'}}> 
                                             <EmailIcon></EmailIcon> gouravmodi321@gmail.com
@@ -93,9 +91,7 @@ export default function Footer() {
                         </Grid>
                         <Grid item xs={12} sm={6} md={6}>
                             <Grid className={classes.paper}>
-                                <Typography variant="subtitle1">
-                                    <h4 style={{ textAlign: 'center' }}>Follow Us</h4>
-                                </Typography>
+                                <Typography variant="subtitle1" style={{ textAlign: 'center' }}>Follow Us</Typography>
                                 <span className={classes.socialIcons}>
                                     <IconButton>
                                         <a href="https://www.instagram.com/" target="_blanck" title="facebook" className={classes.link}><FacebookIcon></FacebookIcon></a>
@@ -128,9 +124,7 @@ export default function Footer() {
                     </Grid>
                 </Grid>
                 <hr style={{ backgroundColor: 'white' }} />
-                <Typography variant="body2" gutterBottom>
-                    <h5 style={{ textAlign: 'center' }}>&copy; TravellMate </h5>
-                </Typography>
+                <Typography variant="body2" gutterBottom  style={{ textAlign: 'center' }}>&copy; TravellMate </Typography>
             </Container>
         </div>
     );

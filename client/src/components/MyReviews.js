@@ -72,10 +72,8 @@ export default function MyReviews() {
             <div className={classes.container}>
                 <Paper elevation={3} className={classes.paper} >
                     <div className={classes.userInfo}>
-                        <Typography>
-                            <h1> <strong> {user.name} </strong>  </h1>
-                            <h3> Reviews : {reviewsPost.length} </h3>
-                        </Typography>
+                        <Typography variant="h4"><strong> {user.name} </strong>  </Typography> 
+                            <Typography variant="h5"> Reviews : {reviewsPost.length}  </Typography>
                     </div>
                 </Paper>
                 <div className={classes.content} >

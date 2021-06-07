@@ -110,7 +110,6 @@ export default function ReviewCard({ places }) {
         window.location.reload()
     }
 
-    console.log(typeof (places.creatorName))
 
     return (
         <Card className={classes.root}>

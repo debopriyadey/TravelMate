@@ -88,6 +88,7 @@ const useStyles = makeStyles(theme => ({
 
 
 export default function ReviewForm() {
+    const t= true;
     const userInfo = useSelector(state => JSON.parse(state.userInfo))
     const initialFValues = {
         title: '',
@@ -126,8 +127,9 @@ export default function ReviewForm() {
         }, 3000);
 
     }
-
+    let item= true;
     return (
+        
         <div className={classes.root}>
             <div className={classes.bgimage}></div>
             {/* <Paper className={classes.paper}> */}
@@ -137,7 +139,7 @@ export default function ReviewForm() {
                     <Grid item xs={12} sm={12}>
                         <form className={classes.formContainer2} noValidate onSubmit={handeleSubmit}>
                             <Container maxWidth="sm">
-                                <Typography className={classes.heading}> <h1> Create Review </h1>  </Typography>
+                                <Typography className={classes.heading} variant="h5">  Create Review   </Typography>
                                 <FormControl fullWidth>
                                     <p className={classes.formheadings}> Title </p>
                                     <TextField
@@ -214,7 +216,7 @@ export default function ReviewForm() {
                                     />
                                 </FormControl>
 
-                                <FormControl item className={classes.bottomfield}>
+                                <FormControl  className={classes.bottomfield}>
                                     <p className={classes.formheadings}> Upload Photo </p>
                                     <div className={classes.fileInput}>
                                         <Filebase
@@ -224,7 +226,7 @@ export default function ReviewForm() {
                                         />
                                     </div>
                                 </FormControl>
-                                <FormControl variant="outlined" item className={classes.bottomfield}>
+                                <FormControl variant="outlined"  className={classes.bottomfield}>
                                 <p className={classes.formheadings}> State </p>
                                     {/* <InputLabel id="demo-simple-select-filled-label"> State </InputLabel> */}
                                     <Select

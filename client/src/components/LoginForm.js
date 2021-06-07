@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -46,20 +46,25 @@ const useStyles = makeStyles((theme) => ({
 }));
 
  function Login() {
-  const message=useSelector(state=>state.message.error)
+  const message=useSelector(state=>state.message)
   const [signinData, setData] = useState({
     email: "",
     password: "",
-    showError:false
+    showError:false,
+    error: "",
+    submitting:false,
   })
   const dispatch = useDispatch()
-  // dispatch({type:'SIGNUPTOLOGIN'});
   const handeleSubmit = (e) => {
     e.preventDefault();
+    setData({...signinData, submitting:true});
     dispatch(signin(signinData)) 
-    setData({ ...signinData, showError: true })
   }
-  // console.log(user)
+  useEffect(() => {
+    if(message!=="" && message){
+      setData({...signinData,showError:true,error:message.error,submitting:false});
+    }
+  }, [message])
  
   const classes = useStyles();
 
@@ -78,7 +83,8 @@ const useStyles = makeStyles((theme) => ({
         className={  signinData.showError ? classes.error_msg_style: classes.error_msg }  
         severity="error" 
         variant="filled" 
-        onClose={(e) => setData({ ...signinData, showError: false })}>{message}
+        onClose={(e) => setData({ ...signinData, showError: false })}>
+          {signinData.error}
       </Alert>
         
         <form className={classes.form} noValidate onSubmit={handeleSubmit}>
@@ -125,19 +131,20 @@ const useStyles = makeStyles((theme) => ({
             variant="contained"
             color="primary"
             className={classes.submit}
+            disabled = {signinData.submitting}
           >
-            Sign In
+             {signinData.submitting?('Submitting...'):('Sign In')}
           </Button>
           <Grid container>
             <Grid item xs>
-              <Link href="#" variant="body2">
+              <Link to="#" variant="body2">
                 Forgot password?
               </Link>
             </Grid>
             <Grid item>
-              <Link to="/signup" variant="body2">
-                {"Don't have an account? Sign Up"}
-              </Link>
+                <Link to="/signup" variant="body2" onClick={()=>{dispatch({type:'SIGNUPTOLOGIN'})}}>
+                 <p>Don't have an account? Sign Up</p> 
+                </Link>
             </Grid>
           </Grid>
         </form>

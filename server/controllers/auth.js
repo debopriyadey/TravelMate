@@ -2,17 +2,20 @@ import Users from '../models/users.js';
 import jwt from 'jsonwebtoken';
 import JWT_SECRET from '../keys.js';
 import bcrypt from 'bcryptjs';
+import validator from 'validator';
 
 export const signup = (req, res) => {
     const { name, email, password } = req.body;
 
     if (!email || !name || !password) {
-        return res.status(422).json({ error: "please enter all fields" });
+        return res.status(422).json({ error: "Please enter all fields" });
+    }else if(!validator.isEmail(email)){
+        return res.status(422).json({error: "Enter valid email"})
     }
     Users.findOne({ email: email })
         .then((savedUser) => {
             if (savedUser) {
-                return res.status(422).json({ error: "email already registered" });
+                return res.status(422).json({ error: "Email already registered" });
             }
             bcrypt.hash(password, 12)
                 .then(hashedpassword => {
@@ -24,7 +27,7 @@ export const signup = (req, res) => {
 
                     user.save()
                         .then(user => {
-                            res.json({ message: "signup success" });
+                            res.status(201).json({ message: "Signup success" });
                         })
                         .catch((err) => {
                             console.log(err);
@@ -43,12 +46,14 @@ export const signin = (req, res) => {
     const { email, password } = req.body;
 
     if (!email || !password) {
-        return res.status(422).json({ error: "please enter all fields" });
+        return res.status(422).json({ error: "Please enter all fields" });
+    }else if(!validator.isEmail(email)){
+        return res.status(422).json({error: "Enter valid email"})
     }
     Users.findOne({ email: email })
         .then((savedUser) => {
             if (!savedUser) {
-                return res.status(422).json({ error: "invalid" });
+                return res.status(401).json({ error: "Invalid credentials" });
             }
             bcrypt.compare(password, savedUser.password)
                 .then((doMatch) => {
@@ -58,7 +63,7 @@ export const signin = (req, res) => {
                         res.json({ token, savedUser });
                     }
                     else {
-                        return res.status(412).json({ error: "invalid" });
+                        return res.status(401).json({ error: "Invalid credentials" });
                     }
                 })
                 .catch((err) => {

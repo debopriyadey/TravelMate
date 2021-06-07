@@ -108,7 +108,8 @@ export default function Header() {
     }
     const renderList = () => {
         if (!loggedIn) {
-            return [
+            return (
+                <React.Fragment>
                 <Link to="/login" className={classes.icon} style={{ textDecoration: 'none' }}>
                     <Button varient="contained" color="primary">
                         <strong>Login</strong>
@@ -119,10 +120,12 @@ export default function Header() {
                         <strong>SignUp</strong>
                     </Button>
                 </Link>
-            ]
+                </React.Fragment>
+            )
         }
         else {
-            return [
+            return (
+            <React.Fragment>
                 <Link to="/myreviews" className={classes.icon} style={{ textDecoration: 'none' }}>
                     <Button varient="contained" color="primary">
                         <strong>My Reviews</strong>
@@ -133,7 +136,8 @@ export default function Header() {
                         <strong>LogOut</strong>
                     </Button>
                 </Link>
-            ]
+            </React.Fragment>
+            )
         }
     }
 
@@ -142,13 +146,11 @@ export default function Header() {
     return (
         <div className={classes.root} id="header">
             <Navbar color="dark" dark expand="md" className={classes.appbar}>
-                <NavbarBrand className="mx-5">
-                    <Link to="/" style={{ textDecoration: 'none', color: 'inherit' }}>
+                    <Link to="/" style={{ textDecoration: 'none', color: 'white' }} className="mx-5">
                         <h1 className={classes.appbarTitle}>
                             Travell<span className={classes.colorText}>Mate</span>
                         </h1>
                     </Link>
-                </NavbarBrand>
                 <NavbarToggler onClick={toggle} />
                 <Collapse isOpen={isOpen} navbar className="mr-4">
                     <Nav className="ml-auto" navbar>

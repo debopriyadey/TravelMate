@@ -60,16 +60,18 @@ const initialState = {
         case 'CREATE_REVIEW':
             return {
                 ...state,
+                allreviews: [...state.allreviews, action.payload],
                 myreviews: [ ...state.myreviews , action.payload]
             };
         case 'CURRENT_REVIEW':
-            return {
+            return { 
                 ...state,
                 currentReview: action.payload
             };
         case 'IncreaseLike':
             const reviews=[];
             const userInfo=JSON.parse(state.userInfo);
+            // changing all reviews
             state.allreviews.map((review)=>{
                 if(review._id===action.payload.postId){
                     if(action.payload.message==="Increase Like"){
@@ -84,11 +86,27 @@ const initialState = {
                 }else
                     reviews.push(review);
             });
+            // chainging my reviews
+            const newMyreviews=[]
+            state.myreviews.map((review)=>{
+                if(review._id===action.payload.postId){
+                    if(action.payload.message==="Increase Like"){
+                        newMyreviews.push({...review,"likes":review.likes+1});
+                    }else if(action.payload.message==="Decrease Like"){
+                        newMyreviews.push({...review,"likes":review.likes-1});
+                    }else {
+                        newMyreviews.push(review);
+                    }
+                }else
+                newMyreviews.push(review);
+            });
             localStorage.setItem("users", JSON.stringify(userInfo))
             return {
                 ...state,
                 allreviews:reviews,
-                userInfo:JSON.stringify(userInfo)
+                myreviews:newMyreviews,
+                userInfo:JSON.stringify(userInfo),
+            
             };
         default:
             return state;

@@ -60,6 +60,7 @@ export const signin = (users) => async (dispatch) => {
     try {
         // const history = useHistory()
         const { data } = await api.signin(users);
+        console.log(data," action");
         localStorage.setItem("jwt", data.token);
         localStorage.setItem("users", JSON.stringify(data.savedUser))
         let useinfo = {}
@@ -72,8 +73,7 @@ export const signin = (users) => async (dispatch) => {
         dispatch({ type: 'SIGNIN', payload: users });
         
     } catch (error) {
-
-        dispatch({ type: 'SIGNINFAILS', payload: error});
+        dispatch({ type: 'SIGNINFAILS', payload: error.response.data});
     }
 }
 

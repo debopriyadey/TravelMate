@@ -75,18 +75,18 @@ const useStyles = makeStyles((theme) => ({
 export default function Header() {
     const renderLink = () => {
         if (localStorage.getItem("jwt") === null) {
-            return [
+            return (
                 <Link to="/login" style={{ textDecoration: 'none' }}>
                     Create
                 </Link>
-            ]
+            )
         }
         else {
-            return [
+            return (
                 <Link to="/createreview" style={{ textDecoration: 'none' }}>
                     Create
                 </Link>
-            ]
+            )
         }
     }
     const classes = useStyles();
@@ -96,7 +96,7 @@ export default function Header() {
     }, []);
     return (
         <div>
-            <NavBar />
+            <NavBar/>
             <div className={classes.root} id="header">
                 <Collapse
                     in={checked}

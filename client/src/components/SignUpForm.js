@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -44,24 +44,28 @@ const useStyles = makeStyles((theme) => ({
 
 function SignUp() {
   //const history = useHistory()
-  const message=useSelector(state=>state.signupMessage.error)
-  // const user = useSelector((state) => state)
-
+  let message=useSelector(state=>state.signupMessage)
   const [postData, setData] = useState({
     name: "",
     email: "",
     password: "",
-    showError:false
+    showError:false,
+    error: "",
+    submitting:false,
   })
 
   const dispatch = useDispatch()
 
   const handeleSubmit = (e) => {
+    setData({...postData, submitting:true});
     e.preventDefault();
     dispatch(signup(postData))
-    setData({ ...setData, showError: true })
   }
-  // console.log(user)
+  useEffect(() => {
+    if(message!=="" && message){
+      setData({...postData,showError:true,error:message.error,submitting:false});
+    }
+  }, [message])
 
 
   const classes = useStyles();
@@ -78,7 +82,7 @@ function SignUp() {
           Sign up
         </Typography>
 
-        <Alert className={  postData.showError ? classes.error_msg_style: classes.error_msg }  severity="error" variant="filled" onClose={(e) => setData({ ...postData, showError: false })}>{message}</Alert>
+        <Alert className={  postData.showError ? classes.error_msg_style: classes.error_msg }  severity="error" variant="filled" onClose={(e) => setData({ ...postData, showError: false })}>{postData.error}</Alert>
 
 
         <form className={classes.form} autoComplete="off" noValidate onSubmit={handeleSubmit}>
@@ -134,8 +138,9 @@ function SignUp() {
             variant="contained"
             color="primary"
             className={classes.submit}
+            disabled = {postData.submitting}
           >
-            Sign Up
+            {postData.submitting?('Submitting...'):('Sign Up')}
           </Button>
           <Grid container justify="flex-end">
             <Grid item>

@@ -3,6 +3,6 @@ import { getPostByTag } from '../../controllers/reviews.js';
 
 const router = express.Router();
 
-router.post('/', getPostByTag);
+router.get('/', getPostByTag);
 
 export default router;

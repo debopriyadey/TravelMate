@@ -94,7 +94,7 @@ export const searchReview=( req,res)=>{
 export const getPostByTag=(req,res)=>{
     const reg=new RegExp('^' + req.body.tags,'i')
    
-    Review.find({ tags: {$all: [req.body.tags]} })
+    Review.find({ tags: {$all: [reg]} })
     .then((Reviews) => {
         res.json({Reviews});
     }) 

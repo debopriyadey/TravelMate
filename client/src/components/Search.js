@@ -6,6 +6,7 @@ import { Grid, TextField, makeStyles } from '@material-ui/core';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Reviews from './Reviews';
+import { useHistory } from 'react-router-dom';
 
 import searchbg from '../img/searchimg.jpg'
 import NavBar from './NavBar';
@@ -16,14 +17,8 @@ const useStyles = makeStyles((theme) => ({
     overflow: 'hidden',
   },
 
-  // textFiled: {
-  //   overflow: 'hidden',
-  //   zIndex: -1
-  // },
 
   container: {
-    // display: 'flex',
-    // alignItems: 'center',
     justifyContent: 'center',
     marginTop: "5%",
   },
@@ -110,30 +105,44 @@ const useStyles = makeStyles((theme) => ({
 
 )
 
-export default function Search() {
+export default function Search(props) {
+  let history = useHistory();
+ 
+  const [tagValue, setTag] = React.useState("");
   const [open, setOpen] = React.useState(false);
   const [options, setOptions] = React.useState([]);
   const [post, setPost] = React.useState([]);
   const loading = open && options.length === 0;
 
   const getPostByTag = (tag) => {
-
     const search = {
       "tags": tag
     }
+    console.log(search);
     axios.post('http://localhost:5000/getpostbytag', search).then(res => {
       const data = res.data.Reviews;
+      console.log(data);
       setPost(data);
+      if(tag!=null && tag!=="")
+        history.push(`/search?q=${tag}`);
     }).catch((error) => {
       console.log(error)
     })
   }
 
   React.useEffect(() => {
+    let queryTag=props.location.search.split("=")[1]
+    if(queryTag){
+      queryTag = props.location.search.split("=")[1].replace("%20"," ");
+      setTag(queryTag);
+    }
+    
+    getPostByTag(queryTag);
     let active = true;
     if (!loading) {
       return undefined;
     }
+ 
     const search = {
       "tags": ""
     }
@@ -142,6 +151,9 @@ export default function Search() {
     }).catch((error) => {
       console.log(error)
     })
+   
+    
+
     return () => {
       active = false;
     };
@@ -164,6 +176,8 @@ export default function Search() {
             <div className={classes.searchContent}>
               <h1 className={classes.searchText}> Search a review of your destination </h1>
               <Autocomplete
+                freeSolo={true}
+                value={tagValue}
                 className={classes.inputInput}
                 id="asynchronous-demo"
                 style={{ width: 300 }}
@@ -176,10 +190,9 @@ export default function Search() {
                 }}
                 onChange={(event, value) => getPostByTag(value)}
                 onKeyPress={(e) => {
-                  if (e.key === 'Enter') {
+                  console.log(e)
+                  if(e.code === "Enter")
                     getPostByTag(e.target.value)
-
-                  }
                 }}
                 options={options}
                 loading={loading}

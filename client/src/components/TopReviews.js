@@ -8,7 +8,7 @@ export default function TopReviews() {
     return (
         <div id="top-reviews">
             <div>
-                <h1 style={{ textAlign: 'center', color: 'white' }}> Top Reviews </h1>
+                <h1 className="mt-4 text-center"> Top Reviews </h1>
             </div>
             <Reviews reviews={allreviews} />
         </div>

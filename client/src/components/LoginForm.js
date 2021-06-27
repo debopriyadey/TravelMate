@@ -15,7 +15,7 @@ import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import { signin } from '../actions/actions';
-
+import NavBar from './NavBar';
 import Alert from '@material-ui/lab/Alert';
 
 const useStyles = makeStyles((theme) => ({
@@ -36,124 +36,120 @@ const useStyles = makeStyles((theme) => ({
   submit: {
     margin: theme.spacing(0, 0, 2),
   },
-  error_msg_style:{
+  error_msg_style: {
     padding: '0 16px',
-    outline:'none'
+    outline: 'none'
   },
-  error_msg:{
-    display:'none'
+  error_msg: {
+    display: 'none'
   }
 }));
 
- function Login() {
-  const message=useSelector(state=>state.message)
+function Login() {
+  const message = useSelector(state => state.message)
   const [signinData, setData] = useState({
     email: "",
     password: "",
-    showError:false,
+    showError: false,
     error: "",
-    submitting:false,
+    submitting: false,
   })
   const dispatch = useDispatch()
   const handeleSubmit = (e) => {
     e.preventDefault();
-    setData({...signinData, submitting:true});
-    dispatch(signin(signinData)) 
+    setData({ ...signinData, submitting: true });
+    dispatch(signin(signinData))
   }
   useEffect(() => {
-    if(message!=="" && message){
-      setData({...signinData,showError:true,error:message.error,submitting:false});
+    if (message !== "" && message) {
+      setData({ ...signinData, showError: true, error: message.error, submitting: false });
     }
   }, [message])
- 
+
   const classes = useStyles();
 
   return (
-    <Container component="main" maxWidth="xs">
-      <CssBaseline />
-      <div className={classes.paper}>
-        <Avatar className={classes.avatar}>
-          <LockOutlinedIcon />
-        </Avatar>
-        <Typography component="h1" variant="h5">
-          Sign in
-        </Typography>
-        
-      <Alert 
-        className={  signinData.showError ? classes.error_msg_style: classes.error_msg }  
-        severity="error" 
-        variant="filled" 
-        onClose={(e) => setData({ ...signinData, showError: false })}>
-          {signinData.error}
-      </Alert>
-        
-        <form className={classes.form} noValidate onSubmit={handeleSubmit}>
-          <Grid container spacing={2}>
-           
-           <Grid item xs={12}>
-           <TextField
-            name="email"
-            variant="outlined"
-            autoComplete="email"
-            required
-            fullWidth
-            id="email"
-            label="Email Address"
-            value={signinData.email}
-            onChange={(e) => setData({ ...signinData, email: e.target.value })}
-          />
-           </Grid>
-           <Grid item xs={12}>
-           <TextField
-            name="password"
-            variant="outlined"
-            required
-            fullWidth
-            label="Password"
-            type="password"
-            id="password"
-            value={signinData.password}
-            onChange={(e) => setData({ ...signinData, password: e.target.value })}
-          />
-           </Grid>
+    <>
+      <NavBar />
+      <Container component="main" maxWidth="xs">
+        <CssBaseline />
+        <div className={classes.paper}>
+          <Avatar className={classes.avatar}>
+            <LockOutlinedIcon />
+          </Avatar>
+          <Typography component="h1" variant="h5">
+            Sign in
+          </Typography>
 
-          </Grid>
+          <Alert
+            className={signinData.showError ? classes.error_msg_style : classes.error_msg}
+            severity="error"
+            variant="filled"
+            onClose={(e) => setData({ ...signinData, showError: false })}>
+            {signinData.error}
+          </Alert>
 
-          {/* <FormControlLabel
-            control={<Checkbox value="remember" color="primary" />}
-            label="Remember me"
-          /> */}
+          <form className={classes.form} noValidate onSubmit={handeleSubmit}>
+            <Grid container spacing={2}>
 
-
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            color="primary"
-            className={classes.submit}
-            disabled = {signinData.submitting}
-          >
-             {signinData.submitting?('Submitting...'):('Sign In')}
-          </Button>
-          <Grid container>
-            <Grid item>
-                <Link to="/signup" variant="body2" onClick={()=>{dispatch({type:'SIGNUPTOLOGIN'})}}>
-                 <p>Don't have an account? Sign Up</p> 
-                </Link>
+              <Grid item xs={12}>
+                <TextField
+                  name="email"
+                  variant="outlined"
+                  autoComplete="email"
+                  required
+                  fullWidth
+                  id="email"
+                  label="Email Address"
+                  value={signinData.email}
+                  onChange={(e) => setData({ ...signinData, email: e.target.value })}
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  name="password"
+                  variant="outlined"
+                  required
+                  fullWidth
+                  label="Password"
+                  type="password"
+                  id="password"
+                  value={signinData.password}
+                  onChange={(e) => setData({ ...signinData, password: e.target.value })}
+                />
+              </Grid>
             </Grid>
-          </Grid>
-        </form>
-      </div>
-    </Container>
+            <br />
+            <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              color="primary"
+              className={classes.submit}
+              disabled={signinData.submitting}
+            >
+              {signinData.submitting ? ('Submitting...') : ('Sign In')}
+            </Button>
+            <Grid container>
+              <Grid item>
+                <Link to="/signup" variant="body2" onClick={() => { dispatch({ type: 'SIGNUPTOLOGIN' }) }}>
+                  <p>Don't have an account? Sign Up</p>
+                </Link>
+              </Grid>
+            </Grid>
+          </form>
+        </div>
+      </Container>
+    </>
   );
 }
 
 export default function LoginForm() {
-  const log=useSelector(state=>state.loggedIn)
-  const success=log 
+  const log = useSelector(state => state.loggedIn)
+  const success = log
   return (
     <>
-      {!success?<Login/>:<Redirect to='/' />}
+      {!success ? <Login /> : <Redirect to='/' />}
     </>
   )
 }

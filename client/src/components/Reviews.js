@@ -16,7 +16,7 @@ const useStyles = makeStyles((theme) => ({
 
     container: {
         justifyContent: "center",
-        marginTop: "5%"
+        marginTop: "2%"
     },
 
 }));

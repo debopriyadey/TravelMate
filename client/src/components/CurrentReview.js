@@ -86,11 +86,6 @@ export default function CurrentReview() {
                             {item.review}
                         </Typography>
                     </CardContent>
-                    <CardActions>
-                        <IconButton aria-label="share">
-                            <ShareIcon />
-                        </IconButton>
-                    </CardActions>
                     <Link to='/' style={{ textDecoration: 'none' }}>
                         <Button
                             className={classes.button}

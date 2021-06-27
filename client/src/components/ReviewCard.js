@@ -18,12 +18,19 @@ import { deleteReview } from '../api/index';
 function Alert(props) {
     return <MuiAlert elevation={6} variant="filled" {...props} />;
 }
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
     root: {
         color: 'black',
+        minWidth: 434,
         maxWidth: 435,
         background: 'white',
         margin: '20px',
+        borderRadius: '10px',
+        boxShadow: '6px 12px 18px 3px #888888',
+        [theme.breakpoints.down('sm')]: {
+            minWidth: 345,
+            maxWidth: 346,
+        },
     },
 
     media: {
@@ -40,43 +47,27 @@ const useStyles = makeStyles({
         fontSize: '1.1rem',
         color: 'black',
     },
-});
+}));
 
 export default function ReviewCard({ places }) {
     const classes = useStyles();
+    const dispatch = useDispatch();
+    const history = useHistory();
+    const loggedIn = useSelector(state => state.loggedIn);
+    const Likes = useSelector(state => state.Like);
     let user = useSelector((state) => state.userInfo);
     console.log(user)
     if (user && Object.keys(user).length === 0);
     else {
         user = JSON.parse(user);
     }
-    const [open, setOpen] = useState(false);
+    const [openLogin, setOpenLogin] = useState(false);
+    const [openCopy, setOpenCopy] = useState(false);
     const [alreadyLiked, setalreadyLiked] = useState(false);
     const [likes, setLikes] = useState(places.likes);
-    var maxDescLength = 350
+    var maxDescLength = 270
     var reviewDesc = places.review.slice(0, maxDescLength)
     reviewDesc = reviewDesc.slice(0, Math.min(reviewDesc.length, reviewDesc.lastIndexOf(" ")))
-
-
-    const dispatch = useDispatch();
-    const history = useHistory();
-    const loggedIn = useSelector(state => state.loggedIn);
-    const Likes = useSelector(state => state.Like);
-    const render = () => {
-        history.push(`/currentreview/${places._id}`);
-    }
-
-    const handelSubmit = async (e) => {
-        sessionStorage.setItem("currentreview", JSON.stringify(places))
-        render()
-    }
-
-    const handleClose = (event, reason) => {
-        if (reason === 'clickaway') {
-            return;
-        }
-        setOpen(false);
-    };
 
     useEffect(() => {
         setLikes(places.likes)
@@ -89,6 +80,35 @@ export default function ReviewCard({ places }) {
         }
     }, [places.likes])
 
+    const render = () => {
+        history.push(`/currentreview/${places._id}`);
+    }
+
+
+    const handelSubmit = async (e) => {
+        sessionStorage.setItem("currentreview", JSON.stringify(places))
+        render()
+    }
+
+    const handleCloseLogin = (event, reason) => {
+        if (reason === 'clickaway') {
+            return;
+        }
+        setOpenLogin(false);
+    };
+
+    const handleCloseCopy = (event, reason) => {
+        if (reason === 'clickaway') {
+            return;
+        }
+        setOpenCopy(false);
+    };
+
+    const handleCopy = (e) => {
+        e.preventDefault()
+        navigator.clipboard.writeText(`https://travelmate/currentreview/${places._id}`)
+        setOpenCopy(true)
+    }
 
     const IncreaseLike = (e) => {
 
@@ -153,21 +173,26 @@ export default function ReviewCard({ places }) {
                         </IconButton>
                     ) : (
                         <>
-                            <IconButton aria-label="add to favorites" onClick={() => setOpen(true)}>
+                            <IconButton aria-label="add to favorites" onClick={() => setOpenLogin(true)}>
                                 <FavoriteIcon />
                                 {likes}
                             </IconButton>
-                            <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
-                                <Alert onClose={handleClose} severity="error">
+                            <Snackbar open={openLogin} autoHideDuration={6000} onClose={handleCloseLogin}>
+                                <Alert onClose={handleCloseLogin} severity="error">
                                     Please Login
-                                 </Alert>
+                                </Alert>
                             </Snackbar>
                         </>
                     )
                 }
 
-                <IconButton aria-label="share">
+                <IconButton aria-label="share" onClick={handleCopy}>
                     <ShareIcon />
+                    <Snackbar open={openCopy} autoHideDuration={6000} onClose={handleCloseCopy}>
+                        <Alert onClose={handleCloseCopy} severity="success">
+                            Link copied to clipboard
+                        </Alert>
+                    </Snackbar>
                 </IconButton>
                 {
                     loggedIn && user._id == places.creator ? (
@@ -175,7 +200,7 @@ export default function ReviewCard({ places }) {
                             <Button onClick={handleDelete} size="small" color="primary" className="ml-auto">
                                 <DeleteIcon title="delete" />
                             </Button>
-                            <Button onClick={handelUpdate} size="small" color="primary" className="" style={{margin: '-15px'}}>
+                            <Button onClick={handelUpdate} size="small" color="primary" className="" style={{ margin: '-15px' }}>
                                 <UpdateIcon title="update" />
                             </Button>
                         </>

@@ -1,13 +1,7 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import Grid from '@material-ui/core/Grid';
-import Typography from '@material-ui/core/Typography';
-import { Button, Container, FormControl, FormHelperText, IconButton, Input, InputLabel } from '@material-ui/core';
-import InstagramIcon from '@material-ui/icons/Instagram';
-import FacebookIcon from '@material-ui/icons/Facebook';
-import TwitterIcon from '@material-ui/icons/Twitter';
-import PinterestIcon from '@material-ui/icons/Pinterest';
-import EmailIcon from '@material-ui/icons/Email';
+import { Typography, Container, Grid } from '@material-ui/core';
+import LinkedIn from '@material-ui/icons/LinkedIn';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -51,81 +45,46 @@ export default function Footer() {
     return (
         <div className={classes.root}>
             <Container className={classes.paper}>
-                <Grid container spacing={2}>
-                    <Grid item>
-                            <Typography variant="h5">About</Typography>
-                            <Typography>
-                                Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-                                Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
-                                when an unknown printer took a galley of type and scrambled it to make a type
-                                specimen book. It has survived not only five centuries, but also the leap into
-                                electronic typesetting, remaining essentially unchanged. It was popularised in
-                                the 1960s with the release of Letraset sheets containing Lorem Ipsum passages,
-                                and more recently with desktop publishing software like Aldus PageMaker including
-                                versions of Lorem Ipsum.
-                            </Typography>
+                <Grid container spacing={1}>
+                    <Grid item xs={12}>
+                        <Typography variant="h4" style={{ color: '#fff' }}><strong>Travel<span style={{ color: '#295ed9' }}>Mate</span></strong></Typography>
                     </Grid>
-                    <Grid container spacing={1}>
-                        <Grid item xs={12} sm={6} md={3}>
-                            <Grid className={classes.paper}>
-                                <Typography gutterBottom variant="subtitle1" style={{borderBottom: 'groove'}}>
-                                    Meet The Team
-                                </Typography>
-                                    <h6><strong>DEBOPRIYA DEY</strong></h6>
-                                <Typography variant="body2" gutterBottom>
-                                    <small>
-                                        <a href="mailto:debodey158@gmail.com" className={classes.link} style={{textDecoration: 'none'}}> 
-                                            <EmailIcon></EmailIcon> debodey158@gmail.com
-                                        </a>
-                                    </small>
-                                </Typography>
-                                    <h6><strong>GOURAV MODI</strong></h6>
-                                <Typography variant="body2" gutterBottom>
-                                    <small>
-                                        <a href="mailto:gouravmodi321@gmail.com" className={classes.link} style={{textDecoration: 'none'}}> 
-                                            <EmailIcon></EmailIcon> gouravmodi321@gmail.com
-                                        </a>
-                                    </small>
-                                </Typography>
-                            </Grid>
-                        </Grid>
-                        <Grid item xs={12} sm={6} md={6}>
-                            <Grid className={classes.paper}>
-                                <Typography variant="subtitle1" style={{ textAlign: 'center' }}>Follow Us</Typography>
-                                <span className={classes.socialIcons}>
-                                    <IconButton>
-                                        <a href="https://www.instagram.com/" target="_blanck" title="facebook" className={classes.link}><FacebookIcon></FacebookIcon></a>
-                                    </IconButton>
-                                    <IconButton>
-                                        <a href="https://www.instagram.com/" target="_blanck" title="instagram" className={classes.link}><InstagramIcon></InstagramIcon></a>
-                                    </IconButton>
-                                    <IconButton>
-                                        <a href="https://www.instagram.com/" target="_blanck" title="twitter" className={classes.link}><TwitterIcon></TwitterIcon></a>
-                                    </IconButton>
-                                    <IconButton>
-                                        <a href="https://www.instagram.com/" target="_blanck" title="pinterest" className={classes.link}><PinterestIcon></PinterestIcon></a>
-                                    </IconButton>
-                                </span>
-                            </Grid>
-                        </Grid>
-                        <Grid item xs={12} sm={6} md={3}>
-                            <Grid className={classes.paper}>
-                                <p style={{ marginBottom: '0' }}>Keep up with new updates from us</p>
-                                <FormControl>
-                                    <InputLabel htmlFor="my-input">Email address</InputLabel>
-                                    <Input id="my-input" aria-describedby="my-helper-text" />
-                                    <FormHelperText id="my-helper-text">We'll never share your email.</FormHelperText>
-                                    <Button variant="outlined" color="primary">
-                                        Subscribe
-                                    </Button>
-                                </FormControl>
-                            </Grid>
-                        </Grid>
+                </Grid>
+                <br />
+                <Grid container spacing={1}>
+                    <Grid item xs={12} md={7}>
+                        <p><i><strong>A little bit about TravellMate</strong></i></p>
+                        <Typography varient="h6">
+                            This website is build with the aim of helping people to decide and plan their travel destination in a more effective way.
+                            People will have access to hundreds of review on different places given by our users which can be searched without creating an account on
+                            this website. These reviews are helping people plan their vacation in structured way.
+                        </Typography>
+                        <br />
+                    </Grid>
+                    <Grid item xs={12} md={2}>
+                    </Grid>
+                    <Grid item xs={12} md={3} className="text-left">
+                        <h5>Developers</h5>
+                        <hr className="mb-2 mt-0 d-inline-block mx-auto" style={{ width: "100px", backgroundColor: 'grey' }} />
+                        <h5 className="mb-0"><strong>GOURAV MODI <a href="https://www.linkedin.com/in/gourav-modi-125004191/" target="_blank"><LinkedIn /></a> </strong></h5>
+                        <Typography variant="body2" gutterBottom className="mb-0">
+                            <small>
+                                MERN Stack Developer
+                            </small>
+                        </Typography>
+
+                        <br />
+                        <h5 className="mb-0"><strong>DEBOPRIYA DEY <a href="https://www.linkedin.com/in/debopriya-dey/" target="_blank"><LinkedIn /></a> </strong></h5>
+                        <Typography variant="body2" gutterBottom className="mb-0">
+                            <small>
+                                MERN Stack Developer
+                            </small>
+                        </Typography>
                     </Grid>
                 </Grid>
                 <hr style={{ backgroundColor: 'white' }} />
-                <Typography variant="body2" gutterBottom  style={{ textAlign: 'center' }}>&copy; TravellMate </Typography>
+                <Typography variant="body2" gutterBottom style={{ textAlign: 'center' }}>&copy; TravellMate </Typography>
             </Container>
-        </div>
+        </div >
     );
 }

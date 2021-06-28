@@ -18,7 +18,6 @@ export const getReviews = (req, res) => {
         reviews.forEach((review, index, reviews) => {
             allPosts[index] = { ...allPosts[index], likes: review };
         });
-        console.log(allPosts[2].likes);
         res.send(allPosts.sort(function (a, b) {
             var keyA = new Date(a.likes),
                 keyB = new Date(b.likes);
@@ -89,7 +88,6 @@ export const searchReview = (req, res) => {
                     if (alltags[alltags.length - 1] !== data[i]) alltags.push(data[i]);
                 }
             }
-            console.log(alltags);
             res.send(alltags);
         })
         .catch((err) => {

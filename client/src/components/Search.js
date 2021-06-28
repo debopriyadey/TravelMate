@@ -118,7 +118,7 @@ export default function Search(props) {
     const search = {
       "tags": tag
     }
-    axios.get('http://localhost:5000/getpostbytag', search).then(res => {
+    axios.post('http://localhost:5000/getpostbytag', search).then(res => {
       const data = res.data.Reviews;
       console.log(data);
       setPost(data);

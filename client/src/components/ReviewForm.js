@@ -15,12 +15,11 @@ import formimg from '../img/formimg.jpg';
 
 const useStyles = makeStyles(theme => ({
     root: {
-        backgroundColor: '#1f1f1f',
+        background: 'linear-gradient(184deg, rgba(45,35,255,1) 0%, rgba(26,169,227,1) 82%);',
         // backgroundImage: `url(${formimg})`,
         // backgroundSize: "cover",
         // backgroundRepeat: "no-repeat",
         // backgroundAttachment: "fixed",
-        // // position: 'fixed',
         // zIndex: '-100',
 
     },
@@ -38,7 +37,7 @@ const useStyles = makeStyles(theme => ({
     paper: {
         padding: theme.spacing(2),
         color: theme.palette.text.secondary,
-        background: 'linear-gradient(180deg, rgba(8,11,23,1) 0%, rgba(9,17,117,1) 51%)',
+        background: '#1f1f1f',
         margin: '30px 200px',
         [theme.breakpoints.down('sm')]: {
             margin: '0',

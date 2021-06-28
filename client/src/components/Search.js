@@ -118,7 +118,7 @@ export default function Search(props) {
     const search = {
       "tags": tag
     }
-    axios.post('http://localhost:5000/getpostbytag', search).then(res => {
+    axios.post('https://projecthack20travelmate.herokuapp.com/getpostbytag', search).then(res => {
       const data = res.data.Reviews;
       console.log(data);
       setPost(data);
@@ -145,7 +145,7 @@ export default function Search(props) {
     const search = {
       "tags": ""
     }
-    axios.post('http://localhost:5000/searchreview', search).then(res => {
+    axios.post('https://projecthack20travelmate.herokuapp.com/searchreview', search).then(res => {
       setOptions(res.data);
     }).catch((error) => {
       console.log(error)

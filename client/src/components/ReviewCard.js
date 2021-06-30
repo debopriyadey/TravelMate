@@ -106,7 +106,7 @@ export default function ReviewCard({ places }) {
 
     const handleCopy = (e) => {
         e.preventDefault()
-        navigator.clipboard.writeText(`https://travelmate/currentreview/${places._id}`)
+        navigator.clipboard.writeText(`https://traveldires.herokuapp.com/currentreview/${places._id}`)
         setOpenCopy(true)
     }
 

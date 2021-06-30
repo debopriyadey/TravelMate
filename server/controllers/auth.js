@@ -1,6 +1,6 @@
 const Users = require('../models/users.js');
 const jwt = require('jsonwebtoken');
-const JWT_SECRET = require('../keys.js').default;
+const JWT_SECRET = require('../keys.js');
 const bcrypt = require('bcryptjs');
 const validator = require('validator');
 

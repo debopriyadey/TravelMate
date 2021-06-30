@@ -1,9 +1,9 @@
-import mongoose from 'mongoose';
-import Review from '../models/reviews.js'
-import Users from '../models/users.js';
+const mongoose = require('mongoose');
+const Review = require('../models/reviews.js');
+const Users = require('../models/users.js');
 
 const ObjectId = mongoose.Types.ObjectId;
-export const getReviews = (req, res) => {
+const getReviews = (req, res) => {
 
     let allPosts = [];
     Review.find({}).lean().then((posts) => {
@@ -33,7 +33,7 @@ export const getReviews = (req, res) => {
 }
 
 
-export const createReview = async (req, res) => {
+const createReview = async (req, res) => {
 
     const { title, review, tags, likes, creator, creatorName, selectedFile } = req.body;
     if (!title || !review) {
@@ -59,7 +59,7 @@ export const createReview = async (req, res) => {
         })
 }
 
-export const myReviews = (req, res) => {
+const myReviews = (req, res) => {
     Review.find({ creator: req.users })
         .then((myReviews) => {
             res.json({ myReviews })
@@ -69,7 +69,7 @@ export const myReviews = (req, res) => {
         })
 }
 
-export const searchReview = (req, res) => {
+const searchReview = (req, res) => {
     const reg = new RegExp('^' + req.body.tags, 'i')
     Review.find({ tags: { $all: reg } }, { tags: 1, _id: 0 })
         .then((Reviews) => {
@@ -96,7 +96,7 @@ export const searchReview = (req, res) => {
 }
 
 
-export const getPostByTag=(req,res)=>{
+const getPostByTag=(req,res)=>{
     const reg=new RegExp('^' + req.body.tags,'i')
    
     Review.find({ tags: {$all: [reg]} })
@@ -109,7 +109,7 @@ export const getPostByTag=(req,res)=>{
 
 }
 
-export const currentReview = async (req, res) => {
+const currentReview = async (req, res) => {
     try {
         const review = await Review.findOne({ _id: req.params.id });
         res.status(200).json(review);
@@ -119,7 +119,7 @@ export const currentReview = async (req, res) => {
     }
 }
 
-export const increaseLike = (req, res) => {
+const increaseLike = (req, res) => {
     const { placeId, userId } = req.body;
     Users.findOne({ _id: userId })
         .then((user) => {
@@ -148,7 +148,7 @@ export const increaseLike = (req, res) => {
         })
 }
 
-export const updateReview = async (req, res) => {
+const updateReview = async (req, res) => {
     try {
         const id = req.params.id
         const { title, review, tags } = req.body;
@@ -166,7 +166,7 @@ export const updateReview = async (req, res) => {
     }
 }
 
-export const deleteReview = async (req, res) => {
+const deleteReview = async (req, res) => {
     try {
         const { id } = req.params
         await Review.findByIdAndRemove(id)
@@ -175,4 +175,16 @@ export const deleteReview = async (req, res) => {
         res.json(error)
     }
 
+}
+
+module.exports = {
+    getReviews,
+    createReview,
+    myReviews,
+    searchReview,
+    getPostByTag,
+    currentReview,
+    increaseLike,
+    updateReview,
+    deleteReview
 }

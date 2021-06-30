@@ -1,18 +1,9 @@
-import express from 'express';
-import bodyParser from 'body-parser';
-import mongoose from 'mongoose';
-import cors from 'cors';
-import getreviews from './routes/reviews/getreviews.js';
-import createreview from './routes/reviews/createreviews.js';
-import myreviews from './routes/reviews/myreviews.js';
-import signup from './routes/auth/signup.js';
-import login from './routes/auth/login.js';
-import searchreview from './routes/reviews/searchreview.js';
-import getpostbytag from './routes/reviews/getpostbytag.js';
-import increaseLike from './routes/reviews/increaseLike.js';
-import currentReview from './routes/reviews/currentreview.js';
-import deleteReview from './routes/reviews/deletereviews.js';
-import updateReview from './routes/reviews/updateReview.js';
+const express = require('express');
+const bodyParser = require('body-parser');
+const mongoose = require('mongoose');
+const cors = require('cors');
+const authRoute = require('./routes/auth');
+const reviewRoute = require('./routes/review');
 
 const app = express();
 app.use(express.json({limit: "30mb", extended: true}))
@@ -23,17 +14,10 @@ app.use((req, res, next) => {
   setTimeout(() => next(), 1000);
 });
 
-app.use('/fetchreviews', getreviews);
-app.use('/createreviews', createreview);
-app.use('/myreviews', myreviews); 
-app.use('/searchreview',searchreview)
-app.use('/getpostbytag',getpostbytag)
-app.use('/signup', signup);
-app.use('/signin', login);
-app.use('/increaseLike',increaseLike);
-app.use('/currentreview/', currentReview);
-app.use('/delete', deleteReview)
-app.use('/update', updateReview)
+
+app.use('/', authRoute);
+app.use('/', reviewRoute);
+
   
 const PORT = process.env.PORT||5000
 //const dbURI ="mongodb://localhost/travellersdiary";

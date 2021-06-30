@@ -1,6 +1,6 @@
-import jwt from 'jsonwebtoken';
-import JWT_SECRET from '../keys.js';
-import Users from '../models/users.js';
+const jwt = require('jsonwebtoken');
+const JWT_SECRET = require('../keys.js');
+const Users = require('../models/users.js');
 
 const requiredLogin = (req, res, next) => {
 
@@ -21,4 +21,4 @@ const requiredLogin = (req, res, next) => {
     })
 }
 
-export default requiredLogin;
+module.exports = requiredLogin;

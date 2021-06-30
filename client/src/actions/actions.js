@@ -73,7 +73,8 @@ export const signin = (users) => async (dispatch) => {
         dispatch({ type: 'SIGNIN', payload: users });
         
     } catch (error) {
-        dispatch({ type: 'SIGNINFAILS', payload: error.response.data});
+        console.log(error)
+        // dispatch({ type: 'SIGNINFAILS', payload: error.response.data});
     }
 }
 

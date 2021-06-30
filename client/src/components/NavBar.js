@@ -16,7 +16,8 @@ const useStyles = makeStyles((theme) => ({
         justifyContent: 'center',
         alignItems: 'center',
         textDecoration: "none",
-        flexGrow: '1'
+        flexGrow: '1',
+        color: 'white',
     },
 
     appbar: {
@@ -114,7 +115,7 @@ export default function Header() {
                     <Button varient="contained" color="primary">
                         <strong>Login</strong>
                     </Button>
-                </Link>,
+                </Link>
                 <Link to="/signup" className={classes.icon} style={{ textDecoration: 'none' }}>
                     <Button varient="contained" color="primary">
                         <strong>SignUp</strong>
@@ -130,7 +131,7 @@ export default function Header() {
                     <Button varient="contained" color="primary">
                         <strong>My Reviews</strong>
                     </Button>
-                </Link>,
+                </Link>
                 <Link to="/" className={classes.icon} style={{ textDecoration: 'none' }} >
                     <Button varient="contained" color="primary" onClick={logoutT}>
                         <strong>LogOut</strong>

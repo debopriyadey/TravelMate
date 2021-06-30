@@ -1,10 +1,10 @@
-import Users from '../models/users.js';
-import jwt from 'jsonwebtoken';
-import JWT_SECRET from '../keys.js';
-import bcrypt from 'bcryptjs';
-import validator from 'validator';
+const Users = require('../models/users.js');
+const jwt = require('jsonwebtoken');
+const JWT_SECRET = require('../keys.js').default;
+const bcrypt = require('bcryptjs');
+const validator = require('validator');
 
-export const signup = (req, res) => {
+const signup = (req, res) => {
     const { name, email, password } = req.body;
 
     if (!email || !name || !password) {
@@ -42,7 +42,7 @@ export const signup = (req, res) => {
         })
 }
 
-export const signin = (req, res) => {
+const signin = (req, res) => {
     const { email, password } = req.body;
 
     if (!email || !password) {
@@ -76,11 +76,17 @@ export const signin = (req, res) => {
 }
 
 
-export const getUserById = async (req, res, next) => {
+const getUserById = async (req, res, next) => {
     try {
         const user = await Users.findOne({ _id: req.params.id });
         res.status(200).json(user);
     } catch (error) {
         res.json({ message: error.message });
     }
+}
+
+module.exports = {
+    signup,
+    signin,
+    getUserById
 }

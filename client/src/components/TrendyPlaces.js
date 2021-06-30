@@ -5,6 +5,9 @@ import { Container } from 'reactstrap'
 import FooterSvg from './FooterSvg';
 
 const useStyles = makeStyles((theme) => ({
+    root: {
+        marginTop: '100px',
+    },
     cityImg: {
         height: '80px',
         width: '80px',
@@ -20,11 +23,8 @@ export default function TrendyPlaces() {
     const classes = useStyles();
 
     return (
-        <div>
+        <div className={classes.root}>
             <Container>
-                <br />
-                <br />
-                <br />
                 <h1>Trending Places To Visit </h1>
                 <hr className="mb-2 mt-0 d-inline-block mx-auto" style={{ width: "400px", backgroundColor: 'grey' }} />
                 <div className="row">

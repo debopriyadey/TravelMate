@@ -10,15 +10,14 @@ app.use(express.json({limit: "30mb", extended: true}))
 app.use(express.urlencoded({limit: "30mb", extended: true}))
 app.use(cors())
 // simulate delay response
-app.use((req, res, next) => { 
-  setTimeout(() => next(), 1000);
-});
-
+// app.use((req, res, next) => { 
+//   setTimeout(() => next(), 1000);
+// });
 
 app.use('/', authRoute);
 app.use('/', reviewRoute);
 
-  
+   
 const PORT = process.env.PORT||5000
 //const dbURI ="mongodb://localhost/travellersdiary";
 
@@ -27,6 +26,6 @@ const dbURI = "mongodb+srv://docsarea:1234@cluster0.egnnh.mongodb.net/travellers
 // 'mongodb://localhost/node-api'
 mongoose.connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(result => app.listen(PORT, () => console.log("server running on port 5000")))
-  .catch((err) => console.log(err));
+  .catch((err) => console.log(err.message));
 
 mongoose.set('useFindAndModify', false);

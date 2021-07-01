@@ -120,9 +120,7 @@ export default function ReviewForm() {
         e.preventDefault();
         reviewData.review = placeData.like + ' ' + placeData.speciality + ' ' +  placeData.expence + ' ' + placeData.time;
         reviewData.tags =  reviewData.tags + ',' + reviewData.title;
-        console.log(reviewData.tags)
         dispatch(createreviews(reviewData))
-        console.log(reviewData);
         setTimeout(function () {
             render()
         }, 3000);

@@ -120,7 +120,6 @@ export default function Search(props) {
     }
     axios.post('https://projecthack20travelmate.herokuapp.com/getpostbytag', search).then(res => {
       const data = res.data.Reviews;
-      console.log(data);
       setPost(data);
       if(tag!=null && tag!=="")
         history.push(`/search?q=${tag}`);

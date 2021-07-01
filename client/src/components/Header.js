@@ -12,7 +12,7 @@ const useStyles = makeStyles((theme) => ({
         marginTop: '18%',
         justifyContent: 'center',
         alignItems: 'center',
-        height: '100vh',
+        height: '60vh',
         textDecoration: "none",
         flexGrow: '1',
         [theme.breakpoints.down('md')]: {

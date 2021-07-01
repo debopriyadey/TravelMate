@@ -119,7 +119,6 @@ export default function ReviewCard({ places }) {
 
     const handelUpdate = (e) => {
         e.preventDefault()
-        console.log(places)
         sessionStorage.setItem('toUpdate', JSON.stringify(places))
         history.push(`/update`)
     }
@@ -186,7 +185,7 @@ export default function ReviewCard({ places }) {
                 }
 
                 <IconButton aria-label="share" onClick={handleCopy}>
-                    <ShareIcon />
+                    <ShareIcon aria-label="share" onClick={handleCopy} />
                     <Snackbar open={openCopy} autoHideDuration={6000} onClose={handleCloseCopy}>
                         <Alert onClose={handleCloseCopy} severity="success">
                             Link copied to clipboard

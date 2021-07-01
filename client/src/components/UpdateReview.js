@@ -103,6 +103,7 @@ export default function UpdateReview() {
 
     const handeleSubmit = async (e) => {
         e.preventDefault();
+        reviewData.tags =  reviewData.tags + ',' + reviewData.title;
         const { data } = await updateReview(toUpdate._id, reviewData)
         render()
     }

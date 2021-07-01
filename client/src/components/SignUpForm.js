@@ -40,6 +40,9 @@ const useStyles = makeStyles((theme) => ({
   },
   error_msg: {
     display: 'none'
+  },
+  linkColor: {
+    color: '#0000ee'
   }
 }));
 
@@ -148,7 +151,8 @@ function SignUp() {
             <Grid container justify="flex-end">
               <Grid item>
                 <Link to="/login" variant="body2">
-                  Already have an account? Sign in
+                  
+                  <p className={classes.linkColor}>Already have an account? Sign in </p>
                 </Link>
               </Grid>
             </Grid>

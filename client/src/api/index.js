@@ -4,7 +4,7 @@ import axios from 'axios';
 
 const baseUrl ='https://projecthack20travelmate.herokuapp.com';
 const url = `${baseUrl}/fetchreviews`;
-export const fetchPost = () => axios.get(url);
+export const fetchPost = () => axios.get(url); 
 export const fetchMyPost = ()=> axios.get(`${baseUrl}/myreviews`);
 export const currentReview = (id)=> axios.get(`${baseUrl}/currentreview/${id}`);
 export const signup = (users) => axios.post(`${baseUrl}/signup`, users);

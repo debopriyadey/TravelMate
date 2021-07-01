@@ -42,6 +42,9 @@ const useStyles = makeStyles((theme) => ({
   },
   error_msg: {
     display: 'none'
+  },
+  linkColor: {
+    color: '#0000ee'
   }
 }));
 
@@ -133,7 +136,7 @@ function Login() {
             <Grid container>
               <Grid item>
                 <Link to="/signup" variant="body2" onClick={() => { dispatch({ type: 'SIGNUPTOLOGIN' }) }}>
-                  <p>Don't have an account? Sign Up</p>
+                  <p className={classes.linkColor}>Don't have an account? Sign Up</p>
                 </Link>
               </Grid>
             </Grid>

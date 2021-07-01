@@ -10,7 +10,7 @@ route.get('/myreviews', requiredLogin, controller.myReviews);
 route.post('/searchreview', controller.searchReview);
 route.post('/getpostbytag', controller.getPostByTag);
 route.post('/increaseLike', requiredLogin, controller.increaseLike);
-route.post('/currentreview',  requiredLogin, controller.currentReview);
+route.get('/currentreview/:id', controller.currentReview);
 route.delete('/delete/:id', requiredLogin, controller.deleteReview);
 route.patch('/update/:id', requiredLogin, controller.updateReview);
 

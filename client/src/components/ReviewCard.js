@@ -56,7 +56,6 @@ export default function ReviewCard({ places }) {
     const loggedIn = useSelector(state => state.loggedIn);
     const Likes = useSelector(state => state.Like);
     let user = useSelector((state) => state.userInfo);
-    console.log(user)
     if (user && Object.keys(user).length === 0);
     else {
         user = JSON.parse(user);
@@ -106,7 +105,7 @@ export default function ReviewCard({ places }) {
 
     const handleCopy = (e) => {
         e.preventDefault()
-        navigator.clipboard.writeText(`https://travelmate/currentreview/${places._id}`)
+        navigator.clipboard.writeText(`https://traveldires.herokuapp.com/currentreview/${places._id}`)
         setOpenCopy(true)
     }
 

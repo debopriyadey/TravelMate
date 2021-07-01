@@ -152,10 +152,11 @@ const updateReview = async (req, res) => {
     try {
         const id = req.params.id
         const { title, review, tags } = req.body;
+        const tagsArray = tags.split(",");
         const updateReview = {
             title,
             review,
-            tags
+            tags: tagsArray
         }
 
         await Review.findOneAndUpdate({ _id: id }, updateReview);

@@ -2,9 +2,10 @@
 // import fetch from 'cross-fetch';
 import axios from 'axios'
 import React from 'react';
-import { Grid, TextField, makeStyles } from '@material-ui/core';
+import { Grid, TextField, Modal, makeStyles } from '@material-ui/core';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import Loader from "react-loader-spinner";
 import Reviews from './Reviews';
 import { useHistory } from 'react-router-dom';
 
@@ -107,12 +108,24 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Search(props) {
   let history = useHistory();
- 
+  const classes = useStyles();
+
   const [tagValue, setTag] = React.useState("");
   const [open, setOpen] = React.useState(false);
+
+  const [openLoader, setOpenLoader] = React.useState(false);
+
   const [options, setOptions] = React.useState([]);
   const [post, setPost] = React.useState([]);
   const loading = open && options.length === 0;
+
+  const handleOpenLoader = () => {
+    setOpenLoader(true);
+  };
+
+  const handleCloseLoader = () => {
+    setOpenLoader(false);
+  };
 
   const getPostByTag = (tag) => {
     const search = {
@@ -121,17 +134,18 @@ export default function Search(props) {
     axios.post('https://projecthack20travelmate.herokuapp.com/getpostbytag', search).then(res => {
       const data = res.data.Reviews;
       setPost(data);
-      if(tag!=null && tag!=="")
+      if (tag != null && tag !== "") {
         history.push(`/search?q=${tag}`);
+      }
     }).catch((error) => {
       console.log(error)
     })
   }
-
+  
   React.useEffect(() => {
-    let queryTag=props.location.search.split("=")[1]
-    if(queryTag){
-      queryTag = props.location.search.split("=")[1].replace("%20"," ");
+    let queryTag = props.location.search.split("=")[1]
+    if (queryTag) {
+      queryTag = props.location.search.split("=")[1].replace("%20", " ");
       setTag(queryTag);
     }
     
@@ -140,7 +154,7 @@ export default function Search(props) {
     if (!loading) {
       return undefined;
     }
- 
+
     const search = {
       "tags": ""
     }
@@ -149,8 +163,8 @@ export default function Search(props) {
     }).catch((error) => {
       console.log(error)
     })
-   
-    
+
+
 
     return () => {
       active = false;
@@ -164,7 +178,17 @@ export default function Search(props) {
     }
   }, [open]);
 
-  const classes = useStyles();
+  const body = (
+    <Loader
+      className="text-center"
+      type="Puff"
+      color="#00BFFF"
+      height={50}
+      width={50}
+      timeout={60000} //10 secs
+    />
+  )
+
   return (
     <div className={classes.root}>
       <NavBar />
@@ -189,7 +213,7 @@ export default function Search(props) {
                 onChange={(event, value) => getPostByTag(value)}
                 onKeyPress={(e) => {
                   console.log(e)
-                  if(e.code === "Enter")
+                  if (e.code === "Enter")
                     getPostByTag(e.target.value)
                 }}
                 options={options}
@@ -216,6 +240,15 @@ export default function Search(props) {
             </div>
           </div>
         </Grid>
+        <Modal
+          style={{ marginTop: '25%' }}
+          open={open}
+          onClose={handleCloseLoader}
+          aria-labelledby="simple-modal-title"
+          aria-describedby="simple-modal-description"
+        >
+          {body}
+        </Modal>
         <div>
           <Grid container spacing={3} className={classes.container}>
             <Grid className={classes.card}>

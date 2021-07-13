@@ -5,12 +5,13 @@ const requiredLogin = require('../middleware/requireAuth');
 const controller = require('../controllers/reviews')
 
 route.get('/fetchreviews', controller.getReviews);
-route.post('/createreviews', requiredLogin, controller.createReview);
+route.get('/recentreviews', controller.getReviews);
 route.get('/myreviews', requiredLogin, controller.myReviews);
+route.get('/currentreview/:id', controller.currentReview);
+route.post('/createreviews', requiredLogin, controller.createReview);
 route.post('/searchreview', controller.searchReview);
 route.post('/getpostbytag', controller.getPostByTag);
 route.post('/increaseLike', requiredLogin, controller.increaseLike);
-route.get('/currentreview/:id', controller.currentReview);
 route.delete('/delete/:id', requiredLogin, controller.deleteReview);
 route.patch('/update/:id', requiredLogin, controller.updateReview);
 

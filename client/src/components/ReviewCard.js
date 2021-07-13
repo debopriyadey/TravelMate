@@ -23,9 +23,10 @@ const useStyles = makeStyles((theme) => ({
         color: 'black',
         minWidth: 434,
         maxWidth: 435,
-        background: 'white',
+        background: '#fff',
+        backdropFilter: 'saturate(280%) blur(5px)',
         margin: '20px',
-        borderRadius: '10px',
+        borderRadius: '30px',
         boxShadow: '6px 12px 18px 3px #888888',
         [theme.breakpoints.down('sm')]: {
             minWidth: 345,
@@ -34,7 +35,15 @@ const useStyles = makeStyles((theme) => ({
     },
 
     media: {
+        width: 410,
         height: 240,
+        margin: '0 auto',
+        marginTop: '10px',
+        marginBottom: '12px',
+        borderRadius: '20px', 
+        [theme.breakpoints.down('sm')]: {
+            width: 320,
+        }
     },
 
     title: {
@@ -64,7 +73,7 @@ export default function ReviewCard({ places }) {
     const [openCopy, setOpenCopy] = useState(false);
     const [alreadyLiked, setalreadyLiked] = useState(false);
     const [likes, setLikes] = useState(places.likes);
-    var maxDescLength = 270
+    var maxDescLength = 170
     var reviewDesc = places.review.slice(0, maxDescLength)
     reviewDesc = reviewDesc.slice(0, Math.min(reviewDesc.length, reviewDesc.lastIndexOf(" ")))
 
@@ -131,6 +140,11 @@ export default function ReviewCard({ places }) {
 
     return (
         <Card className={classes.root}>
+            <CardMedia
+                className={classes.media}
+                image={places.selectedFile}
+                title={places.title}
+            />
             <CardHeader
                 avatar={
                     <Avatar aria-label="recipe" className={classes.avatar}>
@@ -140,11 +154,6 @@ export default function ReviewCard({ places }) {
 
                 title={places.title}
                 subheader={places.createdAt.slice(0, 10)}
-            />
-            <CardMedia
-                className={classes.media}
-                image={places.selectedFile}
-                title={places.title}
             />
             <CardContent>
                 <Typography

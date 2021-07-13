@@ -32,6 +32,27 @@ const getReviews = (req, res) => {
         })
 }
 
+const getRecentReview = (req, res) => {
+    let allPosts = [];
+    Review.find({}).limit(6).lean().then((posts) => {
+        allPosts = posts;
+        let reviews = posts.map((post) => {
+            const totalLikes = Users.countDocuments({ likes: post._id }).exec();
+            return totalLikes;
+        });
+        return Promise.all(reviews);
+    }).then((reviews) => {
+
+        reviews.forEach((review, index, reviews) => {
+            allPosts[index] = { ...allPosts[index], likes: review };
+        });
+        res.send(allPosts);
+    })
+        .catch((err) => {
+            throw err;
+        })
+}
+
 
 const createReview = async (req, res) => {
 
@@ -96,16 +117,16 @@ const searchReview = (req, res) => {
 }
 
 
-const getPostByTag=(req,res)=>{
-    const reg=new RegExp('^' + req.body.tags,'i')
-   
-    Review.find({ tags: {$all: [reg]} })
-    .then((Reviews) => {
-        res.json({Reviews});
-    }) 
-    .catch((err) => {
-        console.log(err);
-    })
+const getPostByTag = (req, res) => {
+    const reg = new RegExp('^' + req.body.tags, 'i')
+
+    Review.find({ tags: { $all: [reg] } })
+        .then((Reviews) => {
+            res.json({ Reviews });
+        })
+        .catch((err) => {
+            console.log(err);
+        })
 
 }
 
@@ -180,6 +201,7 @@ const deleteReview = async (req, res) => {
 
 module.exports = {
     getReviews,
+    getRecentReview,
     createReview,
     myReviews,
     searchReview,

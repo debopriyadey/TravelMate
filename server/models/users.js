@@ -13,8 +13,11 @@ const userSchema = mongoose.Schema({
         type: String,
         require: true
     },
-    likes: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Review' }]
-
+    likes: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Review' }],
+    token: {
+        type: String, 
+        default: ""
+    }
 });
 
 const Users = mongoose.model('Users', userSchema);

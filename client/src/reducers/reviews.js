@@ -1,5 +1,5 @@
 const initialState = {  
-    userInfo: JSON.parse(localStorage.getItem("users")) === null ? {} : localStorage.getItem("users"),
+    userInfo: {},
     message:'',
     signupMessage:'',
     // reviews:[],

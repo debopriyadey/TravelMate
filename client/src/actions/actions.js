@@ -60,21 +60,21 @@ export const signin = (users) => async (dispatch) => {
     try {
         // const history = useHistory()
         const { data } = await api.signin(users);
-        console.log(data," action");
-        localStorage.setItem("jwt", data.token);
-        localStorage.setItem("users", JSON.stringify(data.savedUser))
-        let useinfo = {}
-        for (const property in data.savedUser)
-            useinfo[property] = data.savedUser[property]
-        useinfo["token"] = data.token
-        setAuthenticationToken(useinfo["token"])
-        console.log(jwt.decode(useinfo["token"]))
-        dispatch(setCurrentUser(useinfo))
-        dispatch({ type: 'SIGNIN', payload: users });
+        // console.log(data," action");
+        // localStorage.setItem("jwt", data.token);
+        // localStorage.setItem("users", JSON.stringify(data.savedUser))
+        // let useinfo = {}
+        // for (const property in data.savedUser)
+        //     useinfo[property] = data.savedUser[property]
+        // useinfo["token"] = data.token
+        // setAuthenticationToken(useinfo["token"])
+        // console.log(jwt.decode(useinfo["token"]))
+        // dispatch(setCurrentUser(useinfo))
+        dispatch({ type: 'SIGNIN', payload: data.user });
         
     } catch (error) {
         console.log(error)
-        // dispatch({ type: 'SIGNINFAILS', payload: error.response.data});
+        dispatch({ type: 'SIGNINFAILS', payload: error.response.data});
     }
 }
 

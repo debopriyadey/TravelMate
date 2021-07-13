@@ -47,7 +47,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function SignUp() {
-  //const history = useHistory()
+
   let message = useSelector(state => state.signupMessage)
   const [postData, setData] = useState({
     name: "",
@@ -57,7 +57,6 @@ function SignUp() {
     error: "",
     submitting: false,
   })
-
   const dispatch = useDispatch()
 
   const handeleSubmit = (e) => {

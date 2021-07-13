@@ -1,7 +1,7 @@
 import React, {useEffect } from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { getReviews } from './actions/actions'
+import { getReviews } from './actions/reviewActions'
 import Find from './components/Find';
 import MainBody from './components/MainBody';
 import SignUp from './components/SignUpForm';
@@ -12,7 +12,7 @@ import CurrentReview from './components/CurrentReview'
 import setAuthenticationToken from './actions/setAuthenticationToken';
 //import { useSelector } from 'react-redux';
 import history from './history'
-import {setCurrentUser} from './actions/actions'
+import {setCurrentUser} from './actions/reviewActions'
 import Search from './components/Search.js'
 import UpdateReview from './components/UpdateReview.js';
 import { ProtectedRoute } from './components/ProtectedRoutes';

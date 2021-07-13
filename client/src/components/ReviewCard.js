@@ -11,7 +11,7 @@ import { Link, useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 
 
-import { increaseLike } from '../actions/actions';
+import { increaseLike } from '../actions/reviewActions';
 import { deleteReview } from '../api/index';
 
 

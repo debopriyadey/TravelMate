@@ -28,7 +28,7 @@ const getReviews = (req, res) => {
         }));
     })
         .catch((err) => {
-            throw err;
+            next(err);
         })
 }
 
@@ -54,22 +54,21 @@ const createReview = async (req, res) => {
             res.json({ newReview: result })
         })
         .catch((err) => {
-            res.json({ err })
-            console.log(err);
+            next(err);
         })
 }
 
-const myReviews = (req, res) => {
+const myReviews = (req, res, next) => {
     Review.find({ creator: req.users })
         .then((myReviews) => {
             res.json({ myReviews })
         })
         .catch((err) => {
-            console.log(err);
+            next(err)
         })
 }
 
-const searchReview = (req, res) => {
+const searchReview = (req, res, next) => {
     const reg = new RegExp('^' + req.body.tags, 'i')
     Review.find({ tags: { $all: reg } }, { tags: 1, _id: 0 })
         .then((Reviews) => {
@@ -91,12 +90,12 @@ const searchReview = (req, res) => {
             res.send(alltags);
         })
         .catch((err) => {
-            console.log(err);
+            next(err);
         })
 }
 
 
-const getPostByTag=(req,res)=>{
+const getPostByTag=(req,res, next)=>{
     const reg=new RegExp('^' + req.body.tags,'i')
    
     Review.find({ tags: {$all: [reg]} })
@@ -104,22 +103,22 @@ const getPostByTag=(req,res)=>{
         res.json({Reviews});
     }) 
     .catch((err) => {
-        console.log(err);
+        next(err)
     })
 
 }
 
-const currentReview = async (req, res) => {
+const currentReview = async (req, res, next) => {
     try {
         const review = await Review.findOne({ _id: req.params.id });
         res.status(200).json(review);
 
     } catch (error) {
-        res.json({ message: error.message });
+        next(error)
     }
 }
 
-const increaseLike = (req, res) => {
+const increaseLike = (req, res, next ) => {
     const { placeId, userId } = req.body;
     Users.findOne({ _id: userId })
         .then((user) => {
@@ -129,7 +128,7 @@ const increaseLike = (req, res) => {
                     .then((user) => {
                         res.json({ message: "Decrease Like", "postId": placeId });
                     }).catch((err) => {
-                        console.log(err);
+                        next(err)
                     })
 
             } else {
@@ -139,16 +138,16 @@ const increaseLike = (req, res) => {
                     .then((user) => {
                         res.json({ message: "Increase Like", "postId": placeId });
                     }).catch((err) => {
-                        console.log(err);
+                        next(err)
                     })
             }
         })
         .catch((err) => {
-            console.log(err);
+            next(err);
         })
 }
 
-const updateReview = async (req, res) => {
+const updateReview = async (req, res, next) => {
     try {
         const id = req.params.id
         const { title, review, tags } = req.body;
@@ -158,21 +157,27 @@ const updateReview = async (req, res) => {
             tags
         }
 
-        await Review.findOneAndUpdate({ _id: id }, updateReview);
-        return res.json({ msg: "Data updated Successfully" });
+       const result = await Review.findOneAndUpdate({ _id: id, creator: req.user._id }, updateReview);
+       if(result === null){
+           return res.status(422).json({ msg: "Either Client is not creator of the post Or the post doesn't exist" });
+       }
+       return res.json({ msg: "Data updated Successfully" });
 
     } catch (error) {
-        return res.status(400).json(error)
+        next(error)
     }
 }
 
-const deleteReview = async (req, res) => {
+const deleteReview = async (req, res, next) => {
     try {
         const { id } = req.params
-        await Review.findByIdAndRemove(id)
-        res.json({ message: `review deleted with id: ${id}` })
+        const result = await Review.deleteOne({_id: id, creator: req.user._id })
+        if(result.deleteCount===0){
+           return res.status(422).json({ msg: "Either Client is not creator of the post Or the post doesn't exist" });
+        }
+        return   res.json({ message: `review deleted with id: ${id}` })
     } catch (error) {
-        res.json(error)
+        next(error)
     }
 
 }

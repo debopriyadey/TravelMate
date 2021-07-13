@@ -3,6 +3,7 @@ import { makeStyles } from '@material-ui/core';
 
 import Header from './Header';
 import TopReviews from './TopReviews';
+import RecentReviews from './RecentReviews'
 import TrendyPlaces from './TrendyPlaces';
 import bgimage from '../img/heroimage.jpg';
 import Footer from './Footer';
@@ -30,6 +31,7 @@ export default function MainBody() {
                 <Header />
             </div>
             <TopReviews />
+            <RecentReviews />
             <TrendyPlaces />
             <Footer />
         </div>

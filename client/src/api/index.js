@@ -2,9 +2,9 @@ import axios from 'axios';
 /* heroku url https://projecthack20travelmate.herokuapp.com
 */
 
-const baseUrl =' https://projecthack20travelmate.herokuapp.com';
-const url = `${baseUrl}/fetchreviews`;
-export const fetchPost = () => axios.get(url); 
+const baseUrl ='https://projecthack20travelmate.herokuapp.com';
+export const fetchPost = () => axios.get(`${baseUrl}/fetchreviews`); 
+export const recentReview = () => axios.get(`${baseUrl}/recentreviews`)
 export const fetchMyPost = ()=> axios.get(`${baseUrl}/myreviews`);
 export const currentReview = (id)=> axios.get(`${baseUrl}/currentreview/${id}`);
 export const signup = (users) => axios.post(`${baseUrl}/signup`, users);

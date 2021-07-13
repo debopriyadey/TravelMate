@@ -1,5 +1,4 @@
 import React from 'react';
-import Reviews from './Reviews'
 import { Grid, makeStyles } from '@material-ui/core';
 import { useSelector } from 'react-redux';
 import ReviewCard from './ReviewCard';

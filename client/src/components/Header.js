@@ -12,7 +12,7 @@ const useStyles = makeStyles((theme) => ({
         marginTop: '18%',
         justifyContent: 'center',
         alignItems: 'center',
-        height: '100vh',
+        height: '60vh',
         textDecoration: "none",
         flexGrow: '1',
         [theme.breakpoints.down('md')]: {
@@ -77,14 +77,18 @@ export default function Header() {
         if (localStorage.getItem("jwt") === null) {
             return (
                 <Link to="/login" style={{ textDecoration: 'none' }}>
-                    Create
+                    <Button variant="outlined" size="medium" color="primary" className={classes.button}>
+                        Create
+                    </Button>
                 </Link>
             )
         }
         else {
             return (
                 <Link to="/createreview" style={{ textDecoration: 'none' }}>
-                    Create
+                    <Button variant="outlined" size="medium" color="primary" className={classes.button}>
+                        Create
+                    </Button>
                 </Link>
             )
         }
@@ -96,7 +100,7 @@ export default function Header() {
     }, []);
     return (
         <div>
-            <NavBar/>
+            <NavBar />
             <div className={classes.root} id="header">
                 <Collapse
                     in={checked}
@@ -109,14 +113,12 @@ export default function Header() {
                             <span className={classes.subtitle}>Travell<span className={classes.colorText}>Mate</span></span>
                         </h1>
                         <span>
-                            <Button variant="outlined" size="medium" color="primary" className={classes.button}>
-                                <Link to="/search" style={{ textDecoration: 'none' }}>
+                            <Link to="/search" style={{ textDecoration: 'none' }}>
+                                <Button variant="outlined" size="medium" color="primary" className={classes.button}>
                                     Search
+                                </Button>
                             </Link>
-                            </Button>
-                            <Button variant="outlined" size="medium" color="primary" className={classes.button}>
-                                {renderLink()}
-                            </Button>
+                            {renderLink()}
                         </span>
                         <div>
                             <Scroll to="top-reviews" smooth={true}>

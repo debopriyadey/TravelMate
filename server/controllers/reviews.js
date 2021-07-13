@@ -32,6 +32,27 @@ const getReviews = (req, res) => {
         })
 }
 
+const getRecentReview = (req, res) => {
+    let allPosts = [];
+    Review.find({}).limit(6).lean().then((posts) => {
+        allPosts = posts;
+        let reviews = posts.map((post) => {
+            const totalLikes = Users.countDocuments({ likes: post._id }).exec();
+            return totalLikes;
+        });
+        return Promise.all(reviews);
+    }).then((reviews) => {
+
+        reviews.forEach((review, index, reviews) => {
+            allPosts[index] = { ...allPosts[index], likes: review };
+        });
+        res.send(allPosts);
+    })
+        .catch((err) => {
+            throw err;
+        })
+}
+
 
 const createReview = async (req, res) => {
 
@@ -151,10 +172,11 @@ const updateReview = async (req, res, next) => {
     try {
         const id = req.params.id
         const { title, review, tags } = req.body;
+        const tagsArray = tags.split(",");
         const updateReview = {
             title,
             review,
-            tags
+            tags: tagsArray
         }
 
        const result = await Review.findOneAndUpdate({ _id: id, creator: req.user._id }, updateReview);
@@ -184,6 +206,7 @@ const deleteReview = async (req, res, next) => {
 
 module.exports = {
     getReviews,
+    getRecentReview,
     createReview,
     myReviews,
     searchReview,

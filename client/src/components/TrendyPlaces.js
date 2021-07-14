@@ -34,7 +34,7 @@ export default function TrendyPlaces() {
                                 <img src="https://images.unsplash.com/photo-1571679654681-ba01b9e1e117?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8a29sa2F0YXxlbnwwfHwwfHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="" className={classes.cityImg} />
                             </div>
                             <div className="align-self-center">
-                                <h6>Kolkata,</h6>
+                                <h6> Kolkata,</h6>
                                 <h6> West Bengal</h6>
                             </div>
                         </Link>

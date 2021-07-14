@@ -45,10 +45,15 @@ const useStyles = makeStyles((theme) => ({
 
     share: {
         border: '2px solid black',
-        backgroundColor: '#fff',
+        borderRadius: '50%',
+        backgroundColor: '#fff !important',
         marginTop: '-58px',
         marginRight: '-40px',
         float: 'right',
+        [theme.breakpoints.down('sm')]: {
+            marginTop: '-68px',
+            marginRight: '25px',
+        },
     },
 
     title: {
@@ -151,22 +156,22 @@ export default function ReviewCard({ places }) {
     return (
         <div className={classes.root}>
             <div className="row">
-                <div className="col-4">
+                <div className="col-sm-12 col-lg-4">
                     <CardMedia
                         className={classes.media}
                         image={places.selectedFile}
                         title={places.title}
                     />
-                    <IconButton aria-label="share" onClick={handleCopy} className={classes.share}>
-                        <ShareIcon aria-label="share" onClick={handleCopy} />
-                        <Snackbar open={openCopy} autoHideDuration={6000} onClose={handleCloseCopy}>
+                    <IconButton aria-label="share" onClick={handleCopy} className={classes.share} >
+                        <ShareIcon aria-label="share" onClick={handleCopy}/>
+                        <Snackbar open={openCopy} autoHideDuration={1000} onClose={handleCloseCopy}>
                             <Alert onClose={handleCloseCopy} severity="success">
                                 Link copied to clipboard
                             </Alert>
                         </Snackbar>
                     </IconButton>
                 </div>
-                <div className="col-8">
+                <div className="col-sm-12 col-lg-8">
                     <div className="row">
                         <div className="col-8">
                             <CardHeader

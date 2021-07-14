@@ -3,7 +3,7 @@ import React from 'react'
 export default function FooterSvg() {
     return (
         <div>
-            <div className="row" style={{ marginBottom: '-90px' }}>
+            <div className="row" style={{ marginBottom: '90px' }}>
                 <div className="col-12 text-center">
                     <svg width="573" height="406" viewBox="0 0 573 406" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M359.223 374.696C350.602 372.313 346.923 385.412 355.522 387.871C364.143 390.253 367.822 377.155 359.223 374.696Z" fill="#3F3D56" />

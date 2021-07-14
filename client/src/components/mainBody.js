@@ -5,7 +5,8 @@ import Header from './Header';
 import TopReviews from './TopReviews';
 import RecentReviews from './RecentReviews'
 import TrendyPlaces from './TrendyPlaces';
-import bgimage from '../img/heroimage.jpg';
+import bgimage from '../img/headerbg.webp';
+import Weather from './Weather';
 import Footer from './Footer';
 
 
@@ -33,6 +34,7 @@ export default function MainBody() {
             <TopReviews />
             <RecentReviews />
             <TrendyPlaces />
+            <Weather />
             <Footer />
         </div>
     )

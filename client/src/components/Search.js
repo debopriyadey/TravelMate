@@ -113,19 +113,19 @@ export default function Search(props) {
   const [tagValue, setTag] = React.useState("");
   const [open, setOpen] = React.useState(false);
 
-  const [openLoader, setOpenLoader] = React.useState(false);
+  // const [openLoader, setOpenLoader] = React.useState(false);
 
   const [options, setOptions] = React.useState([]);
   const [post, setPost] = React.useState([]);
   const loading = open && options.length === 0;
 
-  const handleOpenLoader = () => {
-    setOpenLoader(true);
-  };
+  // const handleOpenLoader = () => {
+  //   setOpenLoader(true);
+  // };
 
-  const handleCloseLoader = () => {
-    setOpenLoader(false);
-  };
+  // const handleCloseLoader = () => {
+  //   setOpenLoader(false);
+  // };
 
   const getPostByTag = (tag) => {
     const search = {
@@ -240,7 +240,7 @@ export default function Search(props) {
             </div>
           </div>
         </Grid>
-        <Modal
+        {/* <Modal
           style={{ marginTop: '25%' }}
           open={open}
           onClose={handleCloseLoader}
@@ -248,7 +248,7 @@ export default function Search(props) {
           aria-describedby="simple-modal-description"
         >
           {body}
-        </Modal>
+        </Modal> */}
         <div>
           <Grid container spacing={3} className={classes.container}>
             <Grid className={classes.card}>

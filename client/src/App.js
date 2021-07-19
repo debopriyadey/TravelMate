@@ -16,6 +16,8 @@ import {setCurrentUser} from './actions/actions'
 import Search from './components/Search.js'
 import UpdateReview from './components/UpdateReview.js';
 import { ProtectedRoute } from './components/ProtectedRoutes';
+import Discover from './components/Discover';
+
 function App() {
     const dispatch=useDispatch();
     if(localStorage.jwt){
@@ -36,9 +38,10 @@ function App() {
                     <Route path="/signup" component={SignUp} />
                     <Route path="/find" component={Find} />
                     <Route path="/search" component={Search} />
-                    <ProtectedRoute path="/createreview" component={ReviewForm} />
-                    <ProtectedRoute path="/myreviews" component={MyReviews} />
                     <Route path="/currentreview" component={CurrentReview} />
+                    <Route path="/discover" component={Discover} />
+                    <Route path="/createreview" component={ReviewForm} />
+                    <ProtectedRoute path="/myreviews" component={MyReviews} />
                     <ProtectedRoute path="/update" component={UpdateReview} />
                 </Switch>
             </div>

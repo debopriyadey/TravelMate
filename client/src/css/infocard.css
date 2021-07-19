@@ -1,0 +1,31 @@
+.infocard-root {
+    background-color: #171717;
+    height: 60vh;
+    color: #fff;
+    display: flex;
+    align-items: center;
+}
+
+.infocard-col {
+    display: flex;
+    justify-content: center;
+}
+
+.feature-container {
+    padding-top: 20px;
+    justify-content: space-evenly;
+}
+
+.feature-main {
+    line-height: 40px;
+    font-size: 1.5rem;
+    font-family: 'Varela Round', sans-serif;
+    font-weight: bold;
+    margin-left: 20px;
+}
+
+@media screen and (max-width: 700px) {
+    .infocard-root {
+        height: 100vh;
+    }  
+}

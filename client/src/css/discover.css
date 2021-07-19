@@ -1,0 +1,50 @@
+.discover-container {
+    background-color: #171717;
+    background-size: cover;
+    background-position: center;
+    min-height: 200px;
+}
+
+.discover-container {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.discover-main-text {
+    color: #fff;
+    padding-block: 20px;
+    text-align: center;
+}
+
+.discover-search {
+    width: 400px;
+    border-radius: 20px;
+    border: none;
+    padding: 10px 20px;
+    text-align: left;
+    font-size: 1.2rem;
+    margin-bottom: 50px;
+}
+
+@media only screen and (max-width: 800px) {
+    .main-container {
+        margin-inline: 50px;
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    
+    .main-container {
+        border-radius: 0px;
+        margin-inline: 0px;
+    }
+
+    .search {
+        padding: 20px;
+        width: 300px;
+        border-radius: 0px;
+    }
+}

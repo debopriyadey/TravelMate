@@ -1,0 +1,57 @@
+.footer {
+    padding-block: 20px;
+}
+
+.footer-content {
+    padding-top: 100px;
+    /* margin-left: -150px; */
+}
+
+.footer-text-tagline {
+    font-family: 'Varela Round', sans-serif;
+    font-weight: bold;
+    margin-left: 5px;
+}
+
+.footer-text-main {
+    /* font-family: 'DM Serif Text', serif; */
+    line-height: 60px;
+    font-size: 3.4rem;
+    font-family: 'Varela Round', sans-serif;
+    font-weight: bold;
+}
+
+.social-startup-container {
+    text-align: right;
+}
+
+.social-startup {
+    font-size: 30px;
+}
+
+.label {
+    font-family: 'Benne', serif;
+    font-size: large;
+    text-align: left;
+}
+
+.footer-left {
+    align-self: flex-end;
+    margin-bottom: 80px;
+}
+
+.btn-create {
+    background-color: #295ed9;
+    border: none;
+    border-radius: 5px;
+    padding: 8px 40px;
+    font-size: 1.5rem;
+    margin-top: 40px;
+    color: #fff;
+}
+
+@media screen and (max-width: 1020px) {
+    .footer-content {
+        margin-left: 0px;
+    }
+}

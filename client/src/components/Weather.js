@@ -5,20 +5,17 @@ import '../css/weather.css';
 export default function Weather() {
     const [query, setQuery] = useState('');
     const [weather, setWeather] = useState({});
-    console.log(query)
     const search = async (e) => {
         if (e.key === 'Enter') {
             const data = await fetchWeather(query);
-            //console.log(data);
             setWeather(data);
             setQuery('');
         }
     }
 
-    console.log(weather)
-
     return (
-        <div className="container main-container">
+        <div className="main-container" id="weather">
+            <h3 className="weather-main-text"> Get Weather Updates </h3>
             <input type="text" className="search mt-4" placeholder="Check weather of..." value={query} onChange={(e) => setQuery(e.target.value)} onKeyPress={search} />
             {weather.main && (
                 <div className="city">

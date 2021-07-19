@@ -6,12 +6,7 @@ import RecentCard from './RecentCard';
 
 const useStyles = makeStyles((theme) => ({
     root: {
-        minHeight: '100vh',
-        justifyContent: 'center',
-        alignItems: 'center',
-        [theme.breakpoints.down('md')]: {
-            flexDirection: 'column',
-        },
+        marginTop: '80px',
     },
 
     container: {
@@ -28,13 +23,12 @@ export default function TopReviews() {
     const allreviews = useSelector(state => state.allreviews)
     
     return (
-        <div id="top-reviews">
-            <Container>
+        <div className={classes.root} id="recent-review">
+            <div className="container">
                 <div>
-                    <h1 className="mt-4"> Recent Reviews </h1>
+                    <h3 className="mt-4"> Recent Reviews </h3>
                 </div>
-                <hr className="mb-2 mt-0 d-inline-block mx-auto" style={{ width: "400px", backgroundColor: 'grey' }} />
-
+                {/* <hr className="mb-2 mt-0 d-inline-block mx-auto" style={{ width: "400px", backgroundColor: 'grey' }} /> */}
                 <Grid container spacing={3} className={classes.container}>
                     {
                         allreviews.slice(0, 10).map((review) => (
@@ -44,7 +38,7 @@ export default function TopReviews() {
                         ))
                     }
                 </Grid>
-            </Container>
+            </div>
         </div>
     )
 }

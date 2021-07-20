@@ -61,8 +61,7 @@ export const fetchDesc = async(query) => {
         const { data } = await axios.get(`https://en.wikipedia.org/w/api.php?action=query&format=json&uselang=user&prop=extracts&titles=kolkata`);
         return data
     } catch (error) {
-        console.log("infoerror: ", error)
-        
+        console.log("infoerror: ", error) 
     }
     //     Wikipedia, {
     //     params: {
@@ -73,4 +72,20 @@ export const fetchDesc = async(query) => {
     //             titles: query,
     //         }
     // });
+}
+
+export const fetchHotelDeatils = async(query) => {
+    try {
+        const { data } = await axios.get(`https://hotels-com-provider.p.rapidapi.com/v1/destinations/search`, {
+            params: {currency: 'USD', locale: 'en_US', query: query},
+            headers: {
+              'x-rapidapi-key': 'b2bcc81cd5msh7bd347d7ba10befp168e94jsnce8a3ac290f4',
+              'x-rapidapi-host': 'hotels-com-provider.p.rapidapi.com'
+            } 
+        });
+        return data        
+    } catch (error) {
+        console.log("hotelerror: ", error) 
+
+    }
 }

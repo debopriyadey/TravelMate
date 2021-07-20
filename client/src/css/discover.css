@@ -1,5 +1,9 @@
+@import url('https://fonts.googleapis.com/css2?family=STIX+Two+Math&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Fuggles&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Yomogi&display=swap');
+
 .discover-container {
-    background-color: #171717;
+    background-color: #1f1f1f;
     background-size: cover;
     background-position: center;
     min-height: 200px;
@@ -29,10 +33,136 @@
     margin-bottom: 50px;
 }
 
+.discover-city-container {
+    margin-top: 100px;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.discover-city {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    width: 90%;
+    margin-bottom: 200px;
+    padding: 40px 8%;
+    border-radius: 20px;
+    background: '#1f1f1f';
+    backdrop-filter: saturate(80%) blur(10px);
+    box-shadow: 0px 0px 5px 5px rgba(15, 15, 15, 0.404);
+    color: #fff;
+}
+
+.sec-title {
+    font-family: 'Fuggles', cursive;
+    font-size: 5rem;
+}
+
+.sec-title-help {
+    font-family: 'Yomogi', cursive;
+}
+
+.city-header {
+    margin-top: 80px;
+    color: #fff;
+}
+
+.city-header-photo-container {
+    text-align: right;
+}
+
+.city-header-photo {
+    border-radius: 10px;
+    border: #171717 2px solid;
+}
+
+/* .city-header-main {
+    background-color: rgb(241, 218, 8);
+    margin-left: -150px;
+    padding: 20px;
+} */
+
+.city-name {
+    display: inline;
+    font-family: 'STIX Two Math', serif;
+    font-size: 5rem;
+    background-color: rgb(241, 218, 8);
+    border-radius: 5px;
+    margin-left: -150px;
+    padding: 15px;
+}
+
+.city-state {
+    font-family: 'STIX Two Math', serif;
+    font-size: 1.5rem;
+    margin-left: -10px;
+}
+
+.city-sec-about {
+    background-color: #1f1f1f;
+    border-left: 4px solid white;
+    bottom: 0px;
+    padding: 20px;
+    padding-left: 30px;
+    mix-blend-mode: hard-light;
+}
+
+.city-about {
+    padding-bottom: 20px;
+}
+
+.city-gallary {
+    margin-top: 80px;
+}
+
+.gallary-header {
+    border: rgb(241, 218, 8) 4px solid;
+    padding: 40px 20px;
+}
+
+@media screen and (max-width: 1020px) {
+    .discover-city-container {
+        margin-top: 10px;
+    }
+    .discover-city {
+        width: 100%;
+        box-shadow: 0px 0px 0px 0px rgba(15, 15, 15, 0.404);
+    }
+}
+
 @media only screen and (max-width: 800px) {
     .main-container {
         margin-inline: 50px;
     }
+
+    .city-header-photo-container {
+        text-align: center;
+    }
+
+    .city-header-photo {
+        width: 350px;
+    }
+
+    .city-name {
+        display: inline;
+        font-family: 'STIX Two Math', serif;
+        font-size: 3rem;
+        background-color: rgb(241, 218, 8);
+        border-radius: 5px;
+        margin-left: -15px;
+        padding: 5px;
+    }
+    
+    .city-state {
+        font-family: 'STIX Two Math', serif;
+        font-size: 1.4rem;
+        margin-left: -10px;
+    }
+
 }
 
 @media only screen and (max-width: 600px) {

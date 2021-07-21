@@ -28,6 +28,7 @@ const getReviews = (req, res) => {
         }));
     })
         .catch((err) => {
+            console.log(err.message);
             next(err);
         })
 }
@@ -57,8 +58,10 @@ const getRecentReview = (req, res) => {
 const createReview = async (req, res) => {
 
     const { title, review, tags, likes, creator, creatorName, selectedFile } = req.body;
+    console.log(title, review);
+    if(review)console.log(review, " is present ")
     if (!title || !review) {
-        return res.status(412).json({ message: "add all the fields" });
+        return res.status(412).json({ error: "Title and Review both Required" });
     }
     const tagsArray = tags.split(",");
     const newReview = new Review({
@@ -89,7 +92,7 @@ const myReviews = (req, res, next) => {
         })
 }
 
-const searchReview = (req, res, next) => {
+const getAllReviewTags = (req, res, next) => {
     const reg = new RegExp('^' + req.body.tags, 'i')
     Review.find({ tags: { $all: reg } }, { tags: 1, _id: 0 })
         .then((Reviews) => {
@@ -116,16 +119,31 @@ const searchReview = (req, res, next) => {
 }
 
 
-const getPostByTag=(req,res, next)=>{
+const getPostsByTag=(req,res, next)=>{
     const reg=new RegExp('^' + req.body.tags,'i')
-   
-    Review.find({ tags: {$all: [reg]} })
-    .then((Reviews) => {
-        res.json({Reviews});
+   allPosts=[]
+    Review.find({ tags: {$all: [reg]} }).lean()
+    .then((posts) => {
+        // res.json({Reviews});
+        allPosts = posts;
+        let reviews = posts.map((post) => {
+            const totalLikes = Users.countDocuments({ likes: post._id }).exec();
+            return totalLikes;
+        });
+        return Promise.all(reviews);
+    }).then((reviews) => {
+
+        reviews.forEach((review, index, reviews) => {
+            allPosts[index] = { ...allPosts[index], likes: review };
+        });
+        const Reviews = allPosts;
+        res.send({Reviews});
     }) 
     .catch((err) => {
         next(err)
     })
+
+
 
 }
 
@@ -209,8 +227,8 @@ module.exports = {
     getRecentReview,
     createReview,
     myReviews,
-    searchReview,
-    getPostByTag,
+    getAllReviewTags,
+    getPostsByTag,
     currentReview,
     increaseLike,
     updateReview,

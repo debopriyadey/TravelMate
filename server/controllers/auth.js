@@ -63,6 +63,7 @@ const signin = (req, res, next ) => {
                         savedUser.token = token;
                         savedUser.save().then((user) => {
                             res.cookie('token', token, {
+                                maxAge: 60*24*60*60*1000,//setting cookie for 60 days
                                 httpOnly: true,
                                 samesite: 'lax',
                                 // secure: true,
@@ -88,13 +89,16 @@ const signin = (req, res, next ) => {
 
 
 const getUserById = async (req, res, next) => {
-    console.log("in getuserbyid");
     try {
         const user = await Users.findOne({ _id: req.params.id });
         res.status(200).json(user);
     } catch (error) {
         next(error)
     }
+}
+
+const getLoggedInUserInfo = (req, res, next) => {
+    res.status(200).json(req.user);
 }
 
 const logout = async (req, res, next ) => {
@@ -111,5 +115,6 @@ module.exports = {
     signup,
     signin,
     getUserById,
+    getLoggedInUserInfo,
     logout
 }

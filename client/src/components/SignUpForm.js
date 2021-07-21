@@ -13,8 +13,9 @@ import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import Alert from '@material-ui/lab/Alert';
-import { signup } from '../actions/actions';
+import { signup } from '../actions/userActions';
 import NavBar from './NavBar';
+import { CLEAR_SIGNUP_INFO } from '../constents';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -48,27 +49,18 @@ const useStyles = makeStyles((theme) => ({
 
 function SignUp() {
 
-  let message = useSelector(state => state.signupMessage)
+  let { message, loading, error } = useSelector(state => state.signupInfo)
   const [postData, setData] = useState({
     name: "",
     email: "",
     password: "",
-    showError: false,
-    error: "",
-    submitting: false,
   })
   const dispatch = useDispatch()
 
   const handeleSubmit = (e) => {
-    setData({ ...postData, submitting: true });
     e.preventDefault();
     dispatch(signup(postData))
   }
-  useEffect(() => {
-    if (message !== "" && message) {
-      setData({ ...postData, showError: true, error: message.error, submitting: false });
-    }
-  }, [message])
 
 
   const classes = useStyles();
@@ -87,7 +79,12 @@ function SignUp() {
             Sign up
           </Typography>
 
-          <Alert className={postData.showError ? classes.error_msg_style : classes.error_msg} severity="error" variant="filled" onClose={(e) => setData({ ...postData, showError: false })}>{postData.error}</Alert>
+
+          {
+            error?(
+              <Alert severity="error" variant="filled" >{error}</Alert>
+            ) : null
+          }  
 
 
           <form className={classes.form} autoComplete="off" noValidate onSubmit={handeleSubmit}>
@@ -145,7 +142,7 @@ function SignUp() {
               className={classes.submit}
               disabled={postData.submitting}
             >
-              {postData.submitting ? ('Submitting...') : ('Sign Up')}
+              {loading ? ('Submitting...') : ('Sign Up')}
             </Button>
             <Grid container justify="flex-end">
               <Grid item>
@@ -165,11 +162,23 @@ function SignUp() {
 
 export default function SignUpForm() {
 
-  const log = useSelector(state => state.signupSuccess)
-  const success = log
+  const message = useSelector((state) => state.signupInfo.message)
+  const dispatch = useDispatch()
+  const {user} = useSelector(state => state.userInfo)
+  let loggedIn = false;
+  if (user && Object.keys(user).length !== 0)loggedIn=true;
+
+  useEffect(()=>{
+    return () => {
+      dispatch({type: CLEAR_SIGNUP_INFO })
+    }
+  },[dispatch])
+
+
+
   return (
     <>
-      {!success ? <SignUp /> : <Redirect to='/login' />}
+      { message!=="Signup success"? <SignUp /> : <Redirect to='/login' />}
     </>
   )
 

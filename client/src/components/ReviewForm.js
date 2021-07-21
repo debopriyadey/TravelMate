@@ -1,6 +1,6 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Grid, TextField, makeStyles, Paper, Container, Typography, Button, Select, InputLabel, MenuItem, FormControl } from '@material-ui/core';
-import { Link, useHistory } from 'react-router-dom';
+import { Link, Redirect, useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import Filebase from 'react-file-base64';
 // import { StateDropdown, RegionDropdown } from 'react-indian-state-region-selector';
@@ -11,6 +11,7 @@ import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import "../css/reviewForm.css";
 import { createreviews } from '../actions/reviewActions';
 import formimg from '../img/formimg.jpg';
+import { CLEAR_CREATE_REVIEW } from '../constents';
 
 
 const useStyles = makeStyles(theme => ({
@@ -73,6 +74,9 @@ const useStyles = makeStyles(theme => ({
     submit: {
         margin: theme.spacing(3, 0, 2),
     },
+    error: {
+        color: 'red',
+    },
     video: {
         position: 'fixed',
         zIndex: '-100',
@@ -88,7 +92,9 @@ const useStyles = makeStyles(theme => ({
 
 export default function ReviewForm() {
     const t= true;
-    const userInfo = useSelector(state => JSON.parse(state.userInfo))
+    const userInfo = useSelector(state => state.userInfo.user)
+    const { error , message , loading } = useSelector( (state)=> state.createReviewInfo)
+
     const initialFValues = {
         title: '',
         review: '',
@@ -103,8 +109,6 @@ export default function ReviewForm() {
         expence: '',
         time: '',
     }
-    //const user = useSelector((state) => state.reviews);
-    //console.log(user[0].savedUser.name);
     const history = useHistory();
     const [reviewData, setData] = useState(initialFValues);
     const [placeData, setPlaceData] = useState(separatedVlues);
@@ -121,15 +125,20 @@ export default function ReviewForm() {
         reviewData.review = placeData.like + ' ' + placeData.speciality + ' ' +  placeData.expence + ' ' + placeData.time;
         reviewData.tags =  reviewData.tags + ',' + reviewData.title;
         dispatch(createreviews(reviewData))
-        setTimeout(function () {
-            render()
-        }, 3000);
-
     }
     let item= true;
+    
+    useEffect(() => {
+        return () => {
+            dispatch({type: CLEAR_CREATE_REVIEW});
+            console.log("Review form gone ")
+        }
+    }, [dispatch])
+  
     return (
         
-        <div className={classes.root}>
+        !message?(
+            <div className={classes.root}>
             <div className={classes.bgimage}></div>
             {/* <Paper className={classes.paper}> */}
             <hr style={{ backgroundColor: '#806ac1', margin: 0 }} />
@@ -138,6 +147,11 @@ export default function ReviewForm() {
                     <Grid item xs={12} sm={12}>
                         <form className={classes.formContainer2} noValidate onSubmit={handeleSubmit}>
                             <Container maxWidth="sm">
+                                {
+                                    error? (
+                                        <Typography className={classes.error} variant="h5">  {error}  </Typography>
+                                    ): (null)
+                                }
                                 <Typography className={classes.heading} variant="h5">  Create Review   </Typography>
                                 <FormControl fullWidth>
                                     <p className={classes.formheadings}> Title </p>
@@ -307,6 +321,9 @@ export default function ReviewForm() {
             </div>
         </div >
 
+        ):(
+            <Redirect to="/myreviews"/>
+        )
     )
 
 }

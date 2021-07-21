@@ -62,8 +62,8 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function MyReviews() {
-    const user = useSelector((state) => JSON.parse(state.userInfo));
-    const reviewsPost = useSelector((state) => state.myreviews);
+    const { user } = useSelector((state) => state.userInfo);
+    const reviewsPost = useSelector((state) => state.reviews.myReviews);
 
     const classes = useStyles();
     return (

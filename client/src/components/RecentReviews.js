@@ -25,7 +25,7 @@ const useStyles = makeStyles((theme) => ({
 export default function TopReviews() {
     const classes = useStyles();
 
-    const allreviews = useSelector(state => state.allreviews)
+    const { allReviews, loading , error } = useSelector(state => state.reviews)
     
     return (
         <div id="top-reviews">
@@ -35,15 +35,25 @@ export default function TopReviews() {
                 </div>
                 <hr className="mb-2 mt-0 d-inline-block mx-auto" style={{ width: "400px", backgroundColor: 'grey' }} />
 
-                <Grid container spacing={3} className={classes.container}>
+               {loading?(
+                    <div>Loading Recent Review...</div>
+                ): 
+                error? (
+                    <div>{error}</div>
+                ):
+                (
+                    <Grid container spacing={3} className={classes.container}>
                     {
-                        allreviews.slice(0, 10).map((review) => (
+                        allReviews.slice(0, 10).map((review) => (
                             <Grid key={review._id}>
                                 <RecentCard places={review} />
                             </Grid>
                         ))
                     }
                 </Grid>
+                )
+            
+            }
             </Container>
         </div>
     )

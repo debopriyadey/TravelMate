@@ -14,9 +14,9 @@ app.use(express.urlencoded({limit: "30mb", extended: true}))
 app.use(cors())
 
 // simulate delay response
-// app.use((req, res, next) => { 
-//   setTimeout(() => next(), 1000);
-// });
+app.use((req, res, next) => { 
+  setTimeout(() => next(), 3000);
+});
 
 app.use('/', authRoute);
 app.use('/', reviewRoute);

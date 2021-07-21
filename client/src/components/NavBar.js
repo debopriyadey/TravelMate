@@ -10,7 +10,7 @@ import {
 } from 'reactstrap'
 import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { logout } from '../actions/actions';
+import { logout } from '../actions/userActions';
 const useStyles = makeStyles((theme) => ({
     root: {
         justifyContent: 'center',
@@ -99,12 +99,16 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 export default function Header() {
+  
     const [isOpen, setIsOpen] = useState(false);
 
     const toggle = () => setIsOpen(!isOpen);
-    const loggedIn = useSelector(state => state.loggedIn)
+    const user =  useSelector((state) => state.userInfo.user )
+    let loggedIn = false
+    if (user && Object.keys(user).length !== 0)loggedIn=true;
     const dispatch = useDispatch();
-    const logoutT = () => {
+    const logoutT = (e) => {
+        e.preventDefault()
         dispatch(logout())
     }
     const renderList = () => {

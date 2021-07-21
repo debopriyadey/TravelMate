@@ -4,7 +4,7 @@ const Users = require('../models/users.js');
 
 const requiredLogin = (req, res, next) => {
     let token = "";
-    if(!req.cookies)return res.status(401).json({message: "Token not found"});
+    if(!req.cookies)return res.status(401).json({error: "Token not found"});
     token = req.cookies.token;
     jwt.verify( token, JWT_SECRET, (err, payload) => {  
         if(err){

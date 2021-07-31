@@ -10,7 +10,7 @@ import { Link, useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 
 
-import { increaseLike } from '../actions/actions';
+import { increaseLike } from '../actions/reviewActions';
 import { deleteReview } from '../api/index';
 
 
@@ -77,13 +77,11 @@ export default function ReviewCard({ places }) {
     const classes = useStyles();
     const dispatch = useDispatch();
     const history = useHistory();
-    const loggedIn = useSelector(state => state.loggedIn);
-    const Likes = useSelector(state => state.Like);
-    let user = useSelector((state) => state.userInfo);
-    if (user && Object.keys(user).length === 0);
-    else {
-        user = JSON.parse(user);
-    }
+    const user = useSelector(state => state.userInfo.user);
+    let loggedIn = false;
+    if (user && Object.keys(user).length !== 0)loggedIn=true;
+
+
     const [openLogin, setOpenLogin] = useState(false);
     const [openCopy, setOpenCopy] = useState(false);
     const [alreadyLiked, setalreadyLiked] = useState(false);
@@ -92,9 +90,10 @@ export default function ReviewCard({ places }) {
     var reviewDesc = places.review.slice(0, maxDescLength)
     reviewDesc = reviewDesc.slice(0, Math.min(reviewDesc.length, reviewDesc.lastIndexOf(" ")))
 
+
     useEffect(() => {
         setLikes(places.likes)
-        if (user && Object.keys(user).length === 0); else {
+        if (loggedIn){
 
             if (user.likes.includes(places._id)) {
                 setalreadyLiked(true);
@@ -102,6 +101,7 @@ export default function ReviewCard({ places }) {
                 setalreadyLiked(false);
         }
     }, [places.likes])
+
 
     const render = () => {
         history.push(`/currentreview/${places._id}`);
@@ -162,14 +162,23 @@ export default function ReviewCard({ places }) {
                         image={places.selectedFile}
                         title={places.title}
                     />
-                    <IconButton aria-label="share" onClick={handleCopy} className={classes.share} >
-                        <ShareIcon aria-label="share" onClick={handleCopy}/>
-                        <Snackbar open={openCopy} autoHideDuration={1000} onClose={handleCloseCopy}>
+                    {/* <IconButton aria-label="share" onClick={handleCopy} className={classes.share}>
+                        <ShareIcon aria-label="share" onClick={handleCopy} />
+                        <Snackbar open={openCopy} autoHideDuration={6000} onClose={handleCloseCopy}>
                             <Alert onClose={handleCloseCopy} severity="success">
                                 Link copied to clipboard
                             </Alert>
                         </Snackbar>
+                    </IconButton> */}
+                    <IconButton aria-label="share" onClick={handleCopy} className={classes.share}>
+                        <ShareIcon aria-label="share" />
+                        
                     </IconButton>
+                    <Snackbar open={openCopy} autoHideDuration={6000} onClose={handleCloseCopy}>
+                            <Alert onClose={handleCloseCopy} severity="success">
+                                Link copied to clipboard
+                            </Alert>
+                        </Snackbar>
                 </div>
                 <div className="col-sm-12 col-lg-8">
                     <div className="row">

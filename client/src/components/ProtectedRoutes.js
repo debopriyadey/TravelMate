@@ -7,7 +7,9 @@ export const ProtectedRoute = ({
     component: Component,
     ...rest
 }) => {
-    const loggedIn = useSelector(state => state.loggedIn);
+    const { user } = useSelector(state => state.userInfo);
+    let loggedIn = false;
+    if(user && Object.keys(user) !==0 ) loggedIn=true;
     return (
         <Route
             {...rest}

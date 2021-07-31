@@ -11,7 +11,7 @@ import { Link, useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 
 
-import { increaseLike } from '../actions/actions';
+import { increaseLike } from '../actions/reviewActions';
 import { deleteReview } from '../api/index';
 
 
@@ -62,31 +62,29 @@ export default function ReviewCard({ places }) {
     const classes = useStyles();
     const dispatch = useDispatch();
     const history = useHistory();
-    const loggedIn = useSelector(state => state.loggedIn);
-    const Likes = useSelector(state => state.Like);
-    let user = useSelector((state) => state.userInfo);
-    if (user && Object.keys(user).length === 0);
-    else {
-        user = JSON.parse(user);
-    }
+
+    const user = useSelector(state => state.userInfo).user;
+    let loggedIn = false;
+    if (user && Object.keys(user).length !== 0)loggedIn=true;
+
+    
     const [openLogin, setOpenLogin] = useState(false);
-    const [openCopy, setOpenCopy] = useState(false);
+    const [openCopy, setOpenCopy] = useState(false);    
     const [alreadyLiked, setalreadyLiked] = useState(false);
     const [likes, setLikes] = useState(places.likes);
     var maxDescLength = 170
     var reviewDesc = places.review.slice(0, maxDescLength)
     reviewDesc = reviewDesc.slice(0, Math.min(reviewDesc.length, reviewDesc.lastIndexOf(" ")))
-
     useEffect(() => {
         setLikes(places.likes)
-        if (user && Object.keys(user).length === 0); else {
+        if (loggedIn){
 
             if (user.likes.includes(places._id)) {
                 setalreadyLiked(true);
             } else
                 setalreadyLiked(false);
         }
-    }, [places.likes])
+    }, [places.likes,user])
 
     const render = () => {
         history.push(`/currentreview/${places._id}`);
@@ -137,12 +135,13 @@ export default function ReviewCard({ places }) {
         window.location.reload()
     }
 
-
     return (
         <Card className={classes.root}>
             <CardMedia
                 className={classes.media}
                 image={places.selectedFile}
+                children={null}
+                src={places.selectedFile}
                 title={places.title}
             />
             <CardHeader
@@ -184,23 +183,33 @@ export default function ReviewCard({ places }) {
                                 <FavoriteIcon />
                                 {likes}
                             </IconButton>
-                            <Snackbar open={openLogin} autoHideDuration={6000} onClose={handleCloseLogin}>
+                            <Snackbar open={openLogin}    anchorOrigin={{ vertical: 'bottom' , horizontal:'center' }} autoHideDuration={6000} onClose={handleCloseLogin}>
                                 <Alert onClose={handleCloseLogin} severity="error">
                                     Please Login
                                 </Alert>
                             </Snackbar>
+                            
                         </>
                     )
                 }
 
-                <IconButton aria-label="share" onClick={handleCopy}>
+                {/* <IconButton aria-label="share" onClick={handleCopy}>
                     <ShareIcon aria-label="share" onClick={handleCopy} />
                     <Snackbar open={openCopy} autoHideDuration={6000} onClose={handleCloseCopy}>
                         <Alert onClose={handleCloseCopy} severity="success">
                             Link copied to clipboard
                         </Alert>
                     </Snackbar>
+                </IconButton> */}
+                <IconButton aria-label="share" onClick={handleCopy}>
+                    <ShareIcon aria-label="share"  />
+                    
                 </IconButton>
+                <Snackbar open={openCopy} autoHideDuration={6000} onClose={handleCloseCopy}>
+                        <Alert onClose={handleCloseCopy} severity="success">
+                            Link copied to clipboard
+                        </Alert>
+                    </Snackbar>
                 {
                     loggedIn && user._id == places.creator ? (
                         <>

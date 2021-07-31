@@ -14,7 +14,7 @@ import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 import { Redirect } from 'react-router-dom';
-import { signin } from '../actions/actions';
+import { signin } from '../actions/userActions';
 import NavBar from './NavBar';
 import Alert from '@material-ui/lab/Alert';
 
@@ -49,25 +49,16 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function Login() {
-  const message = useSelector(state => state.message)
+  const {message, error , loading } = useSelector(state => state.userInfo);
   const [signinData, setData] = useState({
     email: "",
     password: "",
-    showError: false,
-    error: "",
-    submitting: false,
   })
   const dispatch = useDispatch()
   const handeleSubmit = (e) => {
     e.preventDefault();
-    setData({ ...signinData, submitting: true });
     dispatch(signin(signinData))
   }
-  useEffect(() => {
-    if (message !== "" && message) {
-      setData({ ...signinData, showError: true, error: message.error, submitting: false });
-    }
-  }, [message])
 
   const classes = useStyles();
 
@@ -84,13 +75,14 @@ function Login() {
             Sign in
           </Typography>
 
-          <Alert
-            className={signinData.showError ? classes.error_msg_style : classes.error_msg}
+          {
+            error?<Alert
             severity="error"
             variant="filled"
             onClose={(e) => setData({ ...signinData, showError: false })}>
-            {signinData.error}
-          </Alert>
+            {error}
+             </Alert>:(null)
+          }
 
           <form className={classes.form} noValidate onSubmit={handeleSubmit}>
             <Grid container spacing={2}>
@@ -131,11 +123,11 @@ function Login() {
               className={classes.submit}
               disabled={signinData.submitting}
             >
-              {signinData.submitting ? ('Submitting...') : ('Sign In')}
+              {loading ? ('Submitting...') : ('Sign In')}
             </Button>
             <Grid container>
               <Grid item>
-                <Link to="/signup" variant="body2" onClick={() => { dispatch({ type: 'SIGNUPTOLOGIN' }) }}>
+                <Link to="/signup" variant="body2">
                   <p className={classes.linkColor}>Don't have an account? Sign Up</p>
                 </Link>
               </Grid>
@@ -148,11 +140,12 @@ function Login() {
 }
 
 export default function LoginForm() {
-  const log = useSelector(state => state.loggedIn)
-  const success = log
+  const {user} = useSelector(state => state.userInfo)
+  let loggedIn = false;
+  if (user && Object.keys(user).length !== 0)loggedIn=true;
   return (
     <>
-      {!success ? <Login /> : <Redirect to='/' />}
+      {!loggedIn ? <Login /> : <Redirect to='/' />}
     </>
   )
 }

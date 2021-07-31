@@ -4,13 +4,13 @@ const JWT_SECRET = require('../keys.js');
 const bcrypt = require('bcryptjs');
 const validator = require('validator');
 
-const signup = (req, res) => {
+const signup = (req, res, next) => {
     const { name, email, password } = req.body;
 
     if (!email || !name || !password) {
         return res.status(422).json({ error: "Please enter all fields" });
-    }else if(!validator.isEmail(email)){
-        return res.status(422).json({error: "Enter valid email"})
+    } else if (!validator.isEmail(email)) {
+        return res.status(422).json({ error: "Enter valid email" })
     }
     Users.findOne({ email: email })
         .then((savedUser) => {
@@ -27,28 +27,29 @@ const signup = (req, res) => {
 
                     user.save()
                         .then(user => {
-                            res.status(201).json({ message: "Signup success" });
+                            return res.status(201).json({ message: "Signup success" });
                         })
                         .catch((err) => {
-                            console.log(err);
+                            next(err);
                         })
                 })
                 .catch((err) => {
-                    console.log(err)
+                    next(err);
                 })
         })
         .catch((err) => {
-            console.log(err);
+            next(err);
         })
 }
 
-const signin = (req, res) => {
+const signin = (req, res, next ) => {
+
     const { email, password } = req.body;
 
     if (!email || !password) {
         return res.status(422).json({ error: "Please enter all fields" });
-    }else if(!validator.isEmail(email)){
-        return res.status(422).json({error: "Enter valid email"})
+    } else if (!validator.isEmail(email)) {
+        return res.status(422).json({ error: "Enter valid email" })
     }
     Users.findOne({ email: email })
         .then((savedUser) => {
@@ -59,19 +60,30 @@ const signin = (req, res) => {
                 .then((doMatch) => {
                     if (doMatch) {
                         const token = jwt.sign({ _id: savedUser._id }, JWT_SECRET);
-                        // const username = savedUser.name;
-                        res.json({ token, savedUser });
+                        savedUser.token = token;
+                        savedUser.save().then((user) => {
+                            res.cookie('token', token, {
+                                maxAge: 60*24*60*60*1000,//setting cookie for 60 days
+                                httpOnly: true,
+                                samesite: 'lax',
+                                // secure: true,
+                                path: '/',
+                            });
+                            return res.json({ user });
+                        }).catch((err) => {
+                            next(err);
+                        })
                     }
                     else {
                         return res.status(401).json({ error: "Invalid credentials" });
                     }
                 })
                 .catch((err) => {
-                    console.log(err);
+                    next(err);
                 })
         })
         .catch((err) => {
-            console.log(err);
+            next(err);
         })
 }
 
@@ -81,12 +93,28 @@ const getUserById = async (req, res, next) => {
         const user = await Users.findOne({ _id: req.params.id });
         res.status(200).json(user);
     } catch (error) {
-        res.json({ message: error.message });
+        next(error)
     }
+}
+
+const getLoggedInUserInfo = (req, res, next) => {
+    res.status(200).json(req.user);
+}
+
+const logout = async (req, res, next ) => {
+    const { token } = req.cookies;
+    res.clearCookie('token');
+    Users.updateOne({token}, {token:''}).then((user)=>{
+        return res.status(200).json({message: "Logged Out"});
+    }).catch((err) => {
+        next(err)
+    })
 }
 
 module.exports = {
     signup,
     signin,
-    getUserById
+    getUserById,
+    getLoggedInUserInfo,
+    logout
 }

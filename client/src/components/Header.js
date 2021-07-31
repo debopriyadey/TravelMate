@@ -9,6 +9,7 @@ import HotelIcon from '@material-ui/icons/Hotel';
 import CloudIcon from '@material-ui/icons/Cloud';
 
 import NavBar from './NavBar';
+import { useSelector } from 'react-redux';
 import '../css/header.css'
 
 import review from '../svg/review.svg'
@@ -81,11 +82,37 @@ const useStyles = makeStyles((theme) => ({
 }));
 export default function Header() {
 
+    const user = useSelector((state) => state.userInfo.user)
+    let loggedIn = false;
+    if (user && Object.keys(user).length !== 0)loggedIn=true;
+
+   const renderLink = () => {
+        if (!loggedIn) {
+            return (
+                <Link to="/login" style={{ textDecoration: 'none' }}>
+                    <Button variant="outlined" size="medium" color="primary" className={classes.button}>
+                        Create
+                    </Button>
+                </Link>
+            )
+        }
+        else {
+            return (
+                <Link to="/createreview" style={{ textDecoration: 'none' }}>
+                    <Button variant="outlined" size="medium" color="primary" className={classes.button}>
+                        Create
+                    </Button>
+                </Link>
+            )
+        }
+    }
     const classes = useStyles();
     const [checked, setChecked] = useState(false);
     useEffect(() => {
         setChecked(true);
     }, []);
+
+    
     return (
         <div>
             <NavBar />
@@ -159,4 +186,7 @@ export default function Header() {
         </div >
 
     );
+
+
+
 }

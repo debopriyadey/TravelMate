@@ -1,7 +1,6 @@
-// *https://www.registers.service.gov.uk/registers/country/use-the-api*
 // import fetch from 'cross-fetch';
-import axios from 'axios'
-import React from 'react';
+import queryString from 'query-string'
+import React, { useEffect, useState } from 'react';
 import { Grid, TextField, Modal, makeStyles } from '@material-ui/core';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import CircularProgress from '@material-ui/core/CircularProgress';
@@ -11,6 +10,7 @@ import { useHistory } from 'react-router-dom';
 
 import searchbg from '../img/searchimg.jpg'
 import NavBar from './NavBar';
+import { getPostsbyTag, getReviewsTags } from '../api';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -107,17 +107,19 @@ const useStyles = makeStyles((theme) => ({
 )
 
 export default function Search(props) {
+
   let history = useHistory();
   const classes = useStyles();
 
-  const [tagValue, setTag] = React.useState("");
-  const [open, setOpen] = React.useState(false);
+  const [tagValue, setTag] = useState("");
+  const [open, setOpen] = useState(false);
 
+  const [openLoader, setOpenLoader] = useState(false);
+
+  const [options, setOptions] = useState([]);
+  const [post, setPost] = useState([]);
+  const loading = open
   // const [openLoader, setOpenLoader] = React.useState(false);
-
-  const [options, setOptions] = React.useState([]);
-  const [post, setPost] = React.useState([]);
-  const loading = open && options.length === 0;
 
   // const handleOpenLoader = () => {
   //   setOpenLoader(true);
@@ -127,44 +129,59 @@ export default function Search(props) {
   //   setOpenLoader(false);
   // };
 
-  const getPostByTag = (tag) => {
-    const search = {
-      "tags": tag
-    }
-    axios.post('https://projecthack20travelmate.herokuapp.com/getpostbytag', search).then(res => {
-      const data = res.data.Reviews;
-      setPost(data);
-      if (tag != null && tag !== "") {
-        history.push(`/search?q=${tag}`);
-      }
-    }).catch((error) => {
-      console.log(error)
-    })
+  // to add search text box value to the url
+  const addToUrl = (searchTyped) => {
+    if (searchTyped && searchTyped !== null) history.push(`/search?q=${searchTyped}`);
+    else history.push(`/search`);
   }
-  
-  React.useEffect(() => {
-    let queryTag = props.location.search.split("=")[1]
-    if (queryTag) {
-      queryTag = props.location.search.split("=")[1].replace("%20", " ");
-      setTag(queryTag);
+  // const handleOpenLoader = () => {
+  //   setOpenLoader(true);
+  // };
+
+  // const handleCloseLoader = () => {
+  //   setOpenLoader(false);
+  // };
+
+  // to fetch all the review which have given tag
+  const getPostByTag = (tag) => {
+    if (tag != null && tag !== "") {
+      const search = {
+        "tags": tag
+      }
+      getPostsbyTag( search).then(res => {
+        const data = res.data.Reviews;
+        setPost(data);
+        history.push(`/search?q=${tag}`);
+      }).catch((error) => {
+        console.log(error)
+      })
+
     }
-    
-    getPostByTag(queryTag);
+    // const { Reviews } = await  getPostsbyTag(search).data;
+  }
+
+  useEffect(() => {
+    console.log("running search by ",props.location.search);
+    let queryTag = props.location.search
+    if (queryTag) {
+      queryTag = queryString.parse(queryTag).q;
+      setTag(queryTag);
+      getPostByTag(queryTag);
+    }
     let active = true;
     if (!loading) {
       return undefined;
     }
 
+    // getting all the tag that we already have 
     const search = {
       "tags": ""
     }
-    axios.post('https://projecthack20travelmate.herokuapp.com/searchreview', search).then(res => {
+    getReviewsTags(search).then(res => {
       setOptions(res.data);
     }).catch((error) => {
       console.log(error)
     })
-
-
 
     return () => {
       active = false;
@@ -172,22 +189,22 @@ export default function Search(props) {
 
   }, [loading]);
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (!open) {
       setOptions([]);
     }
   }, [open]);
 
-  const body = (
-    <Loader
-      className="text-center"
-      type="Puff"
-      color="#00BFFF"
-      height={50}
-      width={50}
-      timeout={60000} //10 secs
-    />
-  )
+  // const body = (
+  // <Loader
+  //   className="text-center"
+  //   type="Puff"
+  //   color="#00BFFF"
+  //   height={50}
+  //   width={50}
+  //   timeout={60000} //10 secs
+  // />
+  // )
 
   return (
     <div className={classes.root}>
@@ -212,14 +229,16 @@ export default function Search(props) {
                 }}
                 onChange={(event, value) => getPostByTag(value)}
                 onKeyPress={(e) => {
-                  console.log(e)
-                  if (e.code === "Enter")
+                  if (e.code === "Enter") {
                     getPostByTag(e.target.value)
+                    setOpen(false);
+                  }
                 }}
                 options={options}
                 loading={loading}
                 renderInput={(params) => (
                   <TextField
+                    onChange={(e) => { addToUrl(e.target.value) }}
                     fullWidth
                     {...params}
                     variant="outlined"
@@ -228,7 +247,7 @@ export default function Search(props) {
                       className: classes.inputRoot,
                       endAdornment: (
                         <React.Fragment>
-                          {loading ? <CircularProgress color="white" size={20} /> : null}
+                          {loading ? <CircularProgress color="inherit" size={20} /> : null}
                           {params.InputProps.endAdornment}
                         </React.Fragment>
                       ),

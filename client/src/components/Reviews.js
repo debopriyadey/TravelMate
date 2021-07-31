@@ -2,6 +2,7 @@ import React from 'react';
 import { Grid, makeStyles } from '@material-ui/core';
 
 import ReviewCard from './ReviewCard';
+import { useSelector } from 'react-redux';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -22,6 +23,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function Reviews(props) {
+    console.log("Review Render");
     const classes = useStyles();
     return (
             <div className={classes.root}>

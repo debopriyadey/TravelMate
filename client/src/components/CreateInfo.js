@@ -37,9 +37,9 @@ export default function CreateInfo() {
                             <svg id="e5ba4dba-d7c6-4394-adcb-ad50fd27ea2d" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" width="900.54" height="617.96" viewBox="0 0 1009.54 717.96">
                                 <defs>
                                     <linearGradient id="aaf27687-ce05-436a-9809-c99a240b7c1e" x1="554.8" y1="808.98" x2="554.8" y2="548.41" gradientUnits="userSpaceOnUse">
-                                        <stop offset="0" stop-color="gray" stop-opacity="0.25" />
-                                        <stop offset="0.54" stop-color="gray" stop-opacity="0.12" />
-                                        <stop offset="1" stop-color="gray" stop-opacity="0.1" />
+                                        <stop offset="0" stopColor="gray" stopOpacity="0.25" />
+                                        <stop offset="0.54" stopColor="gray" stopOpacity="0.12" />
+                                        <stop offset="1" stopColor="gray" stopOpacity="0.1" />
                                     </linearGradient>
                                 </defs>
                                 <title>typewriter</title>

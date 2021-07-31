@@ -1,6 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
-
+  <head>
+    <!--
+      manifest.json provides metadata used when your web app is installed on a
+      user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
+    -->
+    <!-- 
+      Notice the use of %PUBLIC_URL% in the tags above.
+      It will be replaced with the URL of the `public` folder during the build.
+      Only files inside the `public` folder can be referenced from the HTML.
+      --->
 <head>
   <meta charset="utf-8" />
   <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
@@ -24,15 +33,7 @@
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="./teleport-autocomplete.css">
   <script src="teleport-autocomplete.js"></script>
-  <script>
-    var $results = document.querySelector('.results');
-    var appendToResult = $results.insertAdjacentHTML.bind($results, 'afterend');
-
-    TeleportAutocomplete.init('.my-input').on('change', function(value) {
-      appendToResult('<pre>' + JSON.stringify(value, null, 2) + '</pre>');
-    });
-    console.log("hi")
-  </script>
+  
 </head>
 
 <body>

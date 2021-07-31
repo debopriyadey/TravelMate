@@ -19,48 +19,47 @@ export default function Discover() {
         tzOffsetMinutes: "",
     });
     const [cityPhoto, setCityPhoto] = useState();
-    const search = async (e) => {
+    /*const search = async (e) => {
         if (e.key === 'Enter') {
             const data = await fetchBasicInfo(query);
             console.log(data);
             setCityPhoto(data);
             setQuery('');
         }
-    }
+    }*/
+
 
     useEffect(() => {
-        const auto = () => {
-            window.TeleportAutocomplete.init('.my-input').on('change', function (value) {
-                setCity(value)
-            });
-        }
-        auto();
+        window.TeleportAutocomplete.init('.my-input').on('change', function (value) {
+            setCity(value)
+        });
     }, [])
 
     useEffect(() => {
-        const photosearch = () => {
-            fetchPhotos(city.title)
-                .then((res) => { setCityPhoto(res) })
+        if(city){
+            const photosearch = () => {
+                fetchPhotos(city.title)
+                    .then((res) => { setCityPhoto(res) })
+            }
+            photosearch();
+            const infoSearch = () => {
+                fetchDesc(city.title)
+                    .then((res) => {
+                        setInfo(res)
+                    })
+            }
+            const hotelSearch = () => {
+                fetchHotelDeatils(city.name)
+                    .then((res) => {
+                        setHotels(res)
+                    })
+            }
+            infoSearch();
+            hotelSearch();
         }
-        photosearch();
-        const infoSearch = () => {
-            fetchDesc(city.title)
-                .then((res) => {
-                    setInfo(res)
-                })
-        }
-        const hotelSearch = () => {
-            fetchHotelDeatils(city.name)
-                .then((res) => {
-                    setHotels(res)
-                })
-        }
-        infoSearch();
-        hotelSearch();
+
     }, [city])
 
-    console.log(city)
-    console.log(cityPhoto)
 
     return (
         <>
@@ -68,7 +67,7 @@ export default function Discover() {
                 <h1 className="discover-main-text"> Discover new <span className="special-text">destination </span> </h1>
                 <input type="text" className="mt-4 my-input discover-search" name="field" placeholder="search a place...." tabIndex="1" autoComplete="off" />
                 <div  className="discover-city-container">
-                    {city.title && cityPhoto && (
+                    {/* {city && city.title && cityPhoto && (
                         <div className="discover-city">
                             <div className="city-header">
                                 <div className="row">
@@ -126,7 +125,7 @@ export default function Discover() {
                                 </div>
                             </div>
                         </div>
-                    )}
+                    )} */}
                 </div>
             </div>
         </>

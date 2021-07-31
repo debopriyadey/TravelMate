@@ -25,21 +25,29 @@ const useStyles = makeStyles((theme) => ({
 export default function TopReviews() {
     const classes = useStyles();
 
-    const allreviews = useSelector(state => state.allreviews)
+    const { allReviews, loading, error } = useSelector(state => state.reviews)
     return (
         <div id="top-reviews">
             <div>
                 <h1 className="mt-4 text-center"> Top Reviews </h1>
             </div>
-            <Grid container spacing={3} className={classes.container}>
-                {
-                    allreviews.slice(0, 10).map((review) => (
-                        <Grid key={review._id}>
-                            <ReviewCard places={review} />
-                        </Grid>
-                    ))
-                }
-            </Grid>
+            {
+                loading ? (
+                    <div>Loading Top Reviews</div>
+                ) : error ? (
+                    <div>{error}</div>
+                ) : (
+                    <Grid container spacing={3} className={classes.container}>
+                        {
+                            allReviews.slice(0, 10).map((review) => (
+                                <Grid key={review._id}>
+                                    <ReviewCard places={review} />
+                                </Grid>
+                            ))
+                        }
+                    </Grid>
+                )
+            }
         </div>
     )
 }

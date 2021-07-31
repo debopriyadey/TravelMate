@@ -16,7 +16,7 @@ import { CLEAR_CREATE_REVIEW } from '../constents';
 
 const useStyles = makeStyles(theme => ({
     root: {
-        background: 'linear-gradient(184deg, rgba(45,35,255,1) 0%, rgba(26,169,227,1) 82%);',
+        background: '#fff',
         // backgroundImage: `url(${formimg})`,
         // backgroundSize: "cover",
         // backgroundRepeat: "no-repeat",
@@ -122,13 +122,24 @@ export default function ReviewForm() {
 
     const handeleSubmit = (e) => {
         e.preventDefault();
-        reviewData.review = placeData.like + ' ' + placeData.speciality + ' ' +  placeData.expence + ' ' + placeData.time;
-        reviewData.tags =  reviewData.tags + ',' + reviewData.title;
+        reviewData.review = placeData.like + ' ' + placeData.speciality + ' ' + placeData.expence + ' ' + placeData.time;
+        reviewData.tags = reviewData.tags + ',' + reviewData.title;
+        console.log("tagonSubmit: ", reviewData.tags)
         dispatch(createreviews(reviewData))
     }
     let item= true;
     
     useEffect(() => {
+        const auto = () => {
+            var $results = document.querySelector('.results');
+            var appendToResult = $results.insertAdjacentHTML.bind($results, 'afterend');
+
+            window.TeleportAutocomplete.init('.my-input').on('change', function (value) {
+                setData({...reviewData, tags: value.title})
+                appendToResult('<pre>' + JSON.stringify(value, null, 2) + '</pre>');
+            });
+        }
+        auto();
         return () => {
             dispatch({type: CLEAR_CREATE_REVIEW});
             console.log("Review form gone ")
@@ -229,7 +240,7 @@ export default function ReviewForm() {
                                     />
                                 </FormControl>
 
-                                <FormControl  className={classes.bottomfield}>
+                                <FormControl className={classes.bottomfield}>
                                     <p className={classes.formheadings}> Upload Photo </p>
                                     <div className={classes.fileInput}>
                                         <Filebase
@@ -239,57 +250,20 @@ export default function ReviewForm() {
                                         />
                                     </div>
                                 </FormControl>
-                                <FormControl variant="outlined"  className={classes.bottomfield}>
-                                <p className={classes.formheadings}> State </p>
-                                    {/* <InputLabel id="demo-simple-select-filled-label"> State </InputLabel> */}
-                                    <Select
-                                        id="tags"
-                                        label="tags"
-                                        fullWidth
-                                        required
+                                <FormControl variant="outlined" className={classes.bottomfield}>
+                                    <p className={classes.formheadings}> State </p>
+                                    <input
+                                        type="text"
+                                        className="my-input"
+                                        name="field"
+                                        tabIndex="1"
+                                        autoComplete="off"
                                         value={reviewData.tags}
-                                        onChange={(e) => setData({ ...reviewData, tags: e.target.value })}
-                                    >
-                                        <MenuItem value="">
-                                            <em>None</em>
-                                        </MenuItem>
-                                        <MenuItem value="Andhra Pradesh">Andhra Pradesh</MenuItem>
-                                        <MenuItem value="Andaman and Nicobar Islands">Andaman and Nicobar Islands</MenuItem>
-                                        <MenuItem value="Arunachal Pradesh">Arunachal Pradesh</MenuItem>
-                                        <MenuItem value="Assam">Assam</MenuItem>
-                                        <MenuItem value="Bihar">Bihar</MenuItem>
-                                        <MenuItem value="Chandigarh">Chandigarh</MenuItem>
-                                        <MenuItem value="Chhattisgarh">Chhattisgarh</MenuItem>
-                                        <MenuItem value="Dadar and Nagar Haveli">Dadar and Nagar Haveli</MenuItem>
-                                        <MenuItem value="Daman and Diu">Daman and Diu</MenuItem>
-                                        <MenuItem value="Delhi">Delhi</MenuItem>
-                                        <MenuItem value="Lakshadweep">Lakshadweep</MenuItem>
-                                        <MenuItem value="Puducherry">Puducherry</MenuItem>
-                                        <MenuItem value="Goa">Goa</MenuItem>
-                                        <MenuItem value="Gujarat">Gujarat</MenuItem>
-                                        <MenuItem value="Haryana">Haryana</MenuItem>
-                                        <MenuItem value="Himachal Pradesh">Himachal Pradesh</MenuItem>
-                                        <MenuItem value="Jammu and Kashmir">Jammu and Kashmir</MenuItem>
-                                        <MenuItem value="Jharkhand">Jharkhand</MenuItem>
-                                        <MenuItem value="Karnataka">Karnataka</MenuItem>
-                                        <MenuItem value="Kerala">Kerala</MenuItem>
-                                        <MenuItem value="Madhya Pradesh">Madhya Pradesh</MenuItem>
-                                        <MenuItem value="Maharashtra">Maharashtra</MenuItem>
-                                        <MenuItem value="Manipur">Manipur</MenuItem>
-                                        <MenuItem value="Meghalaya">Meghalaya</MenuItem>
-                                        <MenuItem value="Mizoram">Mizoram</MenuItem>
-                                        <MenuItem value="Nagaland">Nagaland</MenuItem>
-                                        <MenuItem value="Odisha">Odisha</MenuItem>
-                                        <MenuItem value="Punjab">Punjab</MenuItem>
-                                        <MenuItem value="Rajasthan">Rajasthan</MenuItem>
-                                        <MenuItem value="Sikkim">Sikkim</MenuItem>
-                                        <MenuItem value="Tamil Nadu">Tamil Nadu</MenuItem>
-                                        <MenuItem value="Telangana">Telangana</MenuItem>
-                                        <MenuItem value="Tripura">Tripura</MenuItem>
-                                        <MenuItem value="Uttar Pradesh">Uttar Pradesh</MenuItem>
-                                        <MenuItem value="Uttarakhand">Uttarakhand</MenuItem>
-                                        <MenuItem value="West Bengal">West Bengal</MenuItem>
-                                    </Select>
+                                        onChange={(e) => {
+                                            console.log(e.target.value) 
+                                            setData({...reviewData, tags: e.target.value})
+                                        }}
+                                    />
                                 </FormControl>
                                 {/* <CountryDropdown
                                     value={reviewData.state}
@@ -311,11 +285,13 @@ export default function ReviewForm() {
                                     <Link to='/' style={{ textDecoration: 'none' }}>
                                         <Button>
                                             <ArrowBackIcon /> Back to Home
-                                    </Button>
+                                        </Button>
                                     </Link>
                                 </Grid>
                             </Container>
                         </form>
+                        <div className="results"></div>
+
                     </Grid>
                 </Paper>
             </div>

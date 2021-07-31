@@ -5,8 +5,11 @@ import Header from './Header';
 import TopReviews from './TopReviews';
 import RecentReviews from './RecentReviews'
 import TrendyPlaces from './TrendyPlaces';
-import bgimage from '../img/heroimage.jpg';
+import bgimage from '../img/headerbg.webp';
+import Weather from './Weather';
 import Footer from './Footer';
+import CreateInfo from './CreateInfo';
+import InfoCard from './InfoCard';
 
 
 const useStyle = makeStyles((theme) => ({
@@ -30,9 +33,12 @@ export default function MainBody() {
             <div className={classes.header}>
                 <Header />
             </div>
+            <InfoCard />
             <TopReviews />
             <RecentReviews />
             <TrendyPlaces />
+            <Weather />
+            <CreateInfo />
             <Footer />
         </div>
     )

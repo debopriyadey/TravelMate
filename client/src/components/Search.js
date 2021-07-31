@@ -119,6 +119,7 @@ export default function Search(props) {
   const [options, setOptions] = useState([]);
   const [post, setPost] = useState([]);
   const loading = open
+  // const [openLoader, setOpenLoader] = React.useState(false);
 
   // const handleOpenLoader = () => {
   //   setOpenLoader(true);
@@ -133,6 +134,13 @@ export default function Search(props) {
     if (searchTyped && searchTyped !== null) history.push(`/search?q=${searchTyped}`);
     else history.push(`/search`);
   }
+  // const handleOpenLoader = () => {
+  //   setOpenLoader(true);
+  // };
+
+  // const handleCloseLoader = () => {
+  //   setOpenLoader(false);
+  // };
 
   // to fetch all the review which have given tag
   const getPostByTag = (tag) => {

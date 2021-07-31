@@ -1,8 +1,7 @@
 import React from 'react'
-import { makeStyles, Hidden } from '@material-ui/core'
+import { makeStyles } from '@material-ui/core'
 import { Link } from 'react-router-dom';
 import { Container } from 'reactstrap'
-import FooterSvg from './FooterSvg';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -25,8 +24,9 @@ export default function TrendyPlaces() {
     return (
         <div className={classes.root}>
             <Container>
-                <h1>Trending Places To Visit </h1>
-                <hr className="mb-2 mt-0 d-inline-block mx-auto" style={{ width: "400px", backgroundColor: 'grey' }} />
+                <h3>Trending Places To Visit </h3>
+                <br />
+                {/* <hr className="mb-2 mt-0 d-inline-block mx-auto" style={{ width: "400px", backgroundColor: 'grey' }} /> */}
                 <div className="row">
                     <div className="col-sm-12 col-md-6 col-lg-4 mb-4 d-flex">
                         <Link to="/search?q=Kolkata" className="d-flex">
@@ -34,7 +34,7 @@ export default function TrendyPlaces() {
                                 <img src="https://images.unsplash.com/photo-1571679654681-ba01b9e1e117?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8a29sa2F0YXxlbnwwfHwwfHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="" className={classes.cityImg} />
                             </div>
                             <div className="align-self-center">
-                                <h6>Kolkata,</h6>
+                                <h6> Kolkata,</h6>
                                 <h6> West Bengal</h6>
                             </div>
                         </Link>
@@ -96,12 +96,6 @@ export default function TrendyPlaces() {
                     </div>
                 </div>
             </Container>
-            <br />
-            <br />
-            <br />
-            <Hidden mdDown>
-                <FooterSvg />
-            </Hidden>
         </div >
     )
 }

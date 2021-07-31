@@ -45,10 +45,15 @@ const useStyles = makeStyles((theme) => ({
 
     share: {
         border: '2px solid black',
-        backgroundColor: '#fff',
+        borderRadius: '50%',
+        backgroundColor: '#fff !important',
         marginTop: '-58px',
         marginRight: '-40px',
         float: 'right',
+        [theme.breakpoints.down('sm')]: {
+            marginTop: '-68px',
+            marginRight: '25px',
+        },
     },
 
     title: {
@@ -151,7 +156,7 @@ export default function ReviewCard({ places }) {
     return (
         <div className={classes.root}>
             <div className="row">
-                <div className="col-4">
+                <div className="col-sm-12 col-lg-4">
                     <CardMedia
                         className={classes.media}
                         image={places.selectedFile}
@@ -175,7 +180,7 @@ export default function ReviewCard({ places }) {
                             </Alert>
                         </Snackbar>
                 </div>
-                <div className="col-8">
+                <div className="col-sm-12 col-lg-8">
                     <div className="row">
                         <div className="col-8">
                             <CardHeader

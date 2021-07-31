@@ -1,3 +1,85 @@
 ﻿.NavStyle:hover {
     text-decoration: none;
 }
+
+.header-maintext {
+    line-height: 50px;
+    font-weight: bolder;
+    font-size: 2.5rem;
+    font-family: 'Varela Round', sans-serif;
+    font-weight: bold;
+    margin-top: -90px;
+}
+
+.header-tagline {
+    margin-top: 20px;
+    font-size: 1.4rem;
+    font-family: 'Noto Sans JP', sans-serif;
+}
+
+.special-text {
+    font-weight: bolder;
+    font-family: 'Varela Round', sans-serif;
+    color: #295ed9;
+}
+
+.header-bar {
+    margin-inline: 150px;
+    margin-top: 250px;
+    margin-left: 0px;
+    background: rgb(253, 253, 253);
+    background: linear-gradient(73deg, rgb(235, 235, 238) 0%, rgb(251, 252, 252) 82%);
+    border-radius: 30px;
+    font-family: 'Varela Round', sans-serif;
+    font-size: 1.2rem;
+    justify-content: space-between !important;
+}
+
+.bar-logo {
+    align-self: center;
+}
+
+.bar-content {
+    display: flex;
+    justify-content: center;
+    align-items:flex-start;
+    padding: 10px;
+    padding-left: 10px;
+    margin-inline: 15px;
+}
+
+.bar-review {
+    padding-left: 10px;
+}
+
+.bar-num {
+    font-weight: bolder;
+}
+
+.bar-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.btn-login {
+    background-color: #FF00FF;
+    border: 2px solid white;
+    border-radius: 30px;
+    padding-inline: 50px;
+    font-family: 'Noto Sans JP', sans-serif;
+    color: white;
+}
+
+@media screen and (max-width: 700px) {
+    .header-bar {
+        margin: 0px;
+        margin-top: 150px;
+        background: rgb(253, 253, 253);
+        background: linear-gradient(73deg, rgb(235, 235, 238) 0%, rgb(251, 252, 252) 82%);
+        border-radius: 30px;
+        font-family: 'Varela Round', sans-serif;
+        font-size: 0.8rem;
+        justify-content: space-between !important;
+    }
+}

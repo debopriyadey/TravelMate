@@ -13,6 +13,8 @@ import { loggedInUserInfo } from './actions/userActions';
 import Search from './components/Search.js'
 import UpdateReview from './components/UpdateReview.js';
 import { ProtectedRoute } from './components/ProtectedRoutes';
+import Discover from './components/Discover';
+
 function App() {
 
     const dispatch=useDispatch();
@@ -31,8 +33,9 @@ function App() {
                      <Route path="/login" component={Login} />
                     <Route path="/search" component={Search} />
                     <Route path="/currentreview" component={CurrentReview} />
+                    <Route path="/discover" component={Discover} />
+                    <Route path="/createreview" component={ReviewForm} />
                     <ProtectedRoute path="/myreviews" component={MyReviews} />
-                    <ProtectedRoute path="/createreview" component={ReviewForm} />
                     <ProtectedRoute path="/update" component={UpdateReview} />
                     
                 </Switch>

@@ -4,9 +4,17 @@ import { Collapse, IconButton, Button } from '@material-ui/core';
 import ArrowDropDownCircleIcon from '@material-ui/icons/ArrowDropDownCircle';
 import { Link } from 'react-router-dom';
 import { Link as Scroll } from 'react-scroll';
+import ReviewIcon from '@material-ui/icons/RateReview';
+import HotelIcon from '@material-ui/icons/Hotel';
+import CloudIcon from '@material-ui/icons/Cloud';
 
 import NavBar from './NavBar';
 import { useSelector } from 'react-redux';
+import '../css/header.css'
+
+import review from '../svg/review.svg'
+import destination from '../svg/destination.svg'
+import weather from '../svg/weather.svg'
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -25,7 +33,6 @@ const useStyles = makeStyles((theme) => ({
         [theme.breakpoints.down('xs')]: {
             marginTop: '60%'
         }
-
     },
 
     icon: {
@@ -110,7 +117,47 @@ export default function Header() {
         <div>
             <NavBar />
             <div className={classes.root} id="header">
-                <Collapse
+                <div className="container">
+                    <div className="row">
+                        <div className="col-md-12 col-lg-7" >
+                            <h1 className="header-maintext"> What's your next vacation destination?</h1>
+                            <p className="header-tagline"> Let <span className="special-text">TravelMate</span> help you take your desscion. </p>
+                        </div>
+                    </div>
+                    <div className="row header-bar">
+                        <div className="col-3 bar-content">
+                            <Link to="/search" style={{ textDecoration: 'none', display: 'flex' }}>
+                                <div className="bar-logo">
+                                    <img src={review} alt="review-logo" />
+                                </div>
+                                <div className="bar-review">
+                                    <p className="mb-0">Search <br /> Reviews</p>
+                                </div>
+                            </Link>
+                        </div>
+                        <div className="col-3 bar-content">
+                            <Link to="/discover" style={{ textDecoration: 'none', display: 'flex' }}>
+                                <div className="bar-logo">
+                                    <img src={weather} alt="weather-logo" />
+                                </div>
+                                <div className="bar-review">
+                                    <p className="mb-0">Discover <br /> Destination</p>
+                                </div>
+                            </Link>
+                        </div>
+                        <div className="col-3 bar-content">
+                            <a href="#weather" style={{ textDecoration: 'none', display: 'flex' }}>
+                                <div className="bar-logo">
+                                    <img src={destination} alt="destination-logo" />
+                                </div>
+                                <div className="bar-review">
+                                    <p className="mb-0">Check <br /> Weather</p>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                {/* <Collapse
                     in={checked}
                     {...(checked ? { timeout: 1000 } : {})}
                     collapsedHeight={50}
@@ -130,15 +177,13 @@ export default function Header() {
                         </span>
                         <div>
                             <Scroll to="top-reviews" smooth={true}>
-                                <IconButton>
-                                    <ArrowDropDownCircleIcon className={classes.goDown} />
-                                </IconButton>
+                                <ArrowDropDownCircleIcon className={classes.goDown} />
                             </Scroll>
                         </div>
                     </div>
-                </Collapse>
+                </Collapse> */}
             </div>
-        </div>
+        </div >
 
     );
 

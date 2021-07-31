@@ -153,7 +153,7 @@ export default function Header() {
             <Navbar color="dark" dark expand="md" className={classes.appbar}>
                     <Link to="/" style={{ textDecoration: 'none', color: 'white' }} className="mx-5">
                         <h1 className={classes.appbarTitle}>
-                            Travell<span className={classes.colorText}>Mate</span>
+                            Travel<span className={classes.colorText}>Mate</span>
                         </h1>
                     </Link>
                 <NavbarToggler onClick={toggle} />

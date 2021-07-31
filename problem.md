@@ -1,2 +1,0 @@
-1. first problem is when user signup we have redirected him to login and from there if user want to go to the signup page again then there was problem as we were relying on redux store where in the store we where saving signup succes and in signup page we were accessing that state and checking if the message is signupSuccess but there problem we faced were is that it give previous signup message it not new 
- solution : made another action for clearing signup State and calling that action on useEffect cleanup

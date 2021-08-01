@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { fetchPhotos, fetchBasicInfo, fetchDesc, fetchHotelDeatils } from '../api/index';
+import { fetchPhotos, fetchDesc, fetchHotelDeatils } from '../api/index';
 import '../css/discover.css';
 
 export default function Discover() {
@@ -39,11 +39,13 @@ export default function Discover() {
         if(city){
             const photosearch = () => {
                 fetchPhotos(city.title)
-                    .then((res) => { setCityPhoto(res) })
+                    .then((res) => { 
+                        setCityPhoto(res)
+                     })
             }
             photosearch();
             const infoSearch = () => {
-                fetchDesc(city.title)
+                fetchDesc(city.name)
                     .then((res) => {
                         setInfo(res)
                     })
@@ -51,28 +53,35 @@ export default function Discover() {
             const hotelSearch = () => {
                 fetchHotelDeatils(city.name)
                     .then((res) => {
+                        console.log(hotels);
                         setHotels(res)
                     })
             }
             infoSearch();
             hotelSearch();
+            
+            
         }
 
     }, [city])
-
-
+   
     return (
         <>
             <div className="discover-container" id="weather">
                 <h1 className="discover-main-text"> Discover new <span className="special-text">destination </span> </h1>
                 <input type="text" className="mt-4 my-input discover-search" name="field" placeholder="search a place...." tabIndex="1" autoComplete="off" />
                 <div  className="discover-city-container">
-                    {/* {city && city.title && cityPhoto && (
+                    {city && city.title && cityPhoto && (
                         <div className="discover-city">
                             <div className="city-header">
                                 <div className="row">
                                     <div className="col-sm-12 col-md-6 city-header-photo-container">
-                                        <img src={cityPhoto.results[3].urls.regular} alt="city-name" className="city-header-photo" />
+                                    
+                                        {
+                                            cityPhoto.results.map((e)=> (
+                                                <img key={e.urls.thumb} src={e.urls.thumb+'&q=80&w=200'} alt="city-name" className="city-header-photo" style={{width:'300px'}} />
+                                            ))
+                                        }
                                     </div>
                                     <div className="col-sm-12 col-md-6">
                                         <div className="city-header-main">
@@ -82,14 +91,13 @@ export default function Discover() {
                                         <br />
                                         <div className="city-sec-about">
                                             <h2 className="sec-title">about</h2>
-                                            <p className="city-about">Consectetur non nisi esse Lorem labore ex veniam nisi dolor aliquip.
-                                                Eiusmod duis nisi irure pariatur tempor. Minim velit dolor pariatur deserunt et amet.
-                                                Ut eu laborum irure nostrud aliquip irure veniam nulla veniam.
-                                                In adipisicing commodo id voluptate sint sunt aliqua ipsum tempor.
-                                                Dolor non adipisicing ad voluptate anim tempor elit consectetur laboris eu aliqua.
-                                                Ut velit elit excepteur excepteur id eu exercitation elit irure eu elit.
-                                                Mollit qui qui elit commodo esse adipisicing laboris aute ut ea magna quis sit fugiat.
-                                            </p>
+                                            {
+                                                 info.query&&  Object.entries(info.query.pages).map((e)=> (
+                                                    <p className="city-about" key={e[0]}>
+                                                       { e[1].extract}
+                                                    </p>
+                                                 ))
+                                            }
                                         </div>
                                     </div>
                                 </div>
@@ -125,7 +133,7 @@ export default function Discover() {
                                 </div>
                             </div>
                         </div>
-                    )} */}
+                    )}
                 </div>
             </div>
         </>

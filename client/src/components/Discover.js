@@ -59,8 +59,6 @@ export default function Discover() {
             }
             infoSearch();
             hotelSearch();
-
-
         }
 
     }, [city])
@@ -78,7 +76,7 @@ export default function Discover() {
                                     <div className="col-sm-12 col-md-6 city-header-photo-container">
                                        {
                                            cityPhoto.results&& cityPhoto.results[0] && 
-                                           <img src={cityPhoto.results[0].urls.regular} alt="city-name" className="city-header-photo" />
+                                           <img src={cityPhoto.results[0].urls.regular} alt="city-name" className="city-header-photo" style={{ maxHeight: '750px'}}  />
                                        } 
                                     </div>
                                     <div className="col-sm-12 col-md-6">
@@ -107,12 +105,12 @@ export default function Discover() {
                                 </div>
                                 {
                                     cityPhoto.results.map((e) => (
-                                        <img key={e.urls.thumb} src={e.urls.thumb + '&q=80&w=200'} alt="city-name" className="city-header-photo" style={{ width: '300px' }} />
+                                        <img key={e.urls.thumb} src={e.urls.thumb + '&q=80&w=200'} alt="city-name" className="" style={{ width: '300px' }} />
                                     ))
                                 }
                             </div>
-                            <div className="city-tour">
-                                <div className="hotels-header">
+                            <div className="city-attraction">
+                                <div className="attraction-header">
                                     <h2 className="sec-title">tourist attraction</h2>
                                     <p className="sec-title-help"> places to visit </p>
                                 </div>

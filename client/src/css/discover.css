@@ -124,6 +124,16 @@
     padding: 40px 20px;
 }
 
+.city-attraction {
+    margin-top: 100px;
+    background-color: rgb(241, 218, 8);
+    width: 100%;
+}
+
+.attraction-header {
+    padding: 20px;
+}
+
 @media screen and (max-width: 1020px) {
     .discover-city-container {
         margin-top: 10px;

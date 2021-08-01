@@ -76,7 +76,10 @@ export default function Discover() {
                             <div className="city-header">
                                 <div className="row">
                                     <div className="col-sm-12 col-md-6 city-header-photo-container">
-                                        <img src={cityPhoto.results[1].urls.regular} alt="city-name" className="city-header-photo" />
+                                       {
+                                           cityPhoto.results&& cityPhoto.results[0] && 
+                                           <img src={cityPhoto.results[0].urls.regular} alt="city-name" className="city-header-photo" />
+                                       } 
                                     </div>
                                     <div className="col-sm-12 col-md-6">
                                         <div className="city-header-main">

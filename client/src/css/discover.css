@@ -117,13 +117,60 @@
 
 .city-gallary {
     margin-top: 80px;
+    /* display: flex;
+    flex-wrap: wrap;
+    justify-content: center; */
 }
+/*******Image gallery of unequal height *********/
+.city-gallary {    
+    line-height: 0;       
+     -webkit-column-count: 5;    
+     -webkit-column-gap: 0px;    
+     -moz-column-count: 5;
+     -moz-column-gap: 0px;
+      column-count: 5;    
+      column-gap: 0px;    
+ }  
+ .city-gallary img {    
+    width: 100% !important;    
+    height: auto !important;  
+ }  
+ .city-gallary{    
+    display:inline-block;    
+    margin-right: auto;    
+    margin-left: auto;  
+ }
 
+/*******Image gallery of unequal height end*********/
 .gallary-header {
     border: rgb(241, 218, 8) 4px solid;
     padding: 40px 20px;
+    display: inline-block;
 }
+/*******Image gallery of unequal height for small device*********/
 
+@media (max-width: 1000px) {
+    #city-gallary {
+    -moz-column-count:    3;
+    -webkit-column-count: 3;
+    column-count:         3;
+    }
+}  
+ @media (max-width: 800px) {
+    #city-gallary {
+    -moz-column-count:    2;
+    -webkit-column-count: 2;
+    column-count:         2;
+    }
+}  
+ @media (max-width: 400px) {
+    #city-gallary {
+    -moz-column-count:    1;
+    -webkit-column-count: 1;
+     column-count:        1;
+    }
+}
+/*******Image gallery of unequal height for small device end*********/
 @media screen and (max-width: 1020px) {
     .discover-city-container {
         margin-top: 10px;

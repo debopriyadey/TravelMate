@@ -101,15 +101,17 @@ export default function Discover() {
                                 </div>
                             </div>
                             <div className="city-gallary">
+                                
                                 <div className="gallary-header">
                                     <h2 className="sec-title">gallery</h2>
                                     <p className="sec-title-help"> explore the city </p>
                                 </div>
-                                {
-                                    cityPhoto.results.map((e) => (
-                                        <img key={e.urls.thumb} src={e.urls.thumb + '&q=80&w=200'} alt="city-name" className="city-header-photo" style={{ width: '300px' }} />
-                                    ))
-                                }
+                                    {
+                                        cityPhoto.results.map((e) => (
+                                            <img key={e.urls.thumb} src={e.urls.full + '&q=80&w=200'} alt="city-name" className="city-header-photo"  />
+                                        ))
+                                    }
+                                
                             </div>
                             <div className="city-tour">
                                 <div className="hotels-header">

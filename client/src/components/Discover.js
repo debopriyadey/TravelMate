@@ -36,12 +36,12 @@ export default function Discover() {
     }, [])
 
     useEffect(() => {
-        if(city){
+        if (city) {
             const photosearch = () => {
                 fetchPhotos(city.title)
-                    .then((res) => { 
+                    .then((res) => {
                         setCityPhoto(res)
-                     })
+                    })
             }
             photosearch();
             const infoSearch = () => {
@@ -59,44 +59,39 @@ export default function Discover() {
             }
             infoSearch();
             hotelSearch();
-            
-            
+
+
         }
 
     }, [city])
-   
+
     return (
         <>
             <div className="discover-container" id="weather">
                 <h1 className="discover-main-text"> Discover new <span className="special-text">destination </span> </h1>
                 <input type="text" className="mt-4 my-input discover-search" name="field" placeholder="search a place...." tabIndex="1" autoComplete="off" />
-                <div  className="discover-city-container">
+                <div className="discover-city-container">
                     {city && city.title && cityPhoto && (
                         <div className="discover-city">
                             <div className="city-header">
                                 <div className="row">
                                     <div className="col-sm-12 col-md-6 city-header-photo-container">
-                                    
-                                        {
-                                            cityPhoto.results.map((e)=> (
-                                                <img key={e.urls.thumb} src={e.urls.thumb+'&q=80&w=200'} alt="city-name" className="city-header-photo" style={{width:'300px'}} />
-                                            ))
-                                        }
+                                        <img src={cityPhoto.results[1].urls.regular} alt="city-name" className="city-header-photo" />
                                     </div>
                                     <div className="col-sm-12 col-md-6">
                                         <div className="city-header-main">
                                             <h2 className="city-name">{city.name}</h2>
-                                            <h4 className="city-state">{city.title.slice(city.name.length+2, city.title.length)}</h4>
+                                            <h4 className="city-state">{city.title.slice(city.name.length + 2, city.title.length)}</h4>
                                         </div>
                                         <br />
                                         <div className="city-sec-about">
                                             <h2 className="sec-title">about</h2>
                                             {
-                                                 info.query&&  Object.entries(info.query.pages).map((e)=> (
-                                                    <p className="city-about" key={e[0]}>
-                                                       { e[1].extract}
+                                                info.query && Object.entries(info.query.pages).map((e) => (
+                                                    <p className="city-about p-5" key={e[0]}>
+                                                        {e[1].extract.slice(0, 500)}
                                                     </p>
-                                                 ))
+                                                ))
                                             }
                                         </div>
                                     </div>
@@ -107,6 +102,11 @@ export default function Discover() {
                                     <h2 className="sec-title">gallery</h2>
                                     <p className="sec-title-help"> explore the city </p>
                                 </div>
+                                {
+                                    cityPhoto.results.map((e) => (
+                                        <img key={e.urls.thumb} src={e.urls.thumb + '&q=80&w=200'} alt="city-name" className="city-header-photo" style={{ width: '300px' }} />
+                                    ))
+                                }
                             </div>
                             <div className="city-tour">
                                 <div className="hotels-header">

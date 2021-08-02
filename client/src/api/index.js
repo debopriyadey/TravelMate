@@ -9,8 +9,14 @@ const DescriptionUrl = 'https://travel-places.p.rapidapi.com/';
 const Hotels = 'https://hotels-com-free.p.rapidapi.com/srle/listing/v1/brands/hotels.com';
 const HotelOther = 'https://hotels-com-provider.p.rapidapi.com/v1/destinations/search';
 
+// debo -----------------
 // 'x-rapidapi-key': 'b2bcc81cd5msh7bd347d7ba10befp168e94jsnce8a3ac290f4',
-// 'x-rapidapi-host': 'hotels-com-free.p.rapidapi.com'
+
+// gourav ----------------
+// 'x-rapidapi-key': '55d9d9ac16mshe5aaadf43f401fcp141bf0jsnc5b537063079',
+
+// projectshack ------------------
+// 'x-rapidapi-key': '7f69e74faamsha9b3aad78a91932p1e1393jsn3e7ff01b9b70',
 
 // post
 export const fetchPost = () => axios.get(`${baseUrl}/fetchreviews`);
@@ -97,15 +103,22 @@ export const fetchHotelDeatils = async (lon, lat) => {
                 lon: lon,
                 checkIn: '2021-08-02',
                 checkOut: '2021-08-02',
-                rooms: '1',
+                rooms: '3',
                 locale: 'en_US',
                 currency: 'INR',
                 pageNumber: '1',
                 sortOrder: 'STAR_RATING_HIGHEST_FIRST',
             },
             headers: {
-               'x-rapidapi-key': '55d9d9ac16mshe5aaadf43f401fcp141bf0jsnc5b537063079',
-               'x-rapidapi-host': 'hotels-com-free.p.rapidapi.com'
+                // debo -----------------
+                'x-rapidapi-key': 'b2bcc81cd5msh7bd347d7ba10befp168e94jsnce8a3ac290f4',
+
+                // gourav ----------------
+                // 'x-rapidapi-key': '55d9d9ac16mshe5aaadf43f401fcp141bf0jsnc5b537063079',
+
+                // projectshack ------------------
+                // 'x-rapidapi-key': '7f69e74faamsha9b3aad78a91932p1e1393jsn3e7ff01b9b70',
+                'x-rapidapi-host': 'hotels-com-free.p.rapidapi.com'
             }
         });
         return data

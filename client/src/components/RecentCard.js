@@ -162,17 +162,8 @@ export default function ReviewCard({ places }) {
                         image={places.selectedFile}
                         title={places.title}
                     />
-                    {/* <IconButton aria-label="share" onClick={handleCopy} className={classes.share}>
-                        <ShareIcon aria-label="share" onClick={handleCopy} />
-                        <Snackbar open={openCopy} autoHideDuration={6000} onClose={handleCloseCopy}>
-                            <Alert onClose={handleCloseCopy} severity="success">
-                                Link copied to clipboard
-                            </Alert>
-                        </Snackbar>
-                    </IconButton> */}
                     <IconButton aria-label="share" onClick={handleCopy} className={classes.share}>
                         <ShareIcon aria-label="share" />
-                        
                     </IconButton>
                     <Snackbar open={openCopy} autoHideDuration={6000} onClose={handleCloseCopy}>
                             <Alert onClose={handleCloseCopy} severity="success">

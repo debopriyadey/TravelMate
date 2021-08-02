@@ -1,4 +1,6 @@
+import { CardMedia, IconButton } from '@material-ui/core';
 import React, { useState, useEffect } from 'react'
+import Rating from '@material-ui/lab/Rating';
 import { fetchPhotos, fetchDesc, fetchHotelDeatils } from '../api/index';
 import '../css/discover.css';
 
@@ -126,9 +128,40 @@ export default function Discover() {
                                 </div>
                                 <div className="hotel-container">
                                     {
-                                       hotels&&   hotels.data.body.searchResults.results.map((e)=>{
-                                            console.log(e);
-                                        })
+                                        hotels && hotels.data.body.searchResults.results.map((e) => (
+                                            <div className="row hotel-card my-5 mx-1">
+                                                <div className="col-md-12 col-lg-4">
+                                                    <img src={e.optimizedThumbUrls.srpDesktop} alt={e.name} className="hotel-img" />
+                                                </div>
+                                                <div className="col-md-12 col-lg-8 hotel-desc">
+                                                    <h1 className="hotel-name mb-0">{e.name}</h1>
+                                                    <small className="hotel-address">{e.address.streetAddress}, {e.address.locality}, {e.address.postalCode}</small>
+                                                    <br />
+                                                    <Rating name="read-only" value={e.starRating} precision={0.5} readOnly className="hotel-rating mt-2" />
+                                                    <br />
+                                                    <div className="row hotel-desc-last">
+                                                        <div className="col-md-12 col-lg-6 hotel-landmark">
+                                                            <h4 className="hotel-landmark-header mb-0 mt-2"> Landmarks </h4>
+                                                            {
+                                                                e.landmarks.map((res) => (
+                                                                    <>
+                                                                        <small className="my-0">{res.distance} to {res.label.length > 25 ? res.label.slice(0, Math.min(20, res.label.indexOf(",") + 1)) : res.label}</small>
+                                                                        <br />
+                                                                    </>
+                                                                ))
+                                                            }
+                                                        </div>
+                                                        <div className="col-ms-12 col-lg-6">
+                                                            <div className="hotel-price-btn">
+                                                                {/* <p className="hotel-price">{e.ratePlan === undefined ? e.ratePlan.price.current : ''}</p> */}
+                                                                <p className="hotel-price mb-0">Rs 3,240</p>
+                                                                <small>excluding taxes & fees</small>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        ))
                                     }
                                 </div>
                             </div>

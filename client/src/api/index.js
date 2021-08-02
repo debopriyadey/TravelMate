@@ -9,6 +9,9 @@ const DescriptionUrl = 'https://travel-places.p.rapidapi.com/';
 const Hotels = 'https://hotels-com-free.p.rapidapi.com/srle/listing/v1/brands/hotels.com';
 const HotelOther = 'https://hotels-com-provider.p.rapidapi.com/v1/destinations/search';
 
+// 'x-rapidapi-key': 'b2bcc81cd5msh7bd347d7ba10befp168e94jsnce8a3ac290f4',
+// 'x-rapidapi-host': 'hotels-com-free.p.rapidapi.com'
+
 // post
 export const fetchPost = () => axios.get(`${baseUrl}/fetchreviews`);
 export const recentReview = () => axios.get(`${baseUrl}/recentreviews`)
@@ -100,8 +103,8 @@ export const fetchHotelDeatils = async (lon, lat) => {
                 pageNumber: '1'
             },
             headers: {
-                'x-rapidapi-key': 'b2bcc81cd5msh7bd347d7ba10befp168e94jsnce8a3ac290f4',
-                'x-rapidapi-host': 'hotels-com-free.p.rapidapi.com'
+               'x-rapidapi-key': '55d9d9ac16mshe5aaadf43f401fcp141bf0jsnc5b537063079',
+               'x-rapidapi-host': 'hotels-com-free.p.rapidapi.com'
             }
         });
         return data

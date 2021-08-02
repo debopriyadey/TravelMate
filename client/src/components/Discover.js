@@ -1,6 +1,7 @@
 import { CardMedia, IconButton } from '@material-ui/core';
 import React, { useState, useEffect } from 'react'
 import Rating from '@material-ui/lab/Rating';
+import StarBorderIcon from '@material-ui/icons/StarBorder';
 import { fetchPhotos, fetchDesc, fetchHotelDeatils } from '../api/index';
 import '../css/discover.css';
 
@@ -137,7 +138,13 @@ export default function Discover() {
                                                     <h1 className="hotel-name mb-0">{e.name}</h1>
                                                     <small className="hotel-address">{e.address.streetAddress}, {e.address.locality}, {e.address.postalCode}</small>
                                                     <br />
-                                                    <Rating name="read-only" value={e.starRating} precision={0.5} readOnly className="hotel-rating mt-2" />
+                                                    <Rating
+                                                        name="customized-empty"
+                                                        value={e.starRating} precision={0.5}
+                                                        emptyIcon={<StarBorderIcon fontSize="inherit" />}
+                                                        size="small"
+                                                        readOnly
+                                                        className="hotel-rating mt-2" />
                                                     <br />
                                                     <div className="row hotel-desc-last">
                                                         <div className="col-md-12 col-lg-6 hotel-landmark">
@@ -154,7 +161,7 @@ export default function Discover() {
                                                         <div className="col-ms-12 col-lg-6">
                                                             <div className="hotel-price-btn">
                                                                 {/* <p className="hotel-price">{e.ratePlan === undefined ? e.ratePlan.price.current : ''}</p> */}
-                                                                <p className="hotel-price mb-0">Rs 3,240</p>
+                                                                <p className="mb-0"><span className="hotel-price">Rs 3,240</span></p>
                                                                 <small>excluding taxes & fees</small>
                                                             </div>
                                                         </div>

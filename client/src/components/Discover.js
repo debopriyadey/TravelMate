@@ -38,7 +38,7 @@ export default function Discover() {
     useEffect(() => {
         if (city) {
             const photosearch = () => {
-                fetchPhotos(city.title)
+                fetchPhotos(city.name)
                     .then((res) => {
                         setCityPhoto(res)
                     })
@@ -123,6 +123,13 @@ export default function Discover() {
                                 <div className="hotels-header">
                                     <h2 className="sec-title">hotels</h2>
                                     <p className="sec-title-help"> to spend your nights </p>
+                                </div>
+                                <div className="hotel-container">
+                                    {
+                                       hotels&&   hotels.data.body.searchResults.results.map((e)=>{
+                                            console.log(e);
+                                        })
+                                    }
                                 </div>
                             </div>
                             <div className="city-hotels">

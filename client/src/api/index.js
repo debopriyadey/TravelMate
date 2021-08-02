@@ -107,7 +107,6 @@ export const fetchHotelDeatils = async (lon, lat) => {
         return data
     } catch (error) {
         console.log("hotelerror: ", error)
-
     }
 }
 

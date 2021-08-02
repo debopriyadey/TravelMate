@@ -38,7 +38,7 @@ export default function Discover() {
     useEffect(() => {
         if (city) {
             const photosearch = () => {
-                fetchPhotos(city.title)
+                fetchPhotos(city.name)
                     .then((res) => {
                         setCityPhoto(res)
                     })
@@ -76,10 +76,10 @@ export default function Discover() {
                             <div className="city-header">
                                 <div className="row">
                                     <div className="col-sm-12 col-md-6 city-header-photo-container">
-                                       {
-                                           cityPhoto.results&& cityPhoto.results[0] && 
-                                           <img src={cityPhoto.results[0].urls.regular} alt="city-name" className="city-header-photo" style={{ maxHeight: '750px'}}  />
-                                       } 
+                                        {
+                                            cityPhoto.results && cityPhoto.results[0] &&
+                                            <img src={cityPhoto.results[0].urls.regular} alt="city-name" className="city-header-photo" style={{ maxHeight: '750px' }} />
+                                        }
                                     </div>
                                     <div className="col-sm-12 col-md-6">
                                         <div className="city-header-main">
@@ -92,7 +92,7 @@ export default function Discover() {
                                             {
                                                 info.query && Object.entries(info.query.pages).map((e) => (
                                                     <p className="city-about p-5" key={e[0]}>
-                                                        {e[1].extract.slice(0, 500)}
+                                                        {e[1].extract.slice(Math.min(10, e[1].extract.lastIndexOf(" ")), Math.min(1000, e[1].extract.lastIndexOf(" ")))}
                                                     </p>
                                                 ))
                                             }
@@ -101,17 +101,17 @@ export default function Discover() {
                                 </div>
                             </div>
                             <div className="city-gallary">
-                                
-                                <div className="gallary-header">
+
+                                <div className="gallary-header text-center">
                                     <h2 className="sec-title">gallery</h2>
                                     <p className="sec-title-help"> explore the city </p>
-                                </div>
                                     {
                                         cityPhoto.results.map((e) => (
-                                            <img key={e.urls.thumb} src={e.urls.full + '&q=80&h=200'} alt="city-name" className="city-header-photo"  />
+                                            <img key={e.urls.thumb} src={e.urls.full + '&q=80&h=200'} alt="city-name" className="city-header-photo" />
                                         ))
                                     }
-                                
+                                </div>
+
                             </div>
                             <div className="city-attraction">
                                 <div className="attraction-header">

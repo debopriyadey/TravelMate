@@ -81,7 +81,7 @@
 }
 
 /* .city-header-main {
-    background-color: rgb(241, 218, 8);
+    background-color: #295ed9;
     margin-left: -150px;
     padding: 20px;
 } */
@@ -90,7 +90,7 @@
     display: inline;
     font-family: 'STIX Two Math', serif;
     font-size: 5rem;
-    background-color: rgb(241, 218, 8);
+    background-color: #295ed9;
     border-radius: 5px;
     margin-left: -150px;
     padding: 15px;
@@ -143,7 +143,7 @@
 
 /*******Image gallery of unequal height end*********/
 .gallary-header {
-    border: rgb(241, 218, 8) 4px solid;
+    border: #295ed9 4px solid;
     border-radius: 20px;
     padding: 40px 20px;
     display: inline-block;
@@ -151,7 +151,7 @@
 
 .city-attraction {
     margin-top: 100px;
-    background-color: rgb(241, 218, 8);
+    background-color: #295ed9;
     width: 100%;
 }
 
@@ -211,7 +211,7 @@
         display: inline;
         font-family: 'STIX Two Math', serif;
         font-size: 3rem;
-        background-color: rgb(241, 218, 8);
+        background-color: #295ed9;
         border-radius: 5px;
         margin-left: -15px;
         padding: 5px;
@@ -230,6 +230,10 @@
     .main-container {
         border-radius: 0px;
         margin-inline: 0px;
+    }
+
+    .discover-search {
+        width: 100%;
     }
 
     .search {

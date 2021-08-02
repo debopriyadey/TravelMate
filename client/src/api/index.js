@@ -84,8 +84,6 @@ export const fetchDesc = async (query) => {
     } catch (error) {
         console.log("infoerror: ", error)
     }
-    //     Wikipedia, {
-    // });
 }
 
 export const fetchHotelDeatils = async (lon, lat) => {

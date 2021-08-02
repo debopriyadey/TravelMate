@@ -67,19 +67,24 @@ export const fetchBasicInfo = async (query) => {
 
 export const fetchDesc = async (query) => {
     try {
-        const { data } = await axios.get(`https://en.wikipedia.org/w/api.php?format=json&action=query&prop=extracts&exintro&explaintext=true&redirects=1&titles=${query}&origin=*`);
+        const { data } = await axios.get(Wikipedia, {
+            params: {
+                format: 'json',
+                action: 'query',
+                uselang: 'user',
+                prop: 'extracts',
+                explaintext: true,
+                redirects: 1,
+                titles: query,
+                origin: '*',
+            }
+
+        });
         return data
     } catch (error) {
         console.log("infoerror: ", error)
     }
     //     Wikipedia, {
-    //     params: {
-    //             action: 'query',
-    //             format: 'json',
-    //             uselang: 'user',
-    //             prop: 'extracts',
-    //             titles: query,
-    //         }
     // });
 }
 

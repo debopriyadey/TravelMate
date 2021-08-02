@@ -100,7 +100,8 @@ export const fetchHotelDeatils = async (lon, lat) => {
                 rooms: '1',
                 locale: 'en_US',
                 currency: 'INR',
-                pageNumber: '1'
+                pageNumber: '1',
+                sortOrder: 'STAR_RATING_HIGHEST_FIRST',
             },
             headers: {
                'x-rapidapi-key': '55d9d9ac16mshe5aaadf43f401fcp141bf0jsnc5b537063079',

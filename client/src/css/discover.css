@@ -117,12 +117,12 @@
 
 .city-gallary {
     margin-top: 80px;
-    /* display: flex;
+     display: flex;
     flex-wrap: wrap;
-    justify-content: center; */
+    justify-content: center;
 }
 /*******Image gallery of unequal height *********/
-.city-gallary {    
+/* .city-gallary {    
     line-height: 0;       
      -webkit-column-count: 5;    
      -webkit-column-gap: 0px;    
@@ -139,11 +139,12 @@
     display:inline-block;    
     margin-right: auto;    
     margin-left: auto;  
- }
+ } */
 
 /*******Image gallery of unequal height end*********/
 .gallary-header {
     border: rgb(241, 218, 8) 4px solid;
+    border-radius: 20px;
     padding: 40px 20px;
     display: inline-block;
 }

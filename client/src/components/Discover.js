@@ -51,7 +51,7 @@ export default function Discover() {
                     })
             }
             const hotelSearch = () => {
-                fetchHotelDeatils(city.name)
+                fetchHotelDeatils(city.longitude, city.latitude)
                     .then((res) => {
                         console.log(hotels);
                         setHotels(res)
@@ -62,6 +62,8 @@ export default function Discover() {
         }
 
     }, [city])
+
+    console.log(hotels)
 
     return (
         <>
@@ -106,7 +108,7 @@ export default function Discover() {
                                 </div>
                                     {
                                         cityPhoto.results.map((e) => (
-                                            <img key={e.urls.thumb} src={e.urls.full + '&q=80&w=200'} alt="city-name" className="city-header-photo"  />
+                                            <img key={e.urls.thumb} src={e.urls.full + '&q=80&h=200'} alt="city-name" className="city-header-photo"  />
                                         ))
                                     }
                                 

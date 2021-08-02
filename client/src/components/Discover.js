@@ -124,6 +124,13 @@ export default function Discover() {
                                     <h2 className="sec-title">hotels</h2>
                                     <p className="sec-title-help"> to spend your nights </p>
                                 </div>
+                                <div className="hotel-container">
+                                    {
+                                       hotels&&   hotels.data.body.searchResults.results.map((e)=>{
+                                            console.log(e);
+                                        })
+                                    }
+                                </div>
                             </div>
                             <div className="city-hotels">
                                 <div className="hotels-header">

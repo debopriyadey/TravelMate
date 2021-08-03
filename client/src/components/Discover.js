@@ -2,6 +2,8 @@ import { CardMedia, IconButton } from '@material-ui/core';
 import React, { useState, useEffect } from 'react'
 import Rating from '@material-ui/lab/Rating';
 import StarBorderIcon from '@material-ui/icons/StarBorder';
+import Carousel from 'react-elastic-carousel'
+
 import { fetchPhotos, fetchDesc, fetchHotelDeatils } from '../api/index';
 import '../css/discover.css';
 
@@ -76,6 +78,8 @@ export default function Discover() {
                 <div className="discover-city-container">
                     {city && city.title && cityPhoto && (
                         <div className="discover-city">
+
+                            {/* about */}
                             <div className="city-header">
                                 <div className="row">
                                     <div className="col-sm-12 col-md-6 city-header-photo-container">
@@ -103,6 +107,8 @@ export default function Discover() {
                                     </div>
                                 </div>
                             </div>
+
+                            {/* gallary */}
                             <div className="city-gallary">
 
                                 <div className="gallary-header text-center">
@@ -116,18 +122,34 @@ export default function Discover() {
                                 </div>
 
                             </div>
+
+                            {/* tourist attractions */}
                             <div className="city-attraction">
                                 <div className="attraction-header">
-                                    <h2 className="sec-title">tourist attraction</h2>
-                                    <p className="sec-title-help"> places to visit </p>
+                                    <h2 className="sec-title" style={{color: '#1f1f1f'}}>tourist attractions</h2>
+                                    <p className="sec-title-help" style={{color: '#1f1f1f'}}> places to visit </p>
+                                </div>
+                                <div>
+                                    <Carousel itemPadding={[0, 20]} itemsToShow={3} outerSpacing={100} className="attraction-carousel my-5">
+                                        <div className="attraction-card">1</div>
+                                        <div className="attraction-card">2</div>
+                                        <div className="attraction-card">3</div>
+                                        <div className="attraction-card">4</div>
+                                        <div className="attraction-card">5</div>
+                                        <div className="attraction-card">6</div>
+                                        <div className="attraction-card">7</div>
+                                        <div className="attraction-card">8</div>
+                                    </Carousel>
                                 </div>
                             </div>
-                            <div className="city-hotels">
-                                <div className="hotels-header">
+
+                            {/* hotels */}
+                            <div className="city-hotels mt-5">
+                                <div className="hotels-header mb-0">
                                     <h2 className="sec-title">hotels</h2>
                                     <p className="sec-title-help"> to spend your nights </p>
                                 </div>
-                                <div className="hotel-container">
+                                <div className="hotel-container mt-0">
                                     {
                                         hotels && hotels.data.body.searchResults.results.map((e) => (
                                             <div className="row hotel-card my-5 mx-1">
@@ -141,7 +163,7 @@ export default function Discover() {
                                                     <Rating
                                                         name="customized-empty"
                                                         value={e.starRating} precision={0.5}
-                                                        emptyIcon={<StarBorderIcon fontSize="inherit" />}
+                                                        emptyIcon={<StarBorderIcon fontSize="inherit" className="star" />}
                                                         size="small"
                                                         readOnly
                                                         className="hotel-rating mt-2" />
@@ -172,12 +194,16 @@ export default function Discover() {
                                     }
                                 </div>
                             </div>
+
+                            {/* transport */}
                             <div className="city-hotels">
                                 <div className="hotels-header">
                                     <h2 className="sec-title">transport</h2>
                                     <p className="sec-title-help"> to make travel easy </p>
                                 </div>
                             </div>
+
+                            {/* map */}
                             <div className="city-hotels">
                                 <div className="hotels-header">
                                     <h2 className="sec-title">map</h2>

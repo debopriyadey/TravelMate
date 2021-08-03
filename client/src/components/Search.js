@@ -60,6 +60,7 @@ const useStyles = makeStyles((theme) => ({
   searchText: {
     fontSize: "4em",
     color: "white",
+    marginBottom: '30px',
     [theme.breakpoints.down('sm')]: {
       fontSize: "3em",
     },
@@ -213,7 +214,7 @@ export default function Search(props) {
         <Grid container>
           <div className={classes.search}>
             <div className={classes.searchContent}>
-              <h1 className={classes.searchText}> Search a review of your destination </h1>
+              <h1 className={classes.searchText}> Search reviews of destinations </h1>
               <Autocomplete
                 freeSolo={true}
                 value={tagValue}

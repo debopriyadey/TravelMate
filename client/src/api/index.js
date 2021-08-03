@@ -56,13 +56,17 @@ export const fetchWeather = async (query) => {
 }
 
 export const fetchPhotos = async (query) => {
-    const { data } = await axios.get(PhotosURL, {
-        params: {
-            query: query,
-            client_id: 'zwH51OhEXDftmjFKTNHkKX1u7C10HwmeniCIAQm36_c',
-        }
-    });
-    return data;
+    try {
+        const { data } = await axios.get(PhotosURL, {
+            params: {
+                query: query,
+                client_id: 'zwH51OhEXDftmjFKTNHkKX1u7C10HwmeniCIAQm36_c',
+            }
+        });
+        return data;
+    } catch (error) {
+        console.log(error)
+    }
 }
 
 export const fetchBasicInfo = async (query) => {
@@ -111,13 +115,13 @@ export const fetchHotelDeatils = async (lon, lat) => {
             },
             headers: {
                 // debo -----------------
-                'x-rapidapi-key': 'b2bcc81cd5msh7bd347d7ba10befp168e94jsnce8a3ac290f4',
+                // 'x-rapidapi-key': 'b2bcc81cd5msh7bd347d7ba10befp168e94jsnce8a3ac290f4',
 
                 // gourav ----------------
                 // 'x-rapidapi-key': '55d9d9ac16mshe5aaadf43f401fcp141bf0jsnc5b537063079',
 
                 // projectshack ------------------
-                // 'x-rapidapi-key': '7f69e74faamsha9b3aad78a91932p1e1393jsn3e7ff01b9b70',
+                'x-rapidapi-key': '7f69e74faamsha9b3aad78a91932p1e1393jsn3e7ff01b9b70',
                 'x-rapidapi-host': 'hotels-com-free.p.rapidapi.com'
             }
         });

@@ -7,6 +7,7 @@
     background-size: cover;
     background-position: center;
     min-height: 200px;
+    overflow-x: hidden;
 }
 
 .discover-container {
@@ -49,10 +50,9 @@
     flex-direction: column;
     width: 90%;
     margin-bottom: 200px;
-    padding: 40px 8%;
     border-radius: 20px;
-    background: '#1f1f1f';
-    backdrop-filter: saturate(80%) blur(10px);
+    backdrop-filter: saturate(180%) blur(10px);
+    background-color: '#1f1f1f';
     box-shadow: 0px 0px 5px 5px rgba(15, 15, 15, 0.404);
     color: #fff;
 }
@@ -77,7 +77,8 @@
 
 .city-header-photo {
     border-radius: 10px;
-    border: #171717 2px solid;
+    border: #fff 2px solid;
+    margin: 5px;
 }
 
 /* .city-header-main {
@@ -120,6 +121,7 @@
      display: flex;
     flex-wrap: wrap;
     justify-content: center;
+    padding: 60px 10%;
 }
 /*******Image gallery of unequal height *********/
 /* .city-gallary {    
@@ -152,11 +154,26 @@
 .city-attraction {
     margin-top: 100px;
     background-color: #295ed9;
+    background-image: url("https://images.unsplash.com/photo-1605487903301-a1dff2e6bbbe?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTU2fHx0cmF2ZWxsaW5nfGVufDB8fDB8fA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60");
+    background-size: cover;
     width: 100%;
 }
 
 .attraction-header {
     padding: 20px;
+}
+
+.attraction-card {
+    height: 300px;
+    width: 200px;
+    border-radius: 20px;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid rgba(255, 255, 255, 0.7);
+    line-height: 1;
+    padding: 15px 15px;
+    background: '#295ed9';
+    backdrop-filter: saturate(1.8) blur(10px);
 }
 
 .hotel-card {
@@ -176,6 +193,10 @@
 
 .hotel-name {
     font-size: 30px;
+}
+
+.star {
+    color: #fff !important;
 }
 
 .hotel-desc-last {

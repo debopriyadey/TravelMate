@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react'
 import Rating from '@material-ui/lab/Rating';
 import StarBorderIcon from '@material-ui/icons/StarBorder';
 import Carousel from 'react-elastic-carousel'
+import ReactMapGL, { Marker } from 'react-map-gl';
 
 import { fetchPhotos, fetchDesc, fetchHotelDeatils, fetchTouristAttraction } from '../api/index';
 import '../css/discover.css';
@@ -25,6 +26,13 @@ export default function Discover() {
         tzOffsetMinutes: "",
     });
     const [cityPhoto, setCityPhoto] = useState();
+    const [viewport, setViewport] = useState({
+        width: '80vh',
+        height: '80vh',
+        latitude: null,
+        longitude: null,
+        zoom: 6
+    });
     /*const search = async (e) => {
         if (e.key === 'Enter') {
             const data = await fetchBasicInfo(query);
@@ -43,11 +51,11 @@ export default function Discover() {
 
     useEffect(() => {
         if (city) {
-            fetchTouristAttraction(city.latitude, city.longitude).then((response)=>{
+            fetchTouristAttraction(city.latitude, city.longitude).then((response) => {
                 setAttractionPlaces(response.data.data.getPlaces)
                 console.log(attractionPlaces, "ok ")
             }).catch((error) => {
-                    console.log("TouristAttractionError",error);
+                console.log("TouristAttractionError", error);
             });
             fetchPhotos(city.name)
                 .then((res) => {
@@ -62,6 +70,7 @@ export default function Discover() {
                     console.log(hotels);
                     setHotels(res)
                 })
+                setViewport({...viewport, latitude: city.latitude, longitude: city.longitude});
         }
 
     }, [city])
@@ -124,15 +133,15 @@ export default function Discover() {
                             {/* tourist attractions */}
                             <div className="city-attraction">
                                 <div className="attraction-header">
-                                    <h2 className="sec-title" style={{color: '#1f1f1f'}}>tourist attractions</h2>
-                                    <p className="sec-title-help" style={{color: '#1f1f1f'}}> places to visit </p>
+                                    <h2 className="sec-title" style={{ color: '#1f1f1f' }}>tourist attractions</h2>
+                                    <p className="sec-title-help" style={{ color: '#1f1f1f' }}> places to visit </p>
                                 </div>
                                 <div>
                                     <Carousel itemPadding={[0, 20]} itemsToShow={3} outerSpacing={100} className="attraction-carousel my-5">
 
-                                        
-                                        { 
-                                            attractionPlaces.map((e)=>(
+
+                                        {
+                                            attractionPlaces.map((e) => (
                                                 <div className="attraction-card">
                                                     <p>{e.name}</p>
                                                     <p>{e.distance}</p>
@@ -208,6 +217,44 @@ export default function Discover() {
                                 <div className="hotels-header">
                                     <h2 className="sec-title">map</h2>
                                     <p className="sec-title-help"> locate your destination </p>
+                                    {
+                                        viewport.latitude && (<ReactMapGL
+                                            {...viewport}
+                                            mapboxApiAccessToken="pk.eyJ1IjoiZ291cmF2MTIzNDUiLCJhIjoiY2tuZXIyNWcwMGZzczJvcXFhZjVmcmNuZSJ9.iuGOCB6QoRr7kCBSSWOkmg"
+                                            mapStyle="mapbox://styles/gourav12345/ckng252ya4bt117nklda55b7j"
+                                            onViewportChange={nextViewport => setViewport(nextViewport)}
+                                        >
+                                            {
+
+
+                                                <Marker
+                                                    latitude={city.latitude}
+                                                    longitude={city.longitude}
+                                                >
+                                                    <div>
+                                                        <img
+                                                            style={{
+                                                                height: ` ${6 * viewport.zoom}px`,
+                                                                width: ` ${6 * viewport.zoom}px`,
+                                                                maxWidth: '30px',
+                                                                maxHeight: '30px'
+                                                            }}
+                                                            className="marker"
+                                                            src="https://i.imgur.com/y0G5YTX.png"
+                                                            alt="marker"
+
+                                                        />
+                                                    </div>
+                                                </Marker>
+
+
+
+                                            }
+
+
+
+                                        </ReactMapGL>)
+                                    }
                                 </div>
                             </div>
                         </div>

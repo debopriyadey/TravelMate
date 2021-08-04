@@ -4,13 +4,14 @@ import Rating from '@material-ui/lab/Rating';
 import StarBorderIcon from '@material-ui/icons/StarBorder';
 import Carousel from 'react-elastic-carousel'
 
-import { fetchPhotos, fetchDesc, fetchHotelDeatils } from '../api/index';
+import { fetchPhotos, fetchDesc, fetchHotelDeatils, fetchTouristAttraction } from '../api/index';
 import '../css/discover.css';
 
 export default function Discover() {
     const [query, setQuery] = useState('');
     const [info, setInfo] = useState('');
     const [hotels, setHotels] = useState('');
+    const [attractionPlaces, setAttractionPlaces] = useState([]);
     const [city, setCity] = useState({
         admin1Division: "",
         admin1DivisionCode: "",
@@ -42,28 +43,26 @@ export default function Discover() {
 
     useEffect(() => {
         if (city) {
-            const photosearch = () => {
-                fetchPhotos(city.name)
-                    .then((res) => {
-                        setCityPhoto(res)
-                    })
-            }
-            photosearch();
-            const infoSearch = () => {
-                fetchDesc(city.name)
-                    .then((res) => {
-                        setInfo(res)
-                    })
-            }
-            const hotelSearch = () => {
-                fetchHotelDeatils(city.longitude, city.latitude)
-                    .then((res) => {
-                        console.log(hotels);
-                        setHotels(res)
-                    })
-            }
-            infoSearch();
-            hotelSearch();
+            fetchTouristAttraction(city.latitude, city.longitude).then((response)=>{
+                setAttractionPlaces(response.data.data.getPlaces)
+            
+                console.log(attractionPlaces, "ok ")
+            }).catch((error) => {
+                    console.log("TouristAttractionError",error);
+            });
+            fetchPhotos(city.name)
+                .then((res) => {
+                    setCityPhoto(res)
+                })
+            fetchDesc(city.name)
+                .then((res) => {
+                    setInfo(res)
+                })
+            fetchHotelDeatils(city.longitude, city.latitude)
+                .then((res) => {
+                    console.log(hotels);
+                    setHotels(res)
+                })
         }
 
     }, [city])
@@ -131,14 +130,16 @@ export default function Discover() {
                                 </div>
                                 <div>
                                     <Carousel itemPadding={[0, 20]} itemsToShow={3} outerSpacing={100} className="attraction-carousel my-5">
-                                        <div className="attraction-card">1</div>
-                                        <div className="attraction-card">2</div>
-                                        <div className="attraction-card">3</div>
-                                        <div className="attraction-card">4</div>
-                                        <div className="attraction-card">5</div>
-                                        <div className="attraction-card">6</div>
-                                        <div className="attraction-card">7</div>
-                                        <div className="attraction-card">8</div>
+
+                                        
+                                        { 
+                                            attractionPlaces.map((e)=>(
+                                                <div className="attraction-card">
+                                                    <p>{e.name}</p>
+                                                    <p>{e.distance}</p>
+                                                </div>
+                                            ))
+                                        }
                                     </Carousel>
                                 </div>
                             </div>

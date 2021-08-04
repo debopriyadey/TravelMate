@@ -131,6 +131,24 @@ export const fetchHotelDeatils = async (lon, lat) => {
     }
 }
 
-export const fetchDestinations = async (query) => {
 
+// tourist attraction api
+export const fetchTouristAttraction = async (latitude, longitude) => {
+
+    var options = {
+        method: 'POST',
+        url: 'https://travel-places.p.rapidapi.com/',
+        headers: {
+            'content-type': 'application/json',
+            'x-rapidapi-key': '57df3e2b7amsh0c1477e0d262741p1e6539jsn40f2f56e2f5c',
+            'x-rapidapi-host': 'travel-places.p.rapidapi.com'
+        },
+        data: {
+            query: `{ getPlaces(categories:["NATURE", "MUSEUM", "BEACHES","PARKS"],lat:${latitude},lng: ${longitude},maxDistMeters:50000, limit:20) { name,lat,lng,abstract,distance,categories } }`
+        }
+    };
+    
+    return  axios.request(options);
+    
 }
+

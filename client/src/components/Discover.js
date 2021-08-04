@@ -97,7 +97,7 @@ export default function Discover() {
                                             {
                                                 info.query && Object.entries(info.query.pages).map((e) => (
                                                     <p className="city-about p-5" key={e[0]}>
-                                                        {e[1].extract.slice(Math.min(10, e[1].extract.lastIndexOf(" ")), Math.min(1000, e[1].extract.lastIndexOf(" ")))}
+                                                        {e[1].extract.slice(Math.min(10, e[1].extract.indexOf(".")), Math.min(1000, e[1].extract.lastIndexOf(" ")))}
                                                     </p>
                                                 ))
                                             }

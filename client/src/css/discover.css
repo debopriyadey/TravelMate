@@ -167,6 +167,8 @@
     background: aquamarine;
     right: 20px;
     transform: translateY(100%);
+    outline: none !important;
+    margin: 5px;
 }
 
 .rec-arrow-left{

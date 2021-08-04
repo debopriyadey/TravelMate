@@ -45,7 +45,6 @@ export default function Discover() {
         if (city) {
             fetchTouristAttraction(city.latitude, city.longitude).then((response)=>{
                 setAttractionPlaces(response.data.data.getPlaces)
-            
                 console.log(attractionPlaces, "ok ")
             }).catch((error) => {
                     console.log("TouristAttractionError",error);

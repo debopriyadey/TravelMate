@@ -27,7 +27,7 @@ export default function Discover() {
     });
     const [cityPhoto, setCityPhoto] = useState();
     const [viewport, setViewport] = useState({
-        width: '80vh',
+        width: '90vh',
         height: '80vh',
         latitude: null,
         longitude: null,
@@ -70,7 +70,7 @@ export default function Discover() {
                     console.log(hotels);
                     setHotels(res)
                 })
-                setViewport({...viewport, latitude: city.latitude, longitude: city.longitude});
+            setViewport({ ...viewport, latitude: city.latitude, longitude: city.longitude });
         }
 
     }, [city])
@@ -106,7 +106,7 @@ export default function Discover() {
                                             {
                                                 info.query && Object.entries(info.query.pages).map((e) => (
                                                     <p className="city-about p-5" key={e[0]}>
-                                                        {e[1].extract.slice(Math.min(10, e[1].extract.indexOf(".")), Math.min(1000, e[1].extract.lastIndexOf(" ")))}
+                                                        {e[1].extract.slice(Math.min(500, e[1].extract.indexOf(".")+1), Math.min(1000, e[1].extract.lastIndexOf(" ")))}
                                                     </p>
                                                 ))
                                             }
@@ -221,7 +221,7 @@ export default function Discover() {
                                         viewport.latitude && (<ReactMapGL
                                             {...viewport}
                                             mapboxApiAccessToken="pk.eyJ1IjoiZ291cmF2MTIzNDUiLCJhIjoiY2tuZXIyNWcwMGZzczJvcXFhZjVmcmNuZSJ9.iuGOCB6QoRr7kCBSSWOkmg"
-                                            mapStyle="mapbox://styles/gourav12345/ckng252ya4bt117nklda55b7j"
+                                            mapStyle="mapbox://styles/gourav12345/ckng22ps74bqu17qj6hvbpt0i"
                                             onViewportChange={nextViewport => setViewport(nextViewport)}
                                         >
                                             {

@@ -118,10 +118,10 @@ export const fetchHotelDeatils = async (lon, lat) => {
                 // 'x-rapidapi-key': 'b2bcc81cd5msh7bd347d7ba10befp168e94jsnce8a3ac290f4',
 
                 // gourav ----------------
-                // 'x-rapidapi-key': '55d9d9ac16mshe5aaadf43f401fcp141bf0jsnc5b537063079',
+                'x-rapidapi-key': '55d9d9ac16mshe5aaadf43f401fcp141bf0jsnc5b537063079',
 
                 // projectshack ------------------
-                'x-rapidapi-key': '7f69e74faamsha9b3aad78a91932p1e1393jsn3e7ff01b9b70',
+                // 'x-rapidapi-key': '7f69e74faamsha9b3aad78a91932p1e1393jsn3e7ff01b9b70',
                 'x-rapidapi-host': 'hotels-com-free.p.rapidapi.com'
             }
         });

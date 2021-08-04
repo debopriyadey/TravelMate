@@ -152,11 +152,29 @@
 }
 
 .city-attraction {
+    position: relative;
     margin-top: 100px;
     background-color: #295ed9;
     background-image: url("https://images.unsplash.com/photo-1605487903301-a1dff2e6bbbe?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTU2fHx0cmF2ZWxsaW5nfGVufDB8fDB8fA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60");
     background-size: cover;
     width: 100%;
+}
+
+.rec-arrow-right, .rec-arrow-left{
+    outline: none ;
+    position: absolute;
+    top: 0;
+    background: aquamarine;
+    right: 20px;
+    transform: translateY(100%);
+}
+
+.rec-arrow-left{
+    transform: translateX(-120%) translateY(100%);
+    -webkit-transform: translateX(-120%) translateY(100%);
+    -moz-transform: translateX(-120%) translateY(100%);
+    -ms-transform: translateX(-120%) translateY(100%);
+    -o-transform: translateX(-120%) translateY(100%);
 }
 
 .attraction-header {

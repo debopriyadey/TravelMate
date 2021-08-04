@@ -161,7 +161,7 @@
 }
 
 .rec-arrow-right, .rec-arrow-left{
-    outline: none ;
+    outline: none !important;
     position: absolute;
     top: 0;
     background: aquamarine;

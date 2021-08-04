@@ -152,11 +152,11 @@ export default function Discover() {
                                 <div className="hotel-container mt-0">
                                     {
                                         hotels && hotels.data.body.searchResults.results.map((e) => (
-                                            <div className="row hotel-card my-5 mx-1">
-                                                <div className="col-md-12 col-lg-4">
+                                            <div className="row hotel-card my-3 mx-1">
+                                                <div className="col-sm-12 col-md-4 hotel-img-ctn">
                                                     <img src={e.optimizedThumbUrls.srpDesktop} alt={e.name} className="hotel-img" />
                                                 </div>
-                                                <div className="col-md-12 col-lg-8 hotel-desc">
+                                                <div className="col-sm-12 col-md-8 hotel-desc">
                                                     <h1 className="hotel-name mb-0">{e.name}</h1>
                                                     <small className="hotel-address">{e.address.streetAddress}, {e.address.locality}, {e.address.postalCode}</small>
                                                     <br />
@@ -174,7 +174,7 @@ export default function Discover() {
                                                             {
                                                                 e.landmarks.map((res) => (
                                                                     <>
-                                                                        <small className="my-0">{res.distance} to {res.label.length > 25 ? res.label.slice(0, Math.min(20, res.label.indexOf(",") + 1)) : res.label}</small>
+                                                                        <small className="my-0">{res.distance} to {res.label.length > 25 ? res.label.slice(0, Math.min(20, res.label.indexOf(",", 2) + 1)) : res.label}</small>
                                                                         <br />
                                                                     </>
                                                                 ))

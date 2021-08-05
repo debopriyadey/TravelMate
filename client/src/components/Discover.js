@@ -8,6 +8,17 @@ import ReactMapGL, { Marker } from 'react-map-gl';
 import { fetchPhotos, fetchDesc, fetchHotelDeatils, fetchTouristAttraction } from '../api/index';
 import '../css/discover.css';
 
+const breakPoints = (e) => {
+    return    [
+        { width: 1, itemsToShow: 1 },
+        { width: 550, itemsToShow: 2, itemsToScroll: 2, pagination: false },
+        { width: 850, itemsToShow: 3 },
+        { width: 1150, itemsToShow: 4, itemsToScroll: 2 },
+        { width: 1450, itemsToShow: 5 },
+        { width: 1750, itemsToShow: 6 },
+    ]
+}
+
 export default function Discover() {
     const [query, setQuery] = useState('');
     const [info, setInfo] = useState('');
@@ -76,6 +87,7 @@ export default function Discover() {
 
     }, [city])
 
+
     return (
         <>
             <div className="discover-container" id="weather">
@@ -106,7 +118,7 @@ export default function Discover() {
                                                 info.query && Object.entries(info.query.pages).map((e) => (
                                                     <p className="city-about p-5" key={e[0]}>
                                                         {
-                                                            e[1].extract.slice(Math.min(500, e[1].extract.indexOf(".") + 1), (e[1].extract.slice(0, 1000)).lastIndexOf('.')+1)
+                                                            e[1].extract.slice(Math.min(500, e[1].extract.indexOf(".") + 1), (e[1].extract.slice(0, 1000)).lastIndexOf('.') + 1)
                                                         }
                                                     </p>
                                                 ))
@@ -138,15 +150,30 @@ export default function Discover() {
                                     <p className="sec-title-help" style={{ color: '#1f1f1f' }}> places to visit </p>
                                 </div>
                                 <div>
-                                    <Carousel itemPadding={[0, 20]} itemsToShow={3} outerSpacing={100} className="attraction-carousel my-5">
+                                    <Carousel
+                                        itemPadding={[0, 20]}
+                                        itemsToShow={2}
+                                        outerSpacing={150}
+                                        // easing="cubic-bezier(1,.15,.55,1.54)"
+                                        // tiltEasing="cubic-bezier(0.110, 1, 1.000, 0.210)"
+                                        // transitionMs={400}
+                                        breakPoints={breakPoints()}
+                                        // enableAutoPlay
+                                        // autoPlaySpeed={4500}
+                                        className="attraction-carousel my-5"
+                                    >
                                         {
                                             attractionPlaces.length > 0 && (attractionPlaces.filter((e) => {
                                                 return e.images.length !== 0;
                                             }).map((e) => (
                                                 <div className="attraction-card">
-                                                    <img src={e.images[0].sizes.thumbnail.url} height="100" width="100" />
-                                                    <p>{e.name}</p>
-                                                    <p>{e.snippet}</p>
+                                                    <div>
+                                                        <img src={e.images[0].sizes.thumbnail.url} height="100" width="100" className="attraction-img" />
+                                                    </div>
+                                                    <div>
+                                                        <p className="attraction-place">{e.name}</p>
+                                                        <p className="attraction-desc">{e.snippet}</p>
+                                                    </div>
                                                 </div>
 
                                             )))

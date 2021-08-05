@@ -183,16 +183,33 @@
 }
 
 .attraction-card {
-    height: 300px;
-    width: 200px;
+    height: 350px;
+    width: 250px;
     border-radius: 20px;
-    justify-content: center;
-    align-items: center;
     border: 1px solid rgba(255, 255, 255, 0.7);
     line-height: 1;
     padding: 15px 15px;
     background: '#295ed9';
     backdrop-filter: saturate(1.8) blur(10px);
+}
+
+.attraction-img {
+    width: 200px;
+    border-radius: 10px;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 10px;
+    align-items: center;
+}
+
+.attraction-place {
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.attraction-desc {
+    font-size: 13px;
+    line-height: 15px;
 }
 
 .hotel-card {

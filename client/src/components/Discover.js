@@ -27,11 +27,7 @@ export default function Discover() {
     });
     const [cityPhoto, setCityPhoto] = useState();
     const [viewport, setViewport] = useState({
-<<<<<<< HEAD
-        width: '100%',
-=======
         width: '90vh',
->>>>>>> d4d8d5b65e963163f74c41fd5a04a7d974ce4b16
         height: '80vh',
         latitude: null,
         longitude: null,
@@ -75,12 +71,8 @@ export default function Discover() {
                     console.log(hotels);
                     setHotels(res)
                 })
-<<<<<<< HEAD
                 setViewport({...viewport, latitude: city.latitude, longitude: city.longitude});
             
-=======
-            setViewport({ ...viewport, latitude: city.latitude, longitude: city.longitude });
->>>>>>> d4d8d5b65e963163f74c41fd5a04a7d974ce4b16
         }
 
     }, [city])
@@ -233,11 +225,7 @@ export default function Discover() {
                                 {
                                         viewport.latitude && (<ReactMapGL
                                             {...viewport}
-<<<<<<< HEAD
                                             mapboxApiAccessToken = {process.env.REACT_APP_MAPBOX_KEY}
-=======
-                                            mapboxApiAccessToken="pk.eyJ1IjoiZ291cmF2MTIzNDUiLCJhIjoiY2tuZXIyNWcwMGZzczJvcXFhZjVmcmNuZSJ9.iuGOCB6QoRr7kCBSSWOkmg"
->>>>>>> d4d8d5b65e963163f74c41fd5a04a7d974ce4b16
                                             mapStyle="mapbox://styles/gourav12345/ckng22ps74bqu17qj6hvbpt0i"
                                             onViewportChange={nextViewport => setViewport(nextViewport)}
                                         >

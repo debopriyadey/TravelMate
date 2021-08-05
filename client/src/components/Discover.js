@@ -50,7 +50,7 @@ export default function Discover() {
     }, [])
 
     useEffect(() => {
-        if (city.name) {
+        if (city && city.name) {
             fetchTouristAttraction(city.latitude, city.longitude).then((response) => {
                 setAttractionPlaces(response.data.results[0].pois)
                 // console.log(response);
@@ -68,16 +68,13 @@ export default function Discover() {
                 })
             fetchHotelDeatils(city.longitude, city.latitude)
                 .then((res) => {
-                    console.log(hotels);
                     setHotels(res)
                 })
-                setViewport({...viewport, latitude: city.latitude, longitude: city.longitude});
-            
+            setViewport({ ...viewport, latitude: city.latitude, longitude: city.longitude });
+
         }
 
     }, [city])
-
-    console.log(hotels)
 
     return (
         <>
@@ -108,7 +105,7 @@ export default function Discover() {
                                             {
                                                 info.query && Object.entries(info.query.pages).map((e) => (
                                                     <p className="city-about p-5" key={e[0]}>
-                                                        {e[1].extract.slice(Math.min(500, e[1].extract.indexOf(".")+1), Math.min(1000, e[1].extract.lastIndexOf(" ")))}
+                                                        {e[1].extract.slice(Math.min(500, e[1].extract.indexOf(".") + 1), Math.min(1000, e[1].extract.lastIndexOf(" ")))}
                                                     </p>
                                                 ))
                                             }
@@ -140,16 +137,17 @@ export default function Discover() {
                                 </div>
                                 <div>
                                     <Carousel itemPadding={[0, 20]} itemsToShow={3} outerSpacing={100} className="attraction-carousel my-5">
-
-
                                         {
-                                            attractionPlaces.map((e) => {
-                                                // <div className="attraction-card">
-                                                //     {/* <p>{e.name}</p>
-                                                //     <p>{e.distance}</p> */}
-                                                // </div>
-                                                e.images.length!==0 && console.log(e)
-                                            })
+                                            attractionPlaces.length > 0 && (attractionPlaces.filter(function (e) {
+                                                return e.images.length!==0;
+                                            }).map((e) => (
+                                                <div className="attraction-card">
+                                                    <img src={e.images[0].sizes.thumbnail.url} height="100" width="100" />
+                                                    <p>{e.name}</p>
+                                                    <p>{e.snippet}</p>
+                                                </div>
+
+                                            )))
                                         }
                                     </Carousel>
                                 </div>
@@ -216,50 +214,50 @@ export default function Discover() {
                             </div>
 
                             {/* map */}
-                            <div className="city-hotels" style={{"width":"100%"}}>
+                            <div className="city-hotels" style={{ "width": "100%" }}>
                                 <div className="hotels-header">
                                     <h2 className="sec-title">map</h2>
                                     <p className="sec-title-help"> locate your destination </p>
-                                    
+
                                 </div>
                                 {
-                                        viewport.latitude && (<ReactMapGL
-                                            {...viewport}
-                                            mapboxApiAccessToken = {process.env.REACT_APP_MAPBOX_KEY}
-                                            mapStyle="mapbox://styles/gourav12345/ckng22ps74bqu17qj6hvbpt0i"
-                                            onViewportChange={nextViewport => setViewport(nextViewport)}
-                                        >
-                                            {
+                                    viewport.latitude && (<ReactMapGL
+                                        {...viewport}
+                                        mapboxApiAccessToken={process.env.REACT_APP_MAPBOX_KEY}
+                                        mapStyle="mapbox://styles/gourav12345/ckng22ps74bqu17qj6hvbpt0i"
+                                        onViewportChange={nextViewport => setViewport(nextViewport)}
+                                    >
+                                        {
 
 
-                                                <Marker
-                                                    latitude={city.latitude}
-                                                    longitude={city.longitude}
-                                                >
-                                                    <div>
-                                                        <img
-                                                            style={{
-                                                                height: ` ${6 * viewport.zoom}px`,
-                                                                width: ` ${6 * viewport.zoom}px`,
-                                                                maxWidth: '30px',
-                                                                maxHeight: '30px'
-                                                            }}
-                                                            className="marker"
-                                                            src="https://i.imgur.com/y0G5YTX.png"
-                                                            alt="marker"
+                                            <Marker
+                                                latitude={city.latitude}
+                                                longitude={city.longitude}
+                                            >
+                                                <div>
+                                                    <img
+                                                        style={{
+                                                            height: ` ${6 * viewport.zoom}px`,
+                                                            width: ` ${6 * viewport.zoom}px`,
+                                                            maxWidth: '30px',
+                                                            maxHeight: '30px'
+                                                        }}
+                                                        className="marker"
+                                                        src="https://i.imgur.com/y0G5YTX.png"
+                                                        alt="marker"
 
-                                                        />
-                                                    </div>
-                                                </Marker>
-
-
-
-                                            }
+                                                    />
+                                                </div>
+                                            </Marker>
 
 
 
-                                        </ReactMapGL>)
-                                    }
+                                        }
+
+
+
+                                    </ReactMapGL>)
+                                }
                             </div>
                         </div>
                     )}

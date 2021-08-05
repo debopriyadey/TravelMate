@@ -7,7 +7,6 @@
     background-size: cover;
     background-position: center;
     min-height: 200px;
-    overflow-x: hidden;
 }
 
 .discover-container {
@@ -59,7 +58,7 @@
 
 .sec-title {
     font-family: 'Fuggles', cursive;
-    font-size: 5rem;
+    font-size: 7rem;
 }
 
 .sec-title-help {
@@ -167,6 +166,8 @@
     background: aquamarine;
     right: 20px;
     transform: translateY(100%);
+    outline: none !important;
+    margin: 5px;
 }
 
 .rec-arrow-left{
@@ -198,6 +199,11 @@
     align-items: center;
     border-radius: 20px;
     border: 1px #fff solid;
+}
+
+.hotel-img-ctn {
+    text-align-last: center;
+    margin-block: 20px;
 }
 
 .hotel-img {
@@ -277,6 +283,10 @@
         margin-inline: 50px;
     }
 
+    .hotel-desc {
+        text-align: left;
+    }
+    
     .city-header-photo-container {
         text-align: center;
     }
@@ -314,15 +324,16 @@
         width: 100%;
     }
 
+    .sec-title {
+        font-size: 3rem;
+    }
+
     .search {
         padding: 20px;
         width: 300px;
         border-radius: 0px;
     }
 
-    .hotel-desc {
-        text-align: left;
-    }
 
     .hotel-name {
         font-size: 20px;

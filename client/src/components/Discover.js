@@ -27,7 +27,11 @@ export default function Discover() {
     });
     const [cityPhoto, setCityPhoto] = useState();
     const [viewport, setViewport] = useState({
+<<<<<<< HEAD
         width: '100%',
+=======
+        width: '90vh',
+>>>>>>> d4d8d5b65e963163f74c41fd5a04a7d974ce4b16
         height: '80vh',
         latitude: null,
         longitude: null,
@@ -71,8 +75,12 @@ export default function Discover() {
                     console.log(hotels);
                     setHotels(res)
                 })
+<<<<<<< HEAD
                 setViewport({...viewport, latitude: city.latitude, longitude: city.longitude});
             
+=======
+            setViewport({ ...viewport, latitude: city.latitude, longitude: city.longitude });
+>>>>>>> d4d8d5b65e963163f74c41fd5a04a7d974ce4b16
         }
 
     }, [city])
@@ -108,7 +116,7 @@ export default function Discover() {
                                             {
                                                 info.query && Object.entries(info.query.pages).map((e) => (
                                                     <p className="city-about p-5" key={e[0]}>
-                                                        {e[1].extract.slice(Math.min(10, e[1].extract.lastIndexOf(" ")), Math.min(1000, e[1].extract.lastIndexOf(" ")))}
+                                                        {e[1].extract.slice(Math.min(500, e[1].extract.indexOf(".")+1), Math.min(1000, e[1].extract.lastIndexOf(" ")))}
                                                     </p>
                                                 ))
                                             }
@@ -164,11 +172,11 @@ export default function Discover() {
                                 <div className="hotel-container mt-0">
                                     {
                                         hotels && hotels.data.body.searchResults.results.map((e) => (
-                                            <div className="row hotel-card my-5 mx-1">
-                                                <div className="col-md-12 col-lg-4">
+                                            <div className="row hotel-card my-3 mx-1">
+                                                <div className="col-sm-12 col-md-4 hotel-img-ctn">
                                                     <img src={e.optimizedThumbUrls.srpDesktop} alt={e.name} className="hotel-img" />
                                                 </div>
-                                                <div className="col-md-12 col-lg-8 hotel-desc">
+                                                <div className="col-sm-12 col-md-8 hotel-desc">
                                                     <h1 className="hotel-name mb-0">{e.name}</h1>
                                                     <small className="hotel-address">{e.address.streetAddress}, {e.address.locality}, {e.address.postalCode}</small>
                                                     <br />
@@ -186,7 +194,7 @@ export default function Discover() {
                                                             {
                                                                 e.landmarks.map((res) => (
                                                                     <>
-                                                                        <small className="my-0">{res.distance} to {res.label.length > 25 ? res.label.slice(0, Math.min(20, res.label.indexOf(",") + 1)) : res.label}</small>
+                                                                        <small className="my-0">{res.distance} to {res.label.length > 25 ? res.label.slice(0, Math.min(20, res.label.indexOf(",", 2) + 1)) : res.label}</small>
                                                                         <br />
                                                                     </>
                                                                 ))
@@ -225,7 +233,11 @@ export default function Discover() {
                                 {
                                         viewport.latitude && (<ReactMapGL
                                             {...viewport}
+<<<<<<< HEAD
                                             mapboxApiAccessToken = {process.env.REACT_APP_MAPBOX_KEY}
+=======
+                                            mapboxApiAccessToken="pk.eyJ1IjoiZ291cmF2MTIzNDUiLCJhIjoiY2tuZXIyNWcwMGZzczJvcXFhZjVmcmNuZSJ9.iuGOCB6QoRr7kCBSSWOkmg"
+>>>>>>> d4d8d5b65e963163f74c41fd5a04a7d974ce4b16
                                             mapStyle="mapbox://styles/gourav12345/ckng22ps74bqu17qj6hvbpt0i"
                                             onViewportChange={nextViewport => setViewport(nextViewport)}
                                         >

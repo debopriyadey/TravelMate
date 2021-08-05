@@ -105,7 +105,9 @@ export default function Discover() {
                                             {
                                                 info.query && Object.entries(info.query.pages).map((e) => (
                                                     <p className="city-about p-5" key={e[0]}>
-                                                        {e[1].extract.slice(Math.min(500, e[1].extract.indexOf(".") + 1), Math.min(1000, e[1].extract.lastIndexOf(" ")))}
+                                                        {
+                                                            e[1].extract.slice(Math.min(500, e[1].extract.indexOf(".") + 1), (e[1].extract.slice(0, 1000)).lastIndexOf('.')+1)
+                                                        }
                                                     </p>
                                                 ))
                                             }
@@ -138,8 +140,8 @@ export default function Discover() {
                                 <div>
                                     <Carousel itemPadding={[0, 20]} itemsToShow={3} outerSpacing={100} className="attraction-carousel my-5">
                                         {
-                                            attractionPlaces.length > 0 && (attractionPlaces.filter(function (e) {
-                                                return e.images.length!==0;
+                                            attractionPlaces.length > 0 && (attractionPlaces.filter((e) => {
+                                                return e.images.length !== 0;
                                             }).map((e) => (
                                                 <div className="attraction-card">
                                                     <img src={e.images[0].sizes.thumbnail.url} height="100" width="100" />

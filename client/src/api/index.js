@@ -9,14 +9,6 @@ const DescriptionUrl = 'https://travel-places.p.rapidapi.com/';
 const Hotels = 'https://hotels-com-free.p.rapidapi.com/srle/listing/v1/brands/hotels.com';
 const HotelOther = 'https://hotels-com-provider.p.rapidapi.com/v1/destinations/search';
 
-// debo -----------------
-// 'x-rapidapi-key': 'b2bcc81cd5msh7bd347d7ba10befp168e94jsnce8a3ac290f4',
-
-// gourav ----------------
-// 'x-rapidapi-key': '55d9d9ac16mshe5aaadf43f401fcp141bf0jsnc5b537063079',
-
-// projectshack ------------------
-// 'x-rapidapi-key': '7f69e74faamsha9b3aad78a91932p1e1393jsn3e7ff01b9b70',
 
 // post
 export const fetchPost = () => axios.get(`${baseUrl}/fetchreviews`);
@@ -46,12 +38,12 @@ export const fetchWeather = async (query) => {
             params: {
                 q: query,
                 units: 'metric',
-                APPID: 'f33a484cf794d08d0148764789aaba32',
+                APPID: process.env.REACT_APP_WEATHER_KEY,
             }
         });
         return data;
     } catch (error) {
-        console.log("error weather: ", error)
+        console.log("errorweather: ", error)
     }
 }
 
@@ -60,7 +52,7 @@ export const fetchPhotos = async (query) => {
         const { data } = await axios.get(PhotosURL, {
             params: {
                 query: query,
-                client_id: 'zwH51OhEXDftmjFKTNHkKX1u7C10HwmeniCIAQm36_c',
+                client_id: process.env.REACT_APP_UNSPLASH_KEY,
             }
         });
         return data;
@@ -114,14 +106,7 @@ export const fetchHotelDeatils = async (lon, lat) => {
                 sortOrder: 'STAR_RATING_HIGHEST_FIRST',
             },
             headers: {
-                // debo -----------------
-                // 'x-rapidapi-key': 'b2bcc81cd5msh7bd347d7ba10befp168e94jsnce8a3ac290f4',
-
-                // gourav ----------------
-                // 'x-rapidapi-key': '55d9d9ac16mshe5aaadf43f401fcp141bf0jsnc5b537063079',
-
-                // projectshack ------------------
-                'x-rapidapi-key': '7f69e74faamsha9b3aad78a91932p1e1393jsn3e7ff01b9b70',
+                'x-rapidapi-key': process.env.REACT_APP_RAPIDAPI_HOTEL_KEY,
                 'x-rapidapi-host': 'hotels-com-free.p.rapidapi.com'
             }
         });
@@ -133,6 +118,7 @@ export const fetchHotelDeatils = async (lon, lat) => {
 
 
 // tourist attraction api
+/*
 export const fetchTouristAttraction = async (latitude, longitude) => {
 
     var options = {
@@ -140,7 +126,7 @@ export const fetchTouristAttraction = async (latitude, longitude) => {
         url: 'https://travel-places.p.rapidapi.com/',
         headers: {
             'content-type': 'application/json',
-            'x-rapidapi-key': '57df3e2b7amsh0c1477e0d262741p1e6539jsn40f2f56e2f5c',
+            'x-rapidapi-key': process.env.REACT_APP_RAPIDAPI_TOURIST_ATTRACTION_KEY,
             'x-rapidapi-host': 'travel-places.p.rapidapi.com'
         },
         data: {
@@ -151,4 +137,21 @@ export const fetchTouristAttraction = async (latitude, longitude) => {
     return  axios.request(options);
     
 }
+*/
+export const fetchTouristAttraction = async (latitude, longitude) => {
 
+    var options = {
+        method: 'GET',
+        url: `https://www.triposo.com/api/20210615/local_highlights.json?tag_labels=exploringnature|relaxinapark|topattractions|museums&max_distance=100000&latitude=${latitude}&longitude=${longitude}`,
+        headers: {
+            'content-type': 'application/json',
+            'X-Triposo-Token': process.env.REACT_APP_TRIPOSO_TOKEN,
+            'X-Triposo-Account': process.env.REACT_APP_TRIPOSO_ACCOUNT
+        },
+       
+    };
+    
+    return axios.request(options)
+    
+    
+}

@@ -27,7 +27,7 @@ export default function Discover() {
     });
     const [cityPhoto, setCityPhoto] = useState();
     const [viewport, setViewport] = useState({
-        width: '80vh',
+        width: '100%',
         height: '80vh',
         latitude: null,
         longitude: null,
@@ -50,9 +50,10 @@ export default function Discover() {
     }, [])
 
     useEffect(() => {
-        if (city) {
+        if (city.name) {
             fetchTouristAttraction(city.latitude, city.longitude).then((response) => {
-                setAttractionPlaces(response.data.data.getPlaces)
+                setAttractionPlaces(response.data.results[0].pois)
+                // console.log(response);
                 console.log(attractionPlaces, "ok ")
             }).catch((error) => {
                 console.log("TouristAttractionError", error);
@@ -71,6 +72,7 @@ export default function Discover() {
                     setHotels(res)
                 })
                 setViewport({...viewport, latitude: city.latitude, longitude: city.longitude});
+            
         }
 
     }, [city])
@@ -141,12 +143,13 @@ export default function Discover() {
 
 
                                         {
-                                            attractionPlaces.map((e) => (
-                                                <div className="attraction-card">
-                                                    <p>{e.name}</p>
-                                                    <p>{e.distance}</p>
-                                                </div>
-                                            ))
+                                            attractionPlaces.map((e) => {
+                                                // <div className="attraction-card">
+                                                //     {/* <p>{e.name}</p>
+                                                //     <p>{e.distance}</p> */}
+                                                // </div>
+                                                e.images.length!==0 && console.log(e)
+                                            })
                                         }
                                     </Carousel>
                                 </div>
@@ -213,15 +216,17 @@ export default function Discover() {
                             </div>
 
                             {/* map */}
-                            <div className="city-hotels">
+                            <div className="city-hotels" style={{"width":"100%"}}>
                                 <div className="hotels-header">
                                     <h2 className="sec-title">map</h2>
                                     <p className="sec-title-help"> locate your destination </p>
-                                    {
+                                    
+                                </div>
+                                {
                                         viewport.latitude && (<ReactMapGL
                                             {...viewport}
-                                            mapboxApiAccessToken="pk.eyJ1IjoiZ291cmF2MTIzNDUiLCJhIjoiY2tuZXIyNWcwMGZzczJvcXFhZjVmcmNuZSJ9.iuGOCB6QoRr7kCBSSWOkmg"
-                                            mapStyle="mapbox://styles/gourav12345/ckng252ya4bt117nklda55b7j"
+                                            mapboxApiAccessToken = {process.env.REACT_APP_MAPBOX_KEY}
+                                            mapStyle="mapbox://styles/gourav12345/ckng22ps74bqu17qj6hvbpt0i"
                                             onViewportChange={nextViewport => setViewport(nextViewport)}
                                         >
                                             {
@@ -255,7 +260,6 @@ export default function Discover() {
 
                                         </ReactMapGL>)
                                     }
-                                </div>
                             </div>
                         </div>
                     )}

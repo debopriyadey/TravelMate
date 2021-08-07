@@ -113,10 +113,10 @@ export default function Discover() {
                 .then((res) => {
                     setInfo(res)
                 })
-            // fetchHotelDeatils(city.longitude, city.latitude)
-            //     .then((res) => {
-            //         setHotels(res)
-            //     })
+            fetchHotelDeatils(city.longitude, city.latitude)
+                .then((res) => {
+                    setHotels(res)
+                })
             setViewport({ ...viewport, latitude: city.latitude, longitude: city.longitude });
 
         }

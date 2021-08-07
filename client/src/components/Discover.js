@@ -8,6 +8,9 @@ import ReactMapGL, { Marker } from 'react-map-gl';
 import { fetchPhotos, fetchDesc, fetchHotelDeatils, fetchTouristAttraction } from '../api/index';
 import '../css/discover.css';
 
+import location from '../svg/location.svg';
+import map from '../svg/map.svg';
+
 const breakPoints = (e) => {
     return    [
         { width: 1, itemsToShow: 1 },
@@ -197,7 +200,7 @@ export default function Discover() {
                                                 </div>
                                                 <div className="col-sm-12 col-md-8 hotel-desc">
                                                     <h1 className="hotel-name mb-0">{e.name}</h1>
-                                                    <small className="hotel-address">{e.address.streetAddress}, {e.address.locality}, {e.address.postalCode}</small>
+                                                    <small className="hotel-address"><img src={location} /> {e.address.streetAddress}, {e.address.locality}, {e.address.postalCode}</small>
                                                     <br />
                                                     <Rating
                                                         name="customized-empty"
@@ -213,7 +216,7 @@ export default function Discover() {
                                                             {
                                                                 e.landmarks.map((res) => (
                                                                     <>
-                                                                        <small className="my-0">{res.distance} to {res.label.length > 25 ? res.label.slice(0, Math.min(20, res.label.lastIndexOf(",") + 1)) : res.label}</small>
+                                                                        <small className="my-0"><img src={map} /> {res.distance} to {res.label.length > 30 ? res.label.slice(0, Math.min(20, (res.label.slice(0, 30)).lastIndexOf(',') + 1)) : res.label}</small>
                                                                         <br />
                                                                     </>
                                                                 ))
@@ -221,7 +224,7 @@ export default function Discover() {
                                                         </div>
                                                         <div className="col-ms-12 col-lg-6">
                                                             <div className="hotel-price-btn">
-                                                                <p className="mb-0"><span className="hotel-price">{e.ratePlan === undefined ? 'NA' : ' ₹' + e.ratePlan.price.current.slice(2) }</span></p>
+                                                                <p className="mb-0"><span className="hotel-price">{e.ratePlan === undefined ? 'NA' : 'From ₹' + e.ratePlan.price.current.slice(2) }</span></p>
                                                                 {/* <p className="mb-0"><span className="hotel-price">Rs 3,240</span></p> */}
                                                                 <small>excluding taxes & fees</small>
                                                             </div>
@@ -245,7 +248,7 @@ export default function Discover() {
                             {/* map */}
                             <div className="city-hotels" style={{ "width": "100%" }}>
                                 <div className="hotels-header">
-                                    <h2 className="sec-title">map</h2>
+                                    <h2 className="sec-title"> map </h2>
                                     <p className="sec-title-help"> locate your destination </p>
 
                                 </div>

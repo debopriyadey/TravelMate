@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 const Review = require('../models/reviews.js');
 const Users = require('../models/users.js');
 
+
 const ObjectId = mongoose.Types.ObjectId;
 const getReviews = (req, res) => {
 
@@ -132,10 +133,11 @@ const getPostsByTag=(req,res, next)=>{
         });
         return Promise.all(reviews);
     }).then((reviews) => {
-
-        reviews.forEach((review, index, reviews) => {
-            allPosts[index] = { ...allPosts[index], likes: review };
+        
+        allPosts.forEach((singleReview, index) => {
+            allPosts[index] = { ...allPosts[index], likes: reviews[index] };
         });
+
         const Reviews = allPosts;
         res.send({Reviews});
     }) 

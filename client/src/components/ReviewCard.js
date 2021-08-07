@@ -58,7 +58,8 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export default function ReviewCard({ places }) {
+export default function ReviewCard({ places , caller}) {
+    console.log(places , " card ")
     const classes = useStyles();
     const dispatch = useDispatch();
     const history = useHistory();
@@ -73,7 +74,7 @@ export default function ReviewCard({ places }) {
     const [alreadyLiked, setalreadyLiked] = useState(false);
     const [likes, setLikes] = useState(places.likes);
     var maxDescLength = 170
-    var reviewDesc = places.review.slice(0, maxDescLength)
+    var reviewDesc = places.review? places.review.slice(0, maxDescLength): "";
     reviewDesc = reviewDesc.slice(0, Math.min(reviewDesc.length, reviewDesc.lastIndexOf(" ")))
     useEffect(() => {
         setLikes(places.likes)
@@ -136,6 +137,7 @@ export default function ReviewCard({ places }) {
     }
 
     return (
+    <React.Fragment>
         <Card className={classes.root}>
             <CardMedia
                 className={classes.media}
@@ -171,6 +173,7 @@ export default function ReviewCard({ places }) {
 
             </CardContent>
             <CardActions>
+            
                 {
                     loggedIn ? (
                         <IconButton aria-label="add to favorites" onClick={IncreaseLike}>
@@ -183,16 +186,12 @@ export default function ReviewCard({ places }) {
                                 <FavoriteIcon />
                                 {likes}
                             </IconButton>
-                            <Snackbar open={openLogin}    anchorOrigin={{ vertical: 'bottom' , horizontal:'center' }} autoHideDuration={6000} onClose={handleCloseLogin}>
-                                <Alert onClose={handleCloseLogin} severity="error">
-                                    Please Login
-                                </Alert>
-                            </Snackbar>
+                            
                             
                         </>
                     )
                 }
-
+                
                 {/* <IconButton aria-label="share" onClick={handleCopy}>
                     <ShareIcon aria-label="share" onClick={handleCopy} />
                     <Snackbar open={openCopy} autoHideDuration={6000} onClose={handleCloseCopy}>
@@ -205,11 +204,7 @@ export default function ReviewCard({ places }) {
                     <ShareIcon aria-label="share"  />
                     
                 </IconButton>
-                <Snackbar open={openCopy} autoHideDuration={6000} onClose={handleCloseCopy}>
-                        <Alert onClose={handleCloseCopy} severity="success">
-                            Link copied to clipboard
-                        </Alert>
-                    </Snackbar>
+                
                 {
                     loggedIn && user._id == places.creator ? (
                         <>
@@ -230,5 +225,17 @@ export default function ReviewCard({ places }) {
                 }
             </CardActions>
         </Card>
+        <Snackbar open={openLogin}    anchorOrigin={{ vertical: 'bottom' , horizontal:'center' }} autoHideDuration={6000} onClose={handleCloseLogin}>
+        <Alert onClose={handleCloseLogin} severity="error">
+            Please Login
+        </Alert>
+        </Snackbar>
+        <Snackbar open={openCopy} autoHideDuration={6000} onClose={handleCloseCopy}>
+                        <Alert onClose={handleCloseCopy} severity="success">
+                            Link copied to clipboard
+                        </Alert>
+        </Snackbar>
+</React.Fragment>
+
     );
 }

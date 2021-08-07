@@ -8,15 +8,20 @@ const reviewRoute = require('./routes/review');
 const errorHandler = require('./middleware/errorHandler');
 
 const app = express();
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
 app.use(cookieParser());
 app.use(express.json({limit: "30mb", extended: true}))
 app.use(express.urlencoded({limit: "30mb", extended: true}))
 app.use(cors())
 
 // simulate delay response
-app.use((req, res, next) => { 
-  setTimeout(() => next(), 3000);
-});
+// app.use((req, res, next) => { 
+//   setTimeout(() => next(), 3000);
+// });
 
 app.use('/', authRoute);
 app.use('/', reviewRoute);

@@ -13,20 +13,20 @@
 }
 */
 
-import { ADD_MY_NEW_REVIEW, ALL_REVIEWS_FAIL, ALL_REVIEWS_REQUEST, ALL_REVIEWS_SUCCESS, CHANGE_LIKE_FAIL, CHANGE_LIKE_REQUEST, CHANGE_LIKE_SUCCESS, CLEAR_CREATE_REVIEW, CLEAR_MY_REVIEW, CREATE_REVIEW_FAIL, CREATE_REVIEW_REQUEST, CREATE_REVIEW_SUCCESS } from "../constents";
+import { ADD_MY_NEW_REVIEW, ALL_REVIEWS_FAIL, ALL_REVIEWS_REQUEST, ALL_REVIEWS_SUCCESS, CHANGE_LIKE_FAIL, CHANGE_LIKE_IN_SEARCH_REVIEW, CHANGE_LIKE_REQUEST, CHANGE_LIKE_SUCCESS, CLEAR_CREATE_REVIEW, CLEAR_MY_REVIEW, CREATE_REVIEW_FAIL, CREATE_REVIEW_REQUEST, CREATE_REVIEW_SUCCESS, SEARCH_REVIEW_FAIL, SEARCH_REVIEW_REQUEST, SEARCH_REVIEW_SUCCESS } from "../constents";
 
 
 // Reducer for working with all the Reviews including user's Reviews
 const allReviewsReducer = (state = { allReviews: [], myReviews: [] }, action) => {
 
-    switch(action.type) {
-        case ALL_REVIEWS_REQUEST:            
+    switch (action.type) {
+        case ALL_REVIEWS_REQUEST:
             return {
                 ...state,
                 error: false,
                 loading: true,
-            };  
-        
+            };
+
         case ALL_REVIEWS_SUCCESS:
             return {
                 ...state,
@@ -47,7 +47,7 @@ const allReviewsReducer = (state = { allReviews: [], myReviews: [] }, action) =>
             return {
                 ...state,
                 allReviews: [...state.allReviews, action.payload],
-                myReviews: [ ...state.myReviews , action.payload]
+                myReviews: [...state.myReviews, action.payload]
             }
 
         case CLEAR_MY_REVIEW:
@@ -63,38 +63,38 @@ const allReviewsReducer = (state = { allReviews: [], myReviews: [] }, action) =>
             }
 
         case CHANGE_LIKE_SUCCESS:
-            const reviews=[];
+            const reviews = [];
             // Changing all reviews
             state.allReviews.map((review) => {
-                if(review._id===action.payload.postId){
-                    if(action.payload.message==="Increase Like"){
-                        reviews.push({...review,"likes":review.likes+1});
-                    }else if(action.payload.message==="Decrease Like"){
-                        reviews.push({...review,"likes":review.likes-1});
-                    }else {
+                if (review._id === action.payload.postId) {
+                    if (action.payload.message === "Increase Like") {
+                        reviews.push({ ...review, "likes": review.likes + 1 });
+                    } else if (action.payload.message === "Decrease Like") {
+                        reviews.push({ ...review, "likes": review.likes - 1 });
+                    } else {
                         reviews.push(review);
                     }
-                }else
+                } else
                     reviews.push(review);
             });
             // Changing my reviews
-            const newMyreviews=[]
-            state.myReviews.map((review)=>{
-                if(review._id===action.payload.postId){
-                    if(action.payload.message==="Increase Like"){
-                        newMyreviews.push({...review,"likes":review.likes+1});
-                    }else if(action.payload.message==="Decrease Like"){
-                        newMyreviews.push({...review,"likes":review.likes-1});
-                    }else {
+            const newMyreviews = []
+            state.myReviews.map((review) => {
+                if (review._id === action.payload.postId) {
+                    if (action.payload.message === "Increase Like") {
+                        newMyreviews.push({ ...review, "likes": review.likes + 1 });
+                    } else if (action.payload.message === "Decrease Like") {
+                        newMyreviews.push({ ...review, "likes": review.likes - 1 });
+                    } else {
                         newMyreviews.push(review);
                     }
-                }else
-                newMyreviews.push(review);
+                } else
+                    newMyreviews.push(review);
             });
             return {
                 ...state,
-                allReviews:reviews,
-                myReviews:newMyreviews,
+                allReviews: reviews,
+                myReviews: newMyreviews,
             };
 
         case CHANGE_LIKE_FAIL:
@@ -111,9 +111,9 @@ const allReviewsReducer = (state = { allReviews: [], myReviews: [] }, action) =>
 }
 
 // createReviews
-const createReviewReducer = (state = {message: ""},action) => {
-    
-    switch(action.type){
+const createReviewReducer = (state = { message: "" }, action) => {
+
+    switch (action.type) {
         case CREATE_REVIEW_REQUEST:
             return {
                 loading: true,
@@ -133,7 +133,7 @@ const createReviewReducer = (state = {message: ""},action) => {
 
         case CLEAR_CREATE_REVIEW:
             return {
-                message:""
+                message: ""
             }
         default:
             return state;
@@ -141,12 +141,44 @@ const createReviewReducer = (state = {message: ""},action) => {
 }
 
 
-export {allReviewsReducer, createReviewReducer}
+// search Review 
+const searchReviewReducer = (state = { reviews: [] }, action) => {
+    switch (action.type) {
+        case SEARCH_REVIEW_REQUEST:
+            return { searchLoading: true }
+        case SEARCH_REVIEW_SUCCESS:
+            return { reviews: action.payload, searchLoading: false }
+        case SEARCH_REVIEW_FAIL:
+            return { error: action.payload , searchLoading: false}
+        case CHANGE_LIKE_IN_SEARCH_REVIEW:
+            const newReviews = [];
+            // Changing all reviews
+            state.reviews.map((review) => {
+                if (review._id === action.payload.postId) {
+                    if (action.payload.message === "Increase Like") {
+                        newReviews.push({ ...review, "likes": review.likes + 1 });
+                    } else if (action.payload.message === "Decrease Like") {
+                        newReviews.push({ ...review, "likes": review.likes - 1 });
+                    } else {
+                        newReviews.push(review);
+                    }
+                } else
+                    newReviews.push(review);
+            });
+
+            return { reviews: newReviews }
+        default:
+            return state;
+
+    }
+}
+
+export { allReviewsReducer, createReviewReducer, searchReviewReducer }
 
 /*
  const  review =(state = initialState , action) => {
     switch (action.type) {
-       
+
         case 'FETCH_ALL':
             return {
                 ...state,
@@ -158,7 +190,7 @@ export {allReviewsReducer, createReviewReducer}
                 ...state,
                 userInfo: [],
                 signupSuccess:true
-                
+
             };
         case 'SIGNUPFAILS':
             return{
@@ -197,7 +229,7 @@ export {allReviewsReducer, createReviewReducer}
                 myreviews: [ ...state.myreviews , action.payload]
             };
         case 'CURRENT_REVIEW':
-            return { 
+            return {
                 ...state,
                 currentReview: action.payload
             };
@@ -239,7 +271,7 @@ export {allReviewsReducer, createReviewReducer}
                 allreviews:reviews,
                 myreviews:newMyreviews,
                 userInfo:JSON.stringify(userInfo),
-            
+
             };
         default:
             return state;

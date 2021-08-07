@@ -11,10 +11,11 @@ import { useHistory } from 'react-router-dom';
 import searchbg from '../img/searchimg.jpg'
 import NavBar from './NavBar';
 import { getPostsbyTag, getReviewsTags } from '../api';
+import { useDispatch, useSelector } from 'react-redux';
+import { searchReview } from '../actions/reviewActions';
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    backgroundColor: '#CDD8FF',
     overflow: 'hidden',
   },
 
@@ -111,54 +112,27 @@ export default function Search(props) {
 
   let history = useHistory();
   const classes = useStyles();
+  const dispatch = useDispatch();
 
+  const {searchLoading, reviews, error } = useSelector((state) => state.searchReview)
   const [tagValue, setTag] = useState("");
   const [open, setOpen] = useState(false);
-
-  const [openLoader, setOpenLoader] = useState(false);
-
   const [options, setOptions] = useState([]);
-  const [post, setPost] = useState([]);
   const loading = open
-  // const [openLoader, setOpenLoader] = React.useState(false);
-
-  // const handleOpenLoader = () => {
-  //   setOpenLoader(true);
-  // };
-
-  // const handleCloseLoader = () => {
-  //   setOpenLoader(false);
-  // };
-
   // to add search text box value to the url
   const addToUrl = (searchTyped) => {
     if (searchTyped && searchTyped !== null) history.push(`/search?q=${searchTyped}`);
     else history.push(`/search`);
   }
-  // const handleOpenLoader = () => {
-  //   setOpenLoader(true);
-  // };
-
-  // const handleCloseLoader = () => {
-  //   setOpenLoader(false);
-  // };
-
   // to fetch all the review which have given tag
   const getPostByTag = (tag) => {
     if (tag != null && tag !== "") {
       const search = {
         "tags": tag
       }
-      getPostsbyTag( search).then(res => {
-        const data = res.data.Reviews;
-        setPost(data);
-        history.push(`/search?q=${tag}`);
-      }).catch((error) => {
-        console.log(error)
-      })
-
+      dispatch(searchReview(search));
+      history.push(`/search?q=${tag}`);
     }
-    // const { Reviews } = await  getPostsbyTag(search).data;
   }
 
   useEffect(() => {
@@ -196,17 +170,6 @@ export default function Search(props) {
     }
   }, [open]);
 
-  // const body = (
-  // <Loader
-  //   className="text-center"
-  //   type="Puff"
-  //   color="#00BFFF"
-  //   height={50}
-  //   width={50}
-  //   timeout={60000} //10 secs
-  // />
-  // )
-
   return (
     <div className={classes.root}>
       <NavBar />
@@ -231,6 +194,7 @@ export default function Search(props) {
                 onChange={(event, value) => getPostByTag(value)}
                 onKeyPress={(e) => {
                   if (e.code === "Enter") {
+                    console.log("Enter pressed")
                     getPostByTag(e.target.value)
                     setOpen(false);
                   }
@@ -270,11 +234,21 @@ export default function Search(props) {
           {body}
         </Modal> */}
         <div>
-          <Grid container spacing={3} className={classes.container}>
+          {
+            searchLoading?(
+              <Loader
+              type = "BallTriangle"
+              color = "#295ed9"
+              className = "searchLoader"
+              />
+            ):(
+              <Grid container spacing={3} className={classes.container}>
             <Grid className={classes.card}>
-              <Reviews reviews={post} />
+              <Reviews reviews={reviews} caller={"Search"}/>
             </Grid>
           </Grid>
+            )
+          }
         </div>
       </div>
     </div>

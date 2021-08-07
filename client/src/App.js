@@ -34,7 +34,6 @@ function App() {
             type = "BallTriangle"
             color = "#295ed9"
             className = "loader"
-            
             />
         ): (
             <Router history={history}>

@@ -79,7 +79,7 @@ export default function ReviewCard({ places }) {
     const history = useHistory();
     const user = useSelector(state => state.userInfo.user);
     let loggedIn = false;
-    if (user && Object.keys(user).length !== 0)loggedIn=true;
+    if (user && Object.keys(user).length !== 0) loggedIn = true;
 
 
     const [openLogin, setOpenLogin] = useState(false);
@@ -93,7 +93,7 @@ export default function ReviewCard({ places }) {
 
     useEffect(() => {
         setLikes(places.likes)
-        if (loggedIn){
+        if (loggedIn) {
 
             if (user.likes.includes(places._id)) {
                 setalreadyLiked(true);
@@ -154,94 +154,98 @@ export default function ReviewCard({ places }) {
 
 
     return (
-        <div className={classes.root}>
-            <div className="row">
-                <div className="col-sm-12 col-lg-4">
-                    <CardMedia
-                        className={classes.media}
-                        image={places.selectedFile}
-                        title={places.title}
-                    />
-                    <IconButton aria-label="share" onClick={handleCopy} className={classes.share}>
-                        <ShareIcon aria-label="share" />
-                    </IconButton>
-                    <Snackbar open={openCopy} autoHideDuration={6000} onClose={handleCloseCopy}>
-                            <Alert onClose={handleCloseCopy} severity="success">
-                                Link copied to clipboard
-                            </Alert>
-                        </Snackbar>
-                </div>
-                <div className="col-sm-12 col-lg-8">
-                    <div className="row">
-                        <div className="col-8">
-                            <CardHeader
-                                title={places.title}
-                                subheader={places.createdAt.slice(0, 10)}
-                            />
-                        </div>
-                        <div className="col-4">
-                            <CardActions className={classes.likes}>
-                                {
-                                    loggedIn ? (
-                                        <IconButton aria-label="add to favorites" onClick={IncreaseLike}>
-                                            {alreadyLiked ? (<FavoriteIcon color="error" />) : (<FavoriteIcon />)}
-                                            {likes}
-                                        </IconButton>
-                                    ) : (
-                                        <>
-                                            <IconButton aria-label="add to favorites" onClick={() => setOpenLogin(true)}>
-                                                <FavoriteIcon />
+        <React.Fragment>
+            <div className={classes.root}>
+                <div className="row">
+                    <div className="col-sm-12 col-lg-4">
+                        <CardMedia
+                            className={classes.media}
+                            image={places.selectedFile}
+                            title={places.title}
+                        />
+                        <IconButton aria-label="share" onClick={handleCopy} className={classes.share}>
+                            <ShareIcon aria-label="share" />
+                        </IconButton>
+
+                    </div>
+                    <div className="col-sm-12 col-lg-8">
+                        <div className="row">
+                            <div className="col-8">
+                                <CardHeader
+                                    title={places.title}
+                                    subheader={places.createdAt.slice(0, 10)}
+                                />
+                            </div>
+                            <div className="col-4">
+                                <CardActions className={classes.likes}>
+                                    {
+                                        loggedIn ? (
+                                            <IconButton aria-label="add to favorites" onClick={IncreaseLike}>
+                                                {alreadyLiked ? (<FavoriteIcon color="error" />) : (<FavoriteIcon />)}
                                                 {likes}
                                             </IconButton>
-                                            <Snackbar open={openLogin} autoHideDuration={6000} onClose={handleCloseLogin}>
-                                                <Alert onClose={handleCloseLogin} severity="error">
-                                                    Please Login
-                                                </Alert>
-                                            </Snackbar>
-                                        </>
-                                    )
-                                }
-                            </CardActions>
-                        </div>
-                    </div>
-                    <CardContent>
-                        <Typography
-                            variant="body2"
-                            color="textSecondary"
-                            component="p"
-                            className={classes.desc}
-                        >
-                            {reviewDesc + "..."}
-                            <Button onClick={handelSubmit} size="small" color="primary" className="">
-                                Read More
-                            </Button>
-                            <br />
-                            <small> <i> A review given by {places.creatorName} </i></small>
-                        </Typography>
+                                        ) : (
+                                            <>
+                                                <IconButton aria-label="add to favorites" onClick={() => setOpenLogin(true)}>
+                                                    <FavoriteIcon />
+                                                    {likes}
+                                                </IconButton>
 
-                    </CardContent>
-                    <CardActions>
-                        {
-                            loggedIn && user._id == places.creator ? (
-                                <>
-                                    <Button onClick={handleDelete} size="small" color="primary" className="ml-auto">
-                                        <DeleteIcon title="delete" />
-                                    </Button>
-                                    <Button onClick={handelUpdate} size="small" color="primary" className="" style={{ margin: '-15px' }}>
-                                        <UpdateIcon title="update" />
-                                    </Button>
-                                </>
-                            ) : (
-                                <>
-                                    <Button onClick={handleDelete} size="small" color="primary" className="ml-auto">
-                                        {/* <DeleteIcon /> */}
-                                    </Button>
-                                </>
-                            )
-                        }
-                    </CardActions>
+                                            </>
+                                        )
+                                    }
+                                </CardActions>
+                            </div>
+                        </div>
+                        <CardContent>
+                            <Typography
+                                variant="body2"
+                                color="textSecondary"
+                                component="p"
+                                className={classes.desc}
+                            >
+                                {reviewDesc + "..."}
+                                <Button onClick={handelSubmit} size="small" color="primary" className="">
+                                    Read More
+                                </Button>
+                                <br />
+                                <small> <i> A review given by {places.creatorName} </i></small>
+                            </Typography>
+
+                        </CardContent>
+                        <CardActions>
+                            {
+                                loggedIn && user._id == places.creator ? (
+                                    <>
+                                        <Button onClick={handleDelete} size="small" color="primary" className="ml-auto">
+                                            <DeleteIcon title="delete" />
+                                        </Button>
+                                        <Button onClick={handelUpdate} size="small" color="primary" className="" style={{ margin: '-15px' }}>
+                                            <UpdateIcon title="update" />
+                                        </Button>
+                                    </>
+                                ) : (
+                                    <>
+                                        <Button onClick={handleDelete} size="small" color="primary" className="ml-auto">
+                                            {/* <DeleteIcon /> */}
+                                        </Button>
+                                    </>
+                                )
+                            }
+                        </CardActions>
+                    </div>
                 </div>
             </div>
-        </div>
+            <Snackbar open={openLogin} autoHideDuration={6000} onClose={handleCloseLogin}>
+                <Alert onClose={handleCloseLogin} severity="error">
+                    Please Login
+                </Alert>
+            </Snackbar>
+            <Snackbar open={openCopy} autoHideDuration={6000} onClose={handleCloseCopy}>
+                <Alert onClose={handleCloseCopy} severity="success">
+                    Link copied to clipboard
+                </Alert>
+            </Snackbar>
+        </React.Fragment>
     );
 }

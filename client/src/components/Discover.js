@@ -222,7 +222,7 @@ export default function Discover() {
                                                                 ))
                                                             }
                                                         </div>
-                                                        <div className="col-ms-12 col-lg-6">
+                                                        <div className="col-md-12 col-lg-6">
                                                             <div className="hotel-price-btn">
                                                                 <p className="mb-0"><span className="hotel-price">{e.ratePlan === undefined ? 'NA' : 'From ₹' + e.ratePlan.price.current.slice(2) }</span></p>
                                                                 {/* <p className="mb-0"><span className="hotel-price">Rs 3,240</span></p> */}

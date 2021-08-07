@@ -1,5 +1,5 @@
 import * as api from '../api';
-import { CLEAR_USER_DATA, LOGGEDIN_USER_INFO_FAIL, LOGGEDIN_USER_INFO_REQUEST, LOGGEDIN_USER_INFO_SUCCESS, LOGOUT_FAIL, LOGOUT_REQUEST, LOGOUT_SUCCESS, SIGNIN_FAIL, SIGNIN_REQUEST, SIGNIN_SUCCESS, SIGNUP_FAIL, SIGNUP_REQUEST, SIGNUP_SUCCESS } from '../constents';
+import { CLEAR_USER_DATA, GET_USER_DATA_FAIL, GET_USER_DATA_REQUEST, LOGGEDIN_USER_INFO_FAIL, LOGGEDIN_USER_INFO_REQUEST, LOGGEDIN_USER_INFO_SUCCESS, LOGOUT_FAIL, LOGOUT_REQUEST, LOGOUT_SUCCESS, SIGNIN_FAIL, SIGNIN_REQUEST, SIGNIN_SUCCESS, SIGNUP_FAIL, SIGNUP_REQUEST, SIGNUP_SUCCESS } from '../constents';
 import setAuthenticationToken from './setAuthenticationToken'
 
 export const signup = (users) => async (dispatch) => {
@@ -38,10 +38,12 @@ export const logout = () => async (dispatch)  => {
 
 export const loggedInUserInfo = () => async (dispatch) => {
     try {
+        dispatch({ type: GET_USER_DATA_REQUEST })
         const { data } = await api.getLoggedInUserInfo();
         dispatch({type: SIGNIN_SUCCESS, payload: data })
     } catch (error) {
         console.log(error.message);
+        dispatch({ type: GET_USER_DATA_FAIL })
     }
 }
 

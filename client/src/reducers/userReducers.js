@@ -1,4 +1,4 @@
-import { CHANGE_LIKE_IN_USER_DATA, CLEAR_SIGNUP_INFO, CLEAR_USER_DATA, LOGGEDIN_USER_INFO_REQUEST, LOGOUT_FAIL, LOGOUT_REQUEST, LOGOUT_SUCCESS, SIGNIN_FAIL, SIGNIN_REQUEST, SIGNIN_SUCCESS, SIGNUP_FAIL, SIGNUP_REQUEST, SIGNUP_SUCCESS } from "../constents";
+import { CHANGE_LIKE_IN_USER_DATA, CLEAR_SIGNUP_INFO, CLEAR_USER_DATA, GET_USER_DATA_FAIL, GET_USER_DATA_REQUEST, LOGGEDIN_USER_INFO_REQUEST, LOGOUT_FAIL, LOGOUT_REQUEST, LOGOUT_SUCCESS, SIGNIN_FAIL, SIGNIN_REQUEST, SIGNIN_SUCCESS, SIGNUP_FAIL, SIGNUP_REQUEST, SIGNUP_SUCCESS } from "../constents";
 
 // signupReducer
 const signupReduecer = (state = { message: "" }, action) => {
@@ -22,7 +22,7 @@ const userDataReducer = (state = {user: {}}, action) => {
     case SIGNIN_REQUEST:
       return { loading: true }
     case SIGNIN_SUCCESS:
-      return { loading: false , user: action.payload }
+      return { loading: false , user: action.payload, getUserDataLoader: false }
     case SIGNIN_FAIL:
       return { loading: false, error: action.payload }
 
@@ -36,8 +36,11 @@ const userDataReducer = (state = {user: {}}, action) => {
         userInfo.likes= userInfo.likes.filter((id)=> id!= postId);
       }
       return { user: userInfo }
-
-      
+    
+    case GET_USER_DATA_REQUEST:
+      return { getUserDataLoader: true }  
+    case GET_USER_DATA_FAIL:
+      return { getUserDataLoader: false }
     case CLEAR_USER_DATA:
       return {user:[]}
     

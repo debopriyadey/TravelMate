@@ -9,6 +9,8 @@ export const SIGNIN_REQUEST = "SIGNIN_REQUEST"
 export const SIGNIN_SUCCESS = "SIGNIN_SUCCESS"
 export const SIGNIN_FAIL = "SIGNIN_FAIL"
 // user data manipulation constants
+export const GET_USER_DATA_REQUEST = "GET_USER_DATA_REQUEST"
+export const GET_USER_DATA_FAIL = "GET_USER_DATA_FAIL"
 export const CLEAR_USER_DATA = "CLEAR_USER_DATA"
 export const CHANGE_LIKE_IN_USER_DATA = "CHANGE_LIKE_IN_USER_DATA"
 

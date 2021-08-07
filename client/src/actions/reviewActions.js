@@ -8,7 +8,7 @@ export const getReviews = () => async (dispatch) => {
      dispatch({type: ALL_REVIEWS_REQUEST});
       const { data } = await api.fetchPost();
       const myreviews = [];
-      if (store.getState().userInfo.user._id) {
+      if (store.getState().userInfo.user && store.getState().userInfo.user._id) {
           const user = store.getState().userInfo.user;
           data.forEach(element => {
               if (element.creator === user._id) {
@@ -19,7 +19,7 @@ export const getReviews = () => async (dispatch) => {
       }
       dispatch({ type: ALL_REVIEWS_SUCCESS, payload: [myreviews, data] });
   } catch (error) {
-      console.log(error.message)
+      console.log(error.response)
       dispatch({ type: ALL_REVIEWS_FAIL, payload: error.response.data.error})
   }
 }

@@ -210,13 +210,13 @@ export default function Discover() {
                                                         readOnly
                                                         className="hotel-rating mt-2" />
                                                     <br />
-                                                    <div className="row hotel-desc-last">
+                                                    <div className="row hotel-desc-last mt-3">
                                                         <div className="col-md-12 col-lg-6 hotel-landmark">
-                                                            <h4 className="hotel-landmark-header mb-0 mt-2"> Landmarks </h4>
+                                                            {/* <h4 className="hotel-landmark-header mb-0 mt-2"> Landmarks </h4> */}
                                                             {
                                                                 e.landmarks.map((res) => (
                                                                     <>
-                                                                        <small className="my-0"><img src={map} /> {res.distance} to {res.label.length > 30 ? res.label.slice(0, Math.min(20, (res.label.slice(0, 30)).lastIndexOf(',') + 1)) : res.label}</small>
+                                                                        <small className="mb-0"><img src={map} className="mb-2" /> {res.distance} to {res.label.length > 30 ? res.label.slice(0, Math.min(20, (res.label.slice(0, 30)).lastIndexOf(',') + 1)) : res.label}</small>
                                                                         <br />
                                                                     </>
                                                                 ))

@@ -17,6 +17,8 @@ import Discover from './components/Discover';
 import Loader from 'react-loader-spinner';
 import './css/app.css';
 
+import './app.css';
+
 function App() {
 
     const dispatch=useDispatch();

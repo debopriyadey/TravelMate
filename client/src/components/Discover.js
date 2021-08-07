@@ -213,7 +213,7 @@ export default function Discover() {
                                                             {
                                                                 e.landmarks.map((res) => (
                                                                     <>
-                                                                        <small className="my-0">{res.distance} to {res.label.length > 25 ? res.label.slice(0, Math.min(20, res.label.indexOf(",", 2) + 1)) : res.label}</small>
+                                                                        <small className="my-0">{res.distance} to {res.label.length > 25 ? res.label.slice(0, Math.min(20, res.label.lastIndexOf(",") + 1)) : res.label}</small>
                                                                         <br />
                                                                     </>
                                                                 ))
@@ -221,8 +221,8 @@ export default function Discover() {
                                                         </div>
                                                         <div className="col-ms-12 col-lg-6">
                                                             <div className="hotel-price-btn">
-                                                                {/* <p className="hotel-price">{e.ratePlan === undefined ? e.ratePlan.price.current : ''}</p> */}
-                                                                <p className="mb-0"><span className="hotel-price">Rs 3,240</span></p>
+                                                                <p className="mb-0"><span className="hotel-price">{e.ratePlan === undefined ? 'NA' : ' ₹' + e.ratePlan.price.current.slice(2) }</span></p>
+                                                                {/* <p className="mb-0"><span className="hotel-price">Rs 3,240</span></p> */}
                                                                 <small>excluding taxes & fees</small>
                                                             </div>
                                                         </div>
@@ -235,12 +235,12 @@ export default function Discover() {
                             </div>
 
                             {/* transport */}
-                            <div className="city-hotels">
+                            {/* <div className="city-hotels">
                                 <div className="hotels-header">
                                     <h2 className="sec-title">transport</h2>
                                     <p className="sec-title-help"> to make travel easy </p>
                                 </div>
-                            </div>
+                            </div> */}
 
                             {/* map */}
                             <div className="city-hotels" style={{ "width": "100%" }}>

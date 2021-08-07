@@ -216,6 +216,7 @@
     align-items: center;
     border-radius: 20px;
     border: 1px #fff solid;
+    width: 900px;
 }
 
 .hotel-img-ctn {
@@ -269,6 +270,10 @@
     -webkit-column-count: 3;
     column-count:         3;
     }
+
+    .hotel-card {
+        width: 600px;
+    }
 }  
  @media (max-width: 800px) {
     .city-gallary {
@@ -276,12 +281,25 @@
     -webkit-column-count: 2;
     column-count:         2;
     }
+    .hotel-card {
+        width: 500px;
+    }
+}
+
+@media (max-width: 560px) {
+
+    .hotel-card {
+        width: 400px;
+    }
 }  
  @media (max-width: 400px) {
     .city-gallary {
     -moz-column-count:    1;
     -webkit-column-count: 1;
      column-count:        1;
+    }
+    .hotel-card {
+        width: 300px;
     }
 }
 /*******Image gallery of unequal height for small device end*********/

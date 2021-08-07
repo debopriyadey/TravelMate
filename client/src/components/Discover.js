@@ -12,7 +12,7 @@ import location from '../svg/location.svg';
 import map from '../svg/map.svg';
 
 const breakPoints = (e) => {
-    return    [
+    return [
         { width: 1, itemsToShow: 1 },
         { width: 550, itemsToShow: 2, itemsToScroll: 2, pagination: false },
         { width: 850, itemsToShow: 3 },
@@ -22,7 +22,40 @@ const breakPoints = (e) => {
     ]
 }
 
+// Hook
+function useWindowSize() {
+    // Initialize state with undefined width/height so server and client renders match
+    // Learn more here: https://joshwcomeau.com/react/the-perils-of-rehydration/
+    const [windowSize, setWindowSize] = useState({
+        width: undefined,
+        height: undefined,
+    });
+    useEffect(() => {
+        // Handler to call on window resize
+        function handleResize() {
+            // Set window width/height to state
+            setWindowSize({
+                width: window.innerWidth,
+                height: window.innerHeight,
+            });
+        }
+        // Add event listener
+        window.addEventListener("resize", handleResize);
+        // Call handler right away so state gets updated with initial window size
+        handleResize();
+        // Remove event listener on cleanup
+        return () => window.removeEventListener("resize", handleResize);
+    }, []); // Empty array ensures that effect is only run on mount
+    return windowSize;
+}
+
 export default function Discover() {
+
+    const size = useWindowSize();
+
+    console.log(size)
+
+
     const [query, setQuery] = useState('');
     const [info, setInfo] = useState('');
     const [hotels, setHotels] = useState('');
@@ -41,12 +74,13 @@ export default function Discover() {
     });
     const [cityPhoto, setCityPhoto] = useState();
     const [viewport, setViewport] = useState({
-        width: '90vh',
+        width: '80vh',
         height: '80vh',
         latitude: null,
         longitude: null,
-        zoom: 6
+        zoom: 7
     });
+
     /*const search = async (e) => {
         if (e.key === 'Enter') {
             const data = await fetchBasicInfo(query);
@@ -68,7 +102,6 @@ export default function Discover() {
             fetchTouristAttraction(city.latitude, city.longitude).then((response) => {
                 setAttractionPlaces(response.data.results[0].pois)
                 // console.log(response);
-                console.log(attractionPlaces, "ok ")
             }).catch((error) => {
                 console.log("TouristAttractionError", error);
             });
@@ -80,15 +113,39 @@ export default function Discover() {
                 .then((res) => {
                     setInfo(res)
                 })
-            fetchHotelDeatils(city.longitude, city.latitude)
-                .then((res) => {
-                    setHotels(res)
-                })
+            // fetchHotelDeatils(city.longitude, city.latitude)
+            //     .then((res) => {
+            //         setHotels(res)
+            //     })
             setViewport({ ...viewport, latitude: city.latitude, longitude: city.longitude });
 
         }
 
     }, [city])
+
+
+    useEffect(() => {
+        console.log(size)
+        if (size.width >= 1200) {
+            console.log('1000')
+            setViewport({ ...viewport, width: '130vh', height: '80vh' })
+        }else if (size.width >= 1000) {
+            console.log('800')
+            setViewport({ ...viewport, width: '100vh', height: '60vh' })
+        } else if (size.width >= 800) {
+            console.log('800')
+            setViewport({ ...viewport, width: '80vh', height: '60vh' })
+        } else if (size.width >= 600) {
+            console.log('600')
+            setViewport({ ...viewport, width: '70vh', height: '50vh' })
+        } else if (size.width >= 400) {
+            console.log('400')
+            setViewport({ ...viewport, width: '48vh', height: '40vh' })
+        } else {
+            console.log('20vh')
+            setViewport({ ...viewport, width: '45vh', height: '30vh' })
+        }
+    }, [size.width])
 
 
     return (
@@ -119,7 +176,7 @@ export default function Discover() {
                                             <h2 className="sec-title">about</h2>
                                             {
                                                 info.query && Object.entries(info.query.pages).map((e) => (
-                                                    <p className="city-about p-5" key={e[0]}>
+                                                    <p className="city-about p-sm-1 p-md-5" key={e[0]}>
                                                         {
                                                             e[1].extract.slice(Math.min(500, e[1].extract.indexOf(".") + 1), (e[1].extract.slice(0, 1000)).lastIndexOf('.') + 1)
                                                         }
@@ -154,9 +211,7 @@ export default function Discover() {
                                 </div>
                                 <div>
                                     <Carousel
-                                        itemPadding={[0, 20]}
-                                        itemsToShow={2}
-                                        outerSpacing={150}
+                                        itemPadding={[0, 30]}
                                         // easing="cubic-bezier(1,.15,.55,1.54)"
                                         // tiltEasing="cubic-bezier(0.110, 1, 1.000, 0.210)"
                                         // transitionMs={400}
@@ -212,7 +267,6 @@ export default function Discover() {
                                                     <br />
                                                     <div className="row hotel-desc-last mt-3">
                                                         <div className="col-md-12 col-lg-6 hotel-landmark">
-                                                            {/* <h4 className="hotel-landmark-header mb-0 mt-2"> Landmarks </h4> */}
                                                             {
                                                                 e.landmarks.map((res) => (
                                                                     <>
@@ -224,8 +278,7 @@ export default function Discover() {
                                                         </div>
                                                         <div className="col-md-12 col-lg-6">
                                                             <div className="hotel-price-btn">
-                                                                <p className="mb-0"><span className="hotel-price">{e.ratePlan === undefined ? 'NA' : 'From ₹' + e.ratePlan.price.current.slice(2) }</span></p>
-                                                                {/* <p className="mb-0"><span className="hotel-price">Rs 3,240</span></p> */}
+                                                                <p className="mb-0"><span className="hotel-price">{e.ratePlan === undefined ? 'NA' : 'From ₹' + e.ratePlan.price.current.slice(2)}</span></p>
                                                                 <small>excluding taxes & fees</small>
                                                             </div>
                                                         </div>
@@ -246,50 +299,46 @@ export default function Discover() {
                             </div> */}
 
                             {/* map */}
-                            <div className="city-hotels" style={{ "width": "100%" }}>
-                                <div className="hotels-header">
+                            <div className="city-maps">
+                                <div className="map-header">
                                     <h2 className="sec-title"> map </h2>
                                     <p className="sec-title-help"> locate your destination </p>
 
                                 </div>
-                                {
-                                    viewport.latitude && (<ReactMapGL
-                                        {...viewport}
-                                        mapboxApiAccessToken={process.env.REACT_APP_MAPBOX_KEY}
-                                        mapStyle="mapbox://styles/gourav12345/ckng22ps74bqu17qj6hvbpt0i"
-                                        onViewportChange={nextViewport => setViewport(nextViewport)}
-                                    >
-                                        {
+                                <div style={{ width: '100%', position: 'relative' }}>
+                                    {
+                                        viewport.latitude && (<ReactMapGL
+                                            {...viewport}
+                                            mapboxApiAccessToken={process.env.REACT_APP_MAPBOX_KEY}
+                                            mapStyle="mapbox://styles/gourav12345/ckng22ps74bqu17qj6hvbpt0i"
+                                            onViewportChange={nextViewport => setViewport(nextViewport)}
+                                        >
+                                            {
 
 
-                                            <Marker
-                                                latitude={city.latitude}
-                                                longitude={city.longitude}
-                                            >
-                                                <div>
-                                                    <img
-                                                        style={{
-                                                            height: ` ${6 * viewport.zoom}px`,
-                                                            width: ` ${6 * viewport.zoom}px`,
-                                                            maxWidth: '30px',
-                                                            maxHeight: '30px'
-                                                        }}
-                                                        className="marker"
-                                                        src="https://i.imgur.com/y0G5YTX.png"
-                                                        alt="marker"
+                                                <Marker
+                                                    latitude={city.latitude}
+                                                    longitude={city.longitude}
+                                                >
+                                                    <div>
+                                                        <img
+                                                            style={{
+                                                                height: ` ${6 * viewport.zoom}px`,
+                                                                width: ` ${6 * viewport.zoom}px`,
+                                                                maxWidth: '30px',
+                                                                maxHeight: '30px'
+                                                            }}
+                                                            className="marker"
+                                                            src="https://i.imgur.com/y0G5YTX.png"
+                                                            alt="marker"
 
-                                                    />
-                                                </div>
-                                            </Marker>
-
-
-
-                                        }
-
-
-
-                                    </ReactMapGL>)
-                                }
+                                                        />
+                                                    </div>
+                                                </Marker>
+                                            }
+                                        </ReactMapGL>)
+                                    }
+                                </div>
                             </div>
                         </div>
                     )}

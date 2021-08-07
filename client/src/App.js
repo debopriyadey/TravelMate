@@ -15,6 +15,8 @@ import UpdateReview from './components/UpdateReview.js';
 import { ProtectedRoute } from './components/ProtectedRoutes';
 import Discover from './components/Discover';
 
+import './app.css';
+
 function App() {
 
     const dispatch=useDispatch();

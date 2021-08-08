@@ -31,7 +31,7 @@ const useStyles = makeStyles((theme) => ({
             marginTop: '40%'
         },
         [theme.breakpoints.down('xs')]: {
-            marginTop: '60%'
+            marginTop: '55%'
         }
     },
 
@@ -128,7 +128,7 @@ export default function Header() {
                         <div className="col-3 bar-content">
                             <Link to="/search" style={{ textDecoration: 'none', display: 'flex' }}>
                                 <div className="bar-logo">
-                                    <img src={review} alt="review-logo" />
+                                    <img src={review} alt="bar-logo-img review-logo" />
                                 </div>
                                 <div className="bar-review">
                                     <p className="mb-0">Search <br /> Reviews</p>
@@ -138,7 +138,7 @@ export default function Header() {
                         <div className="col-3 bar-content">
                             <Link to="/discover" style={{ textDecoration: 'none', display: 'flex' }}>
                                 <div className="bar-logo">
-                                    <img src={weather} alt="weather-logo" />
+                                    <img src={weather} alt="bar-logo-img weather-logo" />
                                 </div>
                                 <div className="bar-review">
                                     <p className="mb-0">Discover <br /> Destination</p>
@@ -148,7 +148,7 @@ export default function Header() {
                         <div className="col-3 bar-content">
                             <a href="#weather" style={{ textDecoration: 'none', display: 'flex' }}>
                                 <div className="bar-logo">
-                                    <img src={destination} alt="destination-logo" />
+                                    <img src={destination} alt="bar-logo-img destination-logo" />
                                 </div>
                                 <div className="bar-review">
                                     <p className="mb-0">Check <br /> Weather</p>

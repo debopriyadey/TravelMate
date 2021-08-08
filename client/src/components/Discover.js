@@ -6,6 +6,8 @@ import Carousel from 'react-elastic-carousel'
 import ReactMapGL, { Marker } from 'react-map-gl';
 
 import { fetchPhotos, fetchDesc, fetchHotelDeatils, fetchTouristAttraction } from '../api/index';
+
+import NavBar from './NavBar';
 import '../css/discover.css';
 
 import location from '../svg/location.svg';
@@ -52,9 +54,6 @@ function useWindowSize() {
 export default function Discover() {
 
     const size = useWindowSize();
-
-    console.log(size)
-
 
     const [query, setQuery] = useState('');
     const [info, setInfo] = useState('');
@@ -127,22 +126,16 @@ export default function Discover() {
     useEffect(() => {
         console.log(size)
         if (size.width >= 1200) {
-            console.log('1000')
             setViewport({ ...viewport, width: '130vh', height: '80vh' })
-        }else if (size.width >= 1000) {
-            console.log('800')
+        } else if (size.width >= 1000) {
             setViewport({ ...viewport, width: '100vh', height: '60vh' })
         } else if (size.width >= 800) {
-            console.log('800')
             setViewport({ ...viewport, width: '80vh', height: '60vh' })
         } else if (size.width >= 600) {
-            console.log('600')
             setViewport({ ...viewport, width: '70vh', height: '50vh' })
         } else if (size.width >= 400) {
-            console.log('400')
             setViewport({ ...viewport, width: '48vh', height: '40vh' })
         } else {
-            console.log('20vh')
             setViewport({ ...viewport, width: '45vh', height: '30vh' })
         }
     }, [size.width])
@@ -150,6 +143,7 @@ export default function Discover() {
 
     return (
         <>
+            <NavBar />
             <div className="discover-container" id="weather">
                 <h1 className="discover-main-text"> Discover new <span className="special-text">destination </span> </h1>
                 <input type="text" className="mt-4 my-input discover-search" name="field" placeholder="search a place...." tabIndex="1" autoComplete="off" />

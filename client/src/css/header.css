@@ -83,3 +83,28 @@
         justify-content: space-between !important;
     }
 }
+
+@media screen and (max-width: 400px) {
+    .header-bar {
+        display: block;
+        margin: 0px;
+        margin-top: 5px;
+        background: rgb(253, 253, 253);
+        background: linear-gradient(73deg, rgb(235, 235, 238) 0%, rgb(251, 252, 252) 82%);
+        border-radius: 30px 30px 0px 0px;
+        font-family: 'Varela Round', sans-serif;
+        font-size: 1.2rem;
+        justify-content: space-between !important;
+        padding-inline: 40px;
+    }
+
+    .bar-content {
+        display: block;
+        justify-content: center;
+        align-items: center;
+        padding: 0px;
+        padding-left: 0px;
+        margin-inline: 15px;
+        padding-block: 10px;
+    }
+}

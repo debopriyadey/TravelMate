@@ -124,7 +124,6 @@ export default function ReviewForm() {
         e.preventDefault();
         reviewData.review = placeData.like + ' ' + placeData.speciality + ' ' + placeData.expence + ' ' + placeData.time;
         reviewData.tags = reviewData.tags + ',' + reviewData.title;
-        console.log("tagonSubmit: ", reviewData.tags)
         dispatch(createreviews(reviewData))
     }
     let item= true;
@@ -142,7 +141,6 @@ export default function ReviewForm() {
         auto();
         return () => {
             dispatch({type: CLEAR_CREATE_REVIEW});
-            console.log("Review form gone ")
         }
     }, [dispatch])
   
@@ -260,7 +258,6 @@ export default function ReviewForm() {
                                         autoComplete="off"
                                         value={reviewData.tags}
                                         onChange={(e) => {
-                                            console.log(e.target.value) 
                                             setData({...reviewData, tags: e.target.value})
                                         }}
                                     />

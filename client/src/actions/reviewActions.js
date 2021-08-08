@@ -28,7 +28,6 @@ export const currentreview = (review) => async (dispatch) => {
   try {
       const { data } = await api.currentReview(review);
       dispatch({ type: 'CURRENT_REVIEW', payload: data });
-      console.log(data)
   } catch (error) {
       console.log(error.message);
   }
@@ -50,7 +49,6 @@ export const increaseLike = (likeData) => async (dispatch) => {
   try {
       dispatch({ type: CHANGE_LIKE_REQUEST });
       const  {data}  = await api.increaseLikeapi(likeData);
-      console.log(data);
       dispatch({type:CHANGE_LIKE_SUCCESS ,payload:data});
       dispatch({type: CHANGE_LIKE_IN_USER_DATA, payload: data })
       dispatch({type: CHANGE_LIKE_IN_SEARCH_REVIEW, payload: data});
@@ -65,7 +63,6 @@ export const searchReview = (search) => async (dispatch) => {
     try { 
         dispatch({ type: SEARCH_REVIEW_REQUEST });
         const { data } = await  api.getPostsbyTag(search);
-        console.log(data.Reviews);
         dispatch({ type: SEARCH_REVIEW_SUCCESS , payload: data.Reviews})
     } catch(error) {
         console.log(error, " from action ")

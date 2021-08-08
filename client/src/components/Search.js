@@ -136,7 +136,6 @@ export default function Search(props) {
   }
 
   useEffect(() => {
-    console.log("running search by ",props.location.search);
     let queryTag = props.location.search
     if (queryTag) {
       queryTag = queryString.parse(queryTag).q;
@@ -194,7 +193,6 @@ export default function Search(props) {
                 onChange={(event, value) => getPostByTag(value)}
                 onKeyPress={(e) => {
                   if (e.code === "Enter") {
-                    console.log("Enter pressed")
                     getPostByTag(e.target.value)
                     setOpen(false);
                   }

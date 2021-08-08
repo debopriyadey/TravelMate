@@ -42,7 +42,6 @@ export const loggedInUserInfo = () => async (dispatch) => {
         const { data } = await api.getLoggedInUserInfo();
         dispatch({type: SIGNIN_SUCCESS, payload: data })
     } catch (error) {
-        console.log(error.message);
         dispatch({ type: GET_USER_DATA_FAIL })
     }
 }

@@ -53,12 +53,8 @@ function useWindowSize() {
 }
 
 export default function Discover() {
-    console.log(
-        "component rendered "
-    )
-    const size = useWindowSize();
 
-    console.log(size)
+    const size = useWindowSize();
     const [hotelsLoading, setHotelLoading ]= useState(false);
     const [descLoading, setDescLoading ] = useState(false);
     const [attractionPlacesLoading, setAttractionPlacesLoading ] = useState(false);
@@ -88,16 +84,6 @@ export default function Discover() {
         zoom: 7
     });
 
-    /*const search = async (e) => {
-        if (e.key === 'Enter') {
-            const data = await fetchBasicInfo(query);
-            console.log(data);
-            setCityPhoto(data);
-            setQuery('');
-        }
-    }*/
-
-
     useEffect(() => {
         window.TeleportAutocomplete.init('.my-input').on('change', function (value) {
             setCity(value)
@@ -120,7 +106,6 @@ export default function Discover() {
             fetchPhotos(city.name)
                 .then((res) => {
                     setPhotoLoading(false);
-                    console.log(res)
                     setCityPhoto(res.data)
                 }).catch((error)=> {
                     setPhotoLoading(false);
@@ -129,7 +114,6 @@ export default function Discover() {
             fetchDesc(city.name)
                 .then((res) => {
                     setDescLoading(false);
-                    console.log(res)
                     setInfo(res.data)
                 }).catch((error) => {
                     setDescLoading(false);
@@ -151,7 +135,6 @@ export default function Discover() {
 
 
     useEffect(() => {
-        console.log(size)
         if (size.width >= 1200) {
             setViewport({ ...viewport, width: '130vh', height: '80vh' })
         } else if (size.width >= 1000) {

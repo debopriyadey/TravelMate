@@ -23,8 +23,6 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function Reviews(props) {
-    console.log(props.reviews)
-    console.log("Review Render");
     const classes = useStyles();
     return (
             <div className={classes.root}>

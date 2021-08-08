@@ -103,7 +103,6 @@ export default function UpdateReview() {
 
     const handeleSubmit = async (e) => {
         e.preventDefault();
-        console.log(reviewData.tags)
         const { data } = await updateReview(toUpdate._id, reviewData)
         render()
     }
@@ -173,7 +172,6 @@ export default function UpdateReview() {
                                         autoComplete="off"
                                         value={reviewData.tags}
                                         onChange={(e) => {
-                                            console.log(e.target.value)
                                             setData({ ...reviewData, tags: e.target.value })
                                         }}
                                     />

@@ -1,6 +1,6 @@
 import axios from 'axios';
-// const baseUrl ='https://projecthack20travelmate.herokuapp.com';
-const baseUrl = 'http://localhost:3000';
+const baseUrl ='https://traveldires.herokuapp.com';
+// const baseUrl = 'http://localhost:3000';
 const WeatherURL = 'https://api.openweathermap.org/data/2.5/weather';
 const PhotosURL = 'https://api.unsplash.com/search/photos';
 const BasicInfo = 'https://api.teleport.org/api/cities/';

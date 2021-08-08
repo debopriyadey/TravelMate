@@ -59,8 +59,6 @@ const getRecentReview = (req, res) => {
 const createReview = async (req, res) => {
 
     const { title, review, tags, likes, creator, creatorName, selectedFile } = req.body;
-    console.log(title, review);
-    if(review)console.log(review, " is present ")
     if (!title || !review) {
         return res.status(412).json({ error: "Title and Review both Required" });
     }

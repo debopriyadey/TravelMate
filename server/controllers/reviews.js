@@ -122,23 +122,14 @@ const getAllReviewTags = (req, res, next) => {
 
 const getPostsByTag=(req,res, next)=>{
     const reg=new RegExp('^' + req.body.tags,'i')
-   allPosts=[]
-    Review.find({ tags: {$all: [reg]} }).lean()
+    Review.find({ tags: {$all: [reg]} }).lean().exec()
     .then((posts) => {
-        // res.json({Reviews});
-        allPosts = posts;
-        let reviews = posts.map((post) => {
-            const totalLikes = Users.countDocuments({ likes: post._id }).exec();
-            return totalLikes;
-        });
-        return Promise.all(reviews);
-    }).then((reviews) => {
-        
-        allPosts.forEach((singleReview, index) => {
-            allPosts[index] = { ...allPosts[index], likes: reviews[index] };
-        });
-
-        const Reviews = allPosts;
+        return Promise.all(posts.map((post,index) => {
+            return Users.countDocuments({ likes: post._id }).exec().then((totalLikes)=> {
+              return posts[index]= {...post, likes:totalLikes}
+            })
+        }));
+    }).then((Reviews) => {
         res.send({Reviews});
     }) 
     .catch((err) => {

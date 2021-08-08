@@ -48,17 +48,12 @@ export const fetchWeather = async (query) => {
 }
 
 export const fetchPhotos = async (query) => {
-    try {
-        const { data } = await axios.get(PhotosURL, {
+        return axios.get(PhotosURL, {
             params: {
                 query: query,
                 client_id: process.env.REACT_APP_UNSPLASH_KEY,
             }
         });
-        return data;
-    } catch (error) {
-        console.log(error)
-    }
 }
 
 export const fetchBasicInfo = async (query) => {
@@ -71,8 +66,7 @@ export const fetchBasicInfo = async (query) => {
 }
 
 export const fetchDesc = async (query) => {
-    try {
-        const { data } = await axios.get(Wikipedia, {
+        return axios.get(Wikipedia, {
             params: {
                 format: 'json',
                 action: 'query',
@@ -85,15 +79,10 @@ export const fetchDesc = async (query) => {
             }
 
         });
-        return data
-    } catch (error) {
-        console.log("infoerror: ", error)
-    }
 }
 
 export const fetchHotelDeatils = async (lon, lat) => {
-    try {
-        const { data } = await axios.get(Hotels, {
+        return axios.get(Hotels, {
             params: {
                 lat: lat,
                 lon: lon,
@@ -110,10 +99,7 @@ export const fetchHotelDeatils = async (lon, lat) => {
                 'x-rapidapi-host': 'hotels-com-free.p.rapidapi.com'
             }
         });
-        return data
-    } catch (error) {
-        console.log("hotelerror: ", error)
-    }
+    
 }
 
 

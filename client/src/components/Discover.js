@@ -12,6 +12,7 @@ import '../css/discover.css';
 
 import location from '../svg/location.svg';
 import map from '../svg/map.svg';
+import Loader from 'react-loader-spinner';
 
 const breakPoints = (e) => {
     return [
@@ -52,9 +53,16 @@ function useWindowSize() {
 }
 
 export default function Discover() {
-
+    console.log(
+        "component rendered "
+    )
     const size = useWindowSize();
 
+    console.log(size)
+    const [hotelsLoading, setHotelLoading ]= useState(false);
+    const [descLoading, setDescLoading ] = useState(false);
+    const [attractionPlacesLoading, setAttractionPlacesLoading ] = useState(false);
+    const [photoLoading, setPhotoLoading ] = useState(false);
     const [query, setQuery] = useState('');
     const [info, setInfo] = useState('');
     const [hotels, setHotels] = useState('');
@@ -98,26 +106,45 @@ export default function Discover() {
 
     useEffect(() => {
         if (city && city.name) {
+            setAttractionPlacesLoading(true);
+            setDescLoading(true);
+            setHotelLoading(true);
+            setPhotoLoading(true);
             fetchTouristAttraction(city.latitude, city.longitude).then((response) => {
+                setAttractionPlacesLoading(false)
                 setAttractionPlaces(response.data.results[0].pois)
-                // console.log(response);
             }).catch((error) => {
+                setAttractionPlacesLoading(false)
                 console.log("TouristAttractionError", error);
             });
             fetchPhotos(city.name)
                 .then((res) => {
-                    setCityPhoto(res)
+                    setPhotoLoading(false);
+                    console.log(res)
+                    setCityPhoto(res.data)
+                }).catch((error)=> {
+                    setPhotoLoading(false);
+                    console.log("PhotosError",error);
                 })
             fetchDesc(city.name)
                 .then((res) => {
-                    setInfo(res)
+                    setDescLoading(false);
+                    console.log(res)
+                    setInfo(res.data)
+                }).catch((error) => {
+                    setDescLoading(false);
+                    console.log("DescriptionError",error)
                 })
             fetchHotelDeatils(city.longitude, city.latitude)
                 .then((res) => {
-                    setHotels(res)
+                setHotelLoading(false);
+                setHotels(res.data)
+                }).catch ((error)=> {
+                    setHotelLoading(false);
+                    console.log("HotelError", error)
                 })
+            
             setViewport({ ...viewport, latitude: city.latitude, longitude: city.longitude });
-
         }
 
     }, [city])
@@ -140,14 +167,21 @@ export default function Discover() {
         }
     }, [size.width])
 
-
     return (
         <>
             <NavBar />
             <div className="discover-container" id="weather">
                 <h1 className="discover-main-text"> Discover new <span className="special-text">destination </span> </h1>
                 <input type="text" className="mt-4 my-input discover-search" name="field" placeholder="search a place...." tabIndex="1" autoComplete="off" />
-                <div className="discover-city-container">
+            {
+                (hotelsLoading || descLoading || attractionPlacesLoading || photoLoading) ?(
+                    <Loader
+                    type = "BallTriangle"
+                    color = "#295ed9"
+                    className = "loader"
+                    />
+                ) :(
+                    <div className="discover-city-container">
                     {city && city.title && cityPhoto && (
                         <div className="discover-city">
 
@@ -189,7 +223,7 @@ export default function Discover() {
                                     <h2 className="sec-title">gallery</h2>
                                     <p className="sec-title-help"> explore the city </p>
                                     {
-                                        cityPhoto.results.map((e) => (
+                                      cityPhoto.results &&   cityPhoto.results.map((e) => (
                                             <img key={e.urls.thumb} src={e.urls.full + '&q=80&h=200'} alt="city-name" className="city-header-photo" />
                                         ))
                                     }
@@ -337,6 +371,8 @@ export default function Discover() {
                         </div>
                     )}
                 </div>
+                ) 
+            }
             </div>
         </>
     );

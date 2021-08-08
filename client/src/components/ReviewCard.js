@@ -58,8 +58,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export default function ReviewCard({ places , caller}) {
-    console.log(places , " card ")
+export default function ReviewCard({ places}) {
     const classes = useStyles();
     const dispatch = useDispatch();
     const history = useHistory();

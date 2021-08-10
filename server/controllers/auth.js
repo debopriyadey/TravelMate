@@ -65,8 +65,8 @@ const signin = (req, res, next ) => {
                             res.cookie('token', token, {
                                 maxAge: 60*24*60*60*1000,//setting cookie for 60 days
                                 httpOnly: true,
-                                samesite: 'lax',
-                                secure: true,
+                                // samesite: 'lax',
+                                // secure: true,
                                 path: '/',
                             });
                             return res.json({ user });

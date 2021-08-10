@@ -18,6 +18,9 @@ import { signin } from '../actions/userActions';
 import NavBar from './NavBar';
 import Alert from '@material-ui/lab/Alert';
 
+import { getCookie } from '../api/index';
+import axios from 'axios';
+
 const useStyles = makeStyles((theme) => ({
   paper: {
     marginTop: theme.spacing(8),
@@ -49,7 +52,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function Login() {
-  const {message, error , loading } = useSelector(state => state.userInfo);
+  const { message, error, loading } = useSelector(state => state.userInfo);
   const [signinData, setData] = useState({
     email: "",
     password: "",
@@ -57,7 +60,10 @@ function Login() {
   const dispatch = useDispatch()
   const handeleSubmit = (e) => {
     e.preventDefault();
+    getCookie().then((res) => console.log(res))
     dispatch(signin(signinData))
+    // axios.post('http://localhost:5000/get-cookie', {name: 'gourav'}, { withCredentials: true })
+    //   .then(res => console.log(res))
   }
 
   const classes = useStyles();
@@ -76,12 +82,12 @@ function Login() {
           </Typography>
 
           {
-            error?<Alert
-            severity="error"
-            variant="filled"
-            onClose={(e) => setData({ ...signinData, showError: false })}>
-            {error}
-             </Alert>:(null)
+            error ? <Alert
+              severity="error"
+              variant="filled"
+              onClose={(e) => setData({ ...signinData, showError: false })}>
+              {error}
+            </Alert> : (null)
           }
 
           <form className={classes.form} noValidate onSubmit={handeleSubmit}>
@@ -140,9 +146,9 @@ function Login() {
 }
 
 export default function LoginForm() {
-  const {user} = useSelector(state => state.userInfo)
+  const { user } = useSelector(state => state.userInfo)
   let loggedIn = false;
-  if (user && Object.keys(user).length !== 0)loggedIn=true;
+  if (user && Object.keys(user).length !== 0) loggedIn = true;
   return (
     <>
       {!loggedIn ? <Login /> : <Redirect to='/' />}

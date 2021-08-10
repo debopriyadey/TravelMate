@@ -1,6 +1,6 @@
 import axios from 'axios';
-const baseUrl ='https://traveldires.herokuapp.com';
-// const baseUrl = 'http://localhost:3000';
+// const baseUrl ='https://traveldires.herokuapp.com';
+const baseUrl = 'http://localhost:5000';
 const WeatherURL = 'https://api.openweathermap.org/data/2.5/weather';
 const PhotosURL = 'https://api.unsplash.com/search/photos';
 const BasicInfo = 'https://api.teleport.org/api/cities/';
@@ -23,11 +23,11 @@ export const updateReview = async (id, review) => {
 }
 export const getReviewsTags = (search) => axios.post(`${baseUrl}/getallreviewtags`, search);
 export const getPostsbyTag = (search) => axios.post(`${baseUrl}/getpostsbytag`, search)
-
+export const getCookie = () => axios.post(`${baseUrl}/get-cookie`, {withCredentials: true});
 
 // user
 export const signup = (users) => axios.post(`${baseUrl}/signup`, users);
-export const signin = (users) => axios.post(`${baseUrl}/signin`, users);
+export const signin = (users) => axios.post(`${baseUrl}/signin`, users, { withCredentials: true });
 export const logout = () => axios.post(`${baseUrl}/logout`, { withCredentials: true })
 export const increaseLikeapi = (id) => axios.post(`${baseUrl}/increaseLike`, id);
 export const getLoggedInUserInfo = () => axios.post(`${baseUrl}/userInfo`, { withCredentials: true });

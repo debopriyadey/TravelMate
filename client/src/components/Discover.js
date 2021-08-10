@@ -152,7 +152,7 @@ export default function Discover() {
 
     return (
         <>
-            <NavBar />
+            <NavBar /> 
             <div className="discover-container" id="weather">
                 <h1 className="discover-main-text"> Discover new <span className="special-text">destination </span> </h1>
                 <input type="text" className="mt-4 my-input discover-search" name="field" placeholder="search a place...." tabIndex="1" autoComplete="off" />

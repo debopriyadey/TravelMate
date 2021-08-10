@@ -1,35 +1,27 @@
 const express = require('express');
-const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
-const cors = require('cors');
 const cookieParser = require('cookie-parser');
 const authRoute = require('./routes/auth');
 const reviewRoute = require('./routes/review');
 const errorHandler = require('./middleware/errorHandler');
 
 const app = express();
-app.set("trust proxy", 1);
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "http://localhost:3000");
+  res.header("Access-Control-Allow-Methods", "GET,HEAD,OPTIONS,POST,PUT");
+  res.header("Access-Control-Allow-Credentials",true);
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
+  next();
+});
 app.use(cookieParser());
-app.use(express.json({ limit: "30mb", extended: true }))
-app.use(express.urlencoded({ limit: "30mb", extended: true }))
-const corsOptions = {
-  origin: true, //included origin as true
-  credentials: true, //included credentials as true
-};
+app.use(express.json({limit: "30mb", extended: true}))
+app.use(express.urlencoded({limit: "30mb", extended: true}))
 
 app.use(cors(corsOptions))
 // simulate delay response
 // app.use((req, res, next) => { 
 //   setTimeout(() => next(), 3000);
 // });
-
-app.use(function (req, res, next) {
-  res.header("Access-Control-Allow-Origin", "http://localhost:3000");
-  res.header("Access-Control-Allow-Credentials", true);
-  res.header("Access-Control-Allow-Methods", "GET, POST")
-  res.header("Access-Control-Allow-Headers", "Origin,X-Requested-With,Content-Type,Accept");
-  next();
-})
 
 console.log("hello")
 app.use('/', authRoute);

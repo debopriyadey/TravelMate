@@ -80,7 +80,7 @@ export default function Discover() {
         width: '80vh',
         height: '80vh',
         latitude: null,
-        longitude: null,
+        longitude: null, 
         zoom: 7
     });
 

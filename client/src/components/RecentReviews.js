@@ -1,6 +1,8 @@
-import React from 'react';
+import React, { useState, useEffect} from 'react';
 import { Container, Grid, makeStyles } from '@material-ui/core';
 import { useSelector } from 'react-redux';
+
+import { recentReview } from '../api';
 import RecentCard from './RecentCard';
 
 
@@ -19,8 +21,17 @@ const useStyles = makeStyles((theme) => ({
 
 export default function TopReviews() {
     const classes = useStyles();
+    const [allRecentReview, setAllRecentReview] = useState([])
 
     const { allReviews, loading, error } = useSelector(state => state.reviews)
+
+    useEffect(() => {
+        recentReview().then(res => setAllRecentReview(res.data));
+    }, [])
+
+    console.log(allRecentReview)
+    
+
 
     return (
         <div className={classes.root} id="recent-review">
@@ -39,7 +50,7 @@ export default function TopReviews() {
                         (
                             <Grid container spacing={3} className={classes.container}>
                                 {
-                                    allReviews.slice(0, 10).map((review) => (
+                                    allRecentReview.slice(0, 6).map((review) => (
                                         <Grid key={review._id}>
                                             <RecentCard places={review} />
                                         </Grid>

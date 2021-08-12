@@ -21,15 +21,6 @@ export const updateReview = async (id, review) => {
     const { data } = await axios.patch(`${baseUrl}/update/${id}`, review,{withCredentials: true});
     return data;
 }
-<<<<<<< HEAD
-export const getReviewsTags = (search) => axios.post(`${baseUrl}/getallreviewtags`, search);
-export const getPostsbyTag = (search) => axios.post(`${baseUrl}/getpostsbytag`, search)
-export const getCookie = () => axios.post(`${baseUrl}/get-cookie`, {withCredentials: true});
-
-// user
-export const signup = (users) => axios.post(`${baseUrl}/signup`, users);
-export const signin = (users) => axios.post(`${baseUrl}/signin`, users, { withCredentials: true });
-=======
 export const getReviewsTags = (search) => axios.post(`${baseUrl}/getallreviewtags`, search, {withCredentials: true});
 export const getPostsbyTag = (search) => axios.post(`${baseUrl}/getpostsbytag`, search, {withCredentials: true})
 
@@ -37,7 +28,6 @@ export const getPostsbyTag = (search) => axios.post(`${baseUrl}/getpostsbytag`, 
 // user
 export const signup = (users) => axios.post(`${baseUrl}/signup`, users);
 export const signin = (users) => axios.post(`${baseUrl}/signin`, users, {withCredentials: true});
->>>>>>> 38a4a33ded4476c116361f4914ae0d823a316c7a
 export const logout = () => axios.post(`${baseUrl}/logout`, { withCredentials: true })
 export const increaseLikeapi = (id) => axios.post(`${baseUrl}/increaseLike`, id, {withCredentials: true});
 export const getLoggedInUserInfo = () => axios.post(`${baseUrl}/userInfo`,{}, { withCredentials: true });

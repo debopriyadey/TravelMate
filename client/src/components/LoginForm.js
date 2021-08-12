@@ -18,9 +18,6 @@ import { signin } from '../actions/userActions';
 import NavBar from './NavBar';
 import Alert from '@material-ui/lab/Alert';
 
-import { getCookie } from '../api/index';
-import axios from 'axios';
-
 const useStyles = makeStyles((theme) => ({
   paper: {
     marginTop: theme.spacing(8),
@@ -60,10 +57,7 @@ function Login() {
   const dispatch = useDispatch()
   const handeleSubmit = (e) => {
     e.preventDefault();
-    getCookie().then((res) => console.log(res))
     dispatch(signin(signinData))
-    // axios.post('http://localhost:5000/get-cookie', {name: 'gourav'}, { withCredentials: true })
-    //   .then(res => console.log(res))
   }
 
   const classes = useStyles();

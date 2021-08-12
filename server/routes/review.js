@@ -5,7 +5,7 @@ const requiredLogin = require('../middleware/requireAuth');
 const controller = require('../controllers/reviews')
 
 route.get('/fetchreviews', controller.getReviews);
-route.get('/recentreviews', controller.getReviews);
+route.get('/recentreviews', controller.getRecentReview);
 route.get('/myreviews', requiredLogin, controller.myReviews);
 route.get('/currentreview/:id', controller.currentReview);
 route.post('/createreviews', requiredLogin, controller.createReview);

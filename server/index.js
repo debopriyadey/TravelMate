@@ -17,13 +17,11 @@ app.use(cookieParser());
 app.use(express.json({limit: "30mb", extended: true}))
 app.use(express.urlencoded({limit: "30mb", extended: true}))
 
-app.use(cors(corsOptions))
 // simulate delay response
 // app.use((req, res, next) => { 
 //   setTimeout(() => next(), 3000);
 // });
 
-console.log("hello")
 app.use('/', authRoute);
 app.use('/', reviewRoute);
 app.use(errorHandler);

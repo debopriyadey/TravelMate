@@ -21,12 +21,19 @@ app.use(express.urlencoded({limit: "30mb", extended: true}))
 // app.use((req, res, next) => { 
 //   setTimeout(() => next(), 3000);
 // });
+
 app.use('/', authRoute);
 app.use('/', reviewRoute);
 app.use(errorHandler);
 
+app.post('/get-cookie', (req, res) => {
+  res.cookie("test", "test-true")
+  const cookies = req.cookies;
+  console.log(cookies.test);
+  res.json(cookies);
+})
 
-const PORT = process.env.PORT||5000
+const PORT = process.env.PORT || 5000
 //const dbURI ="mongodb://localhost/travellersdiary";
 
 const dbURI = "mongodb+srv://docsarea:1234@cluster0.egnnh.mongodb.net/travellersdiary?retryWrites=true&w=majority";

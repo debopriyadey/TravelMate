@@ -36,7 +36,7 @@ const getReviews = (req, res) => {
 
 const getRecentReview = (req, res) => {
     let allPosts = [];
-    Review.find({}).limit(6).lean().then((posts) => {
+    Review.find({}).limit(5).sort({ date: -1 }).lean().then((posts) => {
         allPosts = posts;
         let reviews = posts.map((post) => {
             const totalLikes = Users.countDocuments({ likes: post._id }).exec();

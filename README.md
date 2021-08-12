@@ -1,5 +1,9 @@
 
 # TravelMate
+to solve the cookie error: 
+1. added preflight headers
+2. added cor options
+3. in client in post request added withcredential true
 
 --- 
 ## Unsolved errors

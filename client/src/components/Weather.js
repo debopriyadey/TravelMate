@@ -8,7 +8,7 @@ export default function Weather() {
     const search = async (e) => {
         if (e.key === 'Enter') {
             const data = await fetchWeather(query);
-            setWeather(data);
+            setWeather(data.data);
             setQuery('');
         }
     }

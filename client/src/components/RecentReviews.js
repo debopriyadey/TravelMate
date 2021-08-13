@@ -29,7 +29,6 @@ export default function TopReviews() {
         recentReview().then(res => setAllRecentReview(res.data));
     }, [])
 
-    console.log(allRecentReview)
     
 
 

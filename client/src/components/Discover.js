@@ -98,7 +98,7 @@ export default function Discover() {
             setPhotoLoading(true);
             fetchTouristAttraction(city.latitude, city.longitude).then((response) => {
                 setAttractionPlacesLoading(false)
-                setAttractionPlaces(response.data.results[0].pois)
+                setAttractionPlaces(response.data)
             }).catch((error) => {
                 setAttractionPlacesLoading(false)
                 console.log("TouristAttractionError", error);
@@ -119,7 +119,7 @@ export default function Discover() {
                     setDescLoading(false);
                     console.log("DescriptionError",error)
                 })
-            fetchHotelDeatils(city.longitude, city.latitude)
+            fetchHotelDeatils(city.latitude, city.longitude)
                 .then((res) => {
                 setHotelLoading(false);
                 setHotels(res.data)
@@ -235,7 +235,7 @@ export default function Discover() {
                                             attractionPlaces.length > 0 && (attractionPlaces.filter((e) => {
                                                 return e.images.length !== 0;
                                             }).map((e) => (
-                                                <div className="attraction-card">
+                                                <div className="attraction-card" key={e.images[0].sizes.thumbnail.url}>
                                                     <div>
                                                         <img src={e.images[0].sizes.thumbnail.url} height="100" width="100" className="attraction-img" />
                                                     </div>
@@ -260,7 +260,7 @@ export default function Discover() {
                                 <div className="hotel-container mt-0">
                                     {
                                         hotels && hotels.data.body.searchResults.results.map((e) => (
-                                            <div className="row hotel-card my-3 mx-1">
+                                            <div className="row hotel-card my-3 mx-1" key={e.optimizedThumbUrls.srpDesktop}>
                                                 <div className="col-sm-12 col-md-4 hotel-img-ctn">
                                                     <img src={e.optimizedThumbUrls.srpDesktop} alt={e.name} className="hotel-img" />
                                                 </div>
@@ -280,10 +280,10 @@ export default function Discover() {
                                                         <div className="col-md-12 col-lg-6 hotel-landmark">
                                                             {
                                                                 e.landmarks.map((res) => (
-                                                                    <>
+                                                                    <React.Fragment>
                                                                         <small className="mb-0"><img src={map} className="mb-2" /> {res.distance} to {res.label.length > 30 ? res.label.slice(0, Math.min(20, (res.label.slice(0, 30)).lastIndexOf(',') + 1)) : res.label}</small>
                                                                         <br />
-                                                                    </>
+                                                                    </React.Fragment>
                                                                 ))
                                                             }
                                                         </div>

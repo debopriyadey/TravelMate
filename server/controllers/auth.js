@@ -1,6 +1,5 @@
 const Users = require('../models/users.js');
 const jwt = require('jsonwebtoken');
-const JWT_SECRET = require('../keys.js');
 const bcrypt = require('bcryptjs');
 const validator = require('validator');
 
@@ -59,7 +58,7 @@ const signin = (req, res, next ) => {
             bcrypt.compare(password, savedUser.password)
                 .then((doMatch) => {
                     if (doMatch) {
-                        const token = jwt.sign({ _id: savedUser._id }, JWT_SECRET);
+                        const token = jwt.sign({ _id: savedUser._id },process.env.JWT_SECRET);
                         savedUser.token = token;
                         savedUser.save().then((user) => {
                             res.cookie('token', token, {

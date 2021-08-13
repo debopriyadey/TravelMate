@@ -1,12 +1,11 @@
 const jwt = require('jsonwebtoken');
-const JWT_SECRET = require('../keys');
 const Users = require('../models/users.js');
 
 const requiredLogin = (req, res, next) => {
     let token = "";
     if(!req.cookies)return res.status(401).json({error: "Token not found"});
     token = req.cookies.token;
-    jwt.verify( token, JWT_SECRET, (err, payload) => {  
+    jwt.verify( token, process.env.JWT_SECRET, (err, payload) => {  
         if(err){
             return res.status(401).json({error: "Invalid token"});
         }

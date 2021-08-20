@@ -17,11 +17,6 @@ import { CLEAR_CREATE_REVIEW } from '../constents';
 const useStyles = makeStyles(theme => ({
     root: {
         background: '#fff',
-        // backgroundImage: `url(${formimg})`,
-        // backgroundSize: "cover",
-        // backgroundRepeat: "no-repeat",
-        // backgroundAttachment: "fixed",
-        // zIndex: '-100',
 
     },
     bgimage: {
@@ -90,8 +85,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 
-export default function ReviewForm() {
-    const t= true;
+export default function ReviewForm(props) {
     const userInfo = useSelector(state => state.userInfo.user)
     const { error , message , loading } = useSelector( (state)=> state.createReviewInfo)
 
@@ -99,19 +93,13 @@ export default function ReviewForm() {
         title: '',
         review: '',
         tags: '',
-        creator: userInfo._id,
-        creatorName: userInfo.name,
-    }
-
-    const separatedVlues = {
-        like: '',
         speciality: '',
         expence: '',
         time: '',
     }
+
     const history = useHistory();
     const [reviewData, setData] = useState(initialFValues);
-    const [placeData, setPlaceData] = useState(separatedVlues);
     const classes = useStyles();
 
     const dispatch = useDispatch();
@@ -122,34 +110,37 @@ export default function ReviewForm() {
 
     const handeleSubmit = (e) => {
         e.preventDefault();
-        reviewData.review = placeData.like + ' ' + placeData.speciality + ' ' + placeData.expence + ' ' + placeData.time;
-        reviewData.tags = reviewData.tags + ',' + reviewData.title;
+        reviewData.tags = reviewData.title ? (reviewData.tags? reviewData.title + ',' + reviewData.tags:reviewData.title): reviewData.tags;
         dispatch(createreviews(reviewData))
-    }
-    let item= true;
-    
+    }   
+    const [locationTitle, setLocationTitle] = useState('')
     useEffect(() => {
-        const auto = () => {
+            if(props.update){
+                setData(props.review)
+            }
             var $results = document.querySelector('.results');
-            var appendToResult = $results.insertAdjacentHTML.bind($results, 'afterend');
+            
+            var appendToResult =  $results.insertAdjacentHTML.bind($results, 'afterend');
 
             window.TeleportAutocomplete.init('.my-input').on('change', function (value) {
-                setData({...reviewData, tags: value.title})
+                console.log(value)
+                setLocationTitle(value.title)
                 appendToResult('<pre>' + JSON.stringify(value, null, 2) + '</pre>');
             });
-        }
-        auto();
         return () => {
             dispatch({type: CLEAR_CREATE_REVIEW});
         }
-    }, [dispatch])
+    }, [])
+
+    useEffect(()=> {
+        setData({...reviewData, tags: locationTitle})
+    }, [locationTitle])
   
     return (
         
         !message?(
             <div className={classes.root}>
             <div className={classes.bgimage}></div>
-            {/* <Paper className={classes.paper}> */}
             <hr style={{ backgroundColor: '#806ac1', margin: 0 }} />
             <div className={classes.formContainer}>
                 <Paper className={classes.paper}>
@@ -184,15 +175,15 @@ export default function ReviewForm() {
                                     <TextField
                                         autoComplete="fname"
                                         name="speciality"
-                                        placeholder="You liked/disliked that place..."
+                                        placeholder="Something About that place..."
                                         variant="outlined"
                                         required
                                         id="review"
                                         multiline
                                         fullWidth
                                         rows={4}
-                                        value={placeData.like}
-                                        onChange={(e) => setPlaceData({ ...placeData, like: e.target.value })}
+                                        value={reviewData.review}
+                                        onChange={(e) => setData({ ...reviewData, review: e.target.value })}
                                     />
                                     <div className={classes.spacing}></div>
                                     <TextField
@@ -205,8 +196,8 @@ export default function ReviewForm() {
                                         multiline
                                         fullWidth
                                         rows={4}
-                                        value={placeData.speciality}
-                                        onChange={(e) => setPlaceData({ ...placeData, speciality: e.target.value })}
+                                        value={reviewData.speciality}
+                                        onChange={(e) => setData({ ...reviewData, speciality: e.target.value })}
                                     />
                                     <div className={classes.spacing}></div>
                                     <TextField
@@ -219,8 +210,8 @@ export default function ReviewForm() {
                                         multiline
                                         fullWidth
                                         rows={4}
-                                        value={placeData.expence}
-                                        onChange={(e) => setPlaceData({ ...placeData, expence: e.target.value })}
+                                        value={reviewData.expence}
+                                        onChange={(e) => setData({ ...reviewData, expence: e.target.value })}
                                     />
                                     <div className={classes.spacing}></div>
                                     <TextField
@@ -233,8 +224,8 @@ export default function ReviewForm() {
                                         multiline
                                         fullWidth
                                         rows={4}
-                                        value={placeData.time}
-                                        onChange={(e) => setPlaceData({ ...placeData, time: e.target.value })}
+                                        value={reviewData.time}
+                                        onChange={(e) => setData({ ...reviewData, time: e.target.value })}
                                     />
                                 </FormControl>
 
@@ -259,16 +250,11 @@ export default function ReviewForm() {
                                         value={reviewData.tags}
                                         onChange={(e) => {
                                             setData({...reviewData, tags: e.target.value})
+                                            console.log(e.target.value)
                                         }}
                                     />
                                 </FormControl>
-                                {/* <CountryDropdown
-                                    value={reviewData.state}
-                                    onChange={(e) => setData({ ...reviewData, state: e.target.value })} />
-                                <RegionDropdown
-                                    State={reviewData.state}
-                                    value={reviewData.region}
-                                    onChange={(e) => setData({ ...reviewData, region: e.target.value })} />*/}
+                              
                                 <Button
                                     type="submit"
                                     fullWidth

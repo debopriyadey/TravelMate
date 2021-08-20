@@ -8,7 +8,7 @@ import ReviewForm from './components/ReviewForm';
 import MyReviews from './components/MyReviews';
 import CurrentReview from './components/CurrentReview'
 import history from './history'
-import {getReviews} from './actions/reviewActions'
+import {getRecentReview, getReviews} from './actions/reviewActions'
 import { loggedInUserInfo } from './actions/userActions';
 import Search from './components/Search.js'
 import UpdateReview from './components/UpdateReview.js';
@@ -22,16 +22,20 @@ import './app.css';
 function App() {
 
     const dispatch=useDispatch();
-    useEffect(() => {
-        dispatch(loggedInUserInfo());
-         dispatch(getReviews())
-    }
-    , [dispatch])
     const {getUserDataLoader} = useSelector((state) => state.userInfo)
     const {loading } = useSelector((state) => state.reviews)
+    const recentReviewLoading = useSelector((state) => state.recentReviews).loading;
+
+    useEffect(() => {
+         dispatch(getReviews());
+         dispatch(getRecentReview());
+    }, [dispatch])
+    useEffect(() =>{
+        dispatch(loggedInUserInfo());
+    },[dispatch])
 
     return (
-        getUserDataLoader || loading ?(
+        getUserDataLoader || loading || recentReviewLoading?(
             <Loader
             type = "BallTriangle"
             color = "#295ed9"

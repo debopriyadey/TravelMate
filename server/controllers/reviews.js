@@ -20,23 +20,19 @@ const getReviews = (req, res) => {
             allPosts[index] = { ...allPosts[index], likes: review };
         });
         res.send(allPosts.sort(function (a, b) {
-            var keyA = new Date(a.likes),
-                keyB = new Date(b.likes);
-            // Compare the 2 dates
-            if (keyA < keyB) return 1;
-            if (keyA > keyB) return -1;
+            if (a.likes < b.likes) return 1;
+            if (a.likes > b.likes) return -1;
             return 0;
         }));
     })
         .catch((err) => {
-            console.log(err.message);
             next(err);
         })
 }
 
 const getRecentReview = (req, res) => {
     let allPosts = [];
-    Review.find({}).limit(5).sort({ date: -1 }).lean().then((posts) => {
+    Review.find({}).limit(5).sort({ createdAt: -1 }).lean().then((posts) => {
         allPosts = posts;
         let reviews = posts.map((post) => {
             const totalLikes = Users.countDocuments({ likes: post._id }).exec();
@@ -58,19 +54,16 @@ const getRecentReview = (req, res) => {
 
 const createReview = async (req, res) => {
 
-    const { title, review, tags, likes, creator, creatorName, selectedFile } = req.body;
+    const { title, review, tags,  selectedFile } = req.body;
     if (!title || !review) {
         return res.status(412).json({ error: "Title and Review both Required" });
     }
     const tagsArray = tags.split(",");
     const newReview = new Review({
-        title,
-        review,
+        ...req.body,
         tags: tagsArray,
-        selectedFile,
-        likes,
-        creator,
-        creatorName,
+        creator: req.user._id,
+        creatorName: req.user.name
     })
     newReview.save()
         .then((result) => {
@@ -188,11 +181,11 @@ const updateReview = async (req, res, next) => {
             tags: tagsArray
         }
 
-       const result = await Review.findOneAndUpdate({ _id: id, creator: req.user._id }, updateReview);
+       const result = await Review.findOneAndUpdate({ _id: id, creator: req.user._id }, updateReview, {new: true});
        if(result === null){
            return res.status(422).json({ msg: "Either Client is not creator of the post Or the post doesn't exist" });
        }
-       return res.json({ msg: "Data updated Successfully" });
+       return res.json(result);
 
     } catch (error) {
         next(error)

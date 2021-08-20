@@ -13,7 +13,7 @@
 }
 */
 
-import { ADD_MY_NEW_REVIEW, ALL_REVIEWS_FAIL, ALL_REVIEWS_REQUEST, ALL_REVIEWS_SUCCESS, CHANGE_LIKE_FAIL, CHANGE_LIKE_IN_SEARCH_REVIEW, CHANGE_LIKE_REQUEST, CHANGE_LIKE_SUCCESS, CLEAR_CREATE_REVIEW, CLEAR_MY_REVIEW, CREATE_REVIEW_FAIL, CREATE_REVIEW_REQUEST, CREATE_REVIEW_SUCCESS, SEARCH_REVIEW_FAIL, SEARCH_REVIEW_REQUEST, SEARCH_REVIEW_SUCCESS } from "../constents";
+import { ADD_MY_NEW_REVIEW, ALL_REVIEWS_FAIL, ALL_REVIEWS_REQUEST, ALL_REVIEWS_SUCCESS, CHANGE_LIKE_FAIL, CHANGE_LIKE_IN_SEARCH_REVIEW, CHANGE_LIKE_REQUEST, CHANGE_LIKE_SUCCESS, CLEAR_CREATE_REVIEW, CLEAR_MY_REVIEW, CREATE_REVIEW_FAIL, CREATE_REVIEW_REQUEST, CREATE_REVIEW_SUCCESS, DELETE_A_REVIEW, GET_RECENT_REVIEW_FAIL, GET_RECENT_REVIEW_REQUEST, GET_RECENT_REVIEW_SUCCESS, SEARCH_REVIEW_FAIL, SEARCH_REVIEW_REQUEST, SEARCH_REVIEW_SUCCESS, UPDATE_REVIEW_FAIL, UPDATE_REVIEW_REQUEST, UPDATE_REVIEW_SUCCESS } from "../constents";
 
 
 // Reducer for working with all the Reviews including user's Reviews
@@ -46,8 +46,8 @@ const allReviewsReducer = (state = { allReviews: [], myReviews: [] }, action) =>
         case ADD_MY_NEW_REVIEW:
             return {
                 ...state,
-                allReviews: [...state.allReviews, action.payload],
-                myReviews: [...state.myReviews, action.payload]
+                allReviews: [action.payload,...state.allReviews, ],
+                myReviews: [action.payload, ...state.myReviews, ]
             }
 
         case CLEAR_MY_REVIEW:
@@ -55,7 +55,42 @@ const allReviewsReducer = (state = { allReviews: [], myReviews: [] }, action) =>
                 ...state,
                 myReviews: []
             }
-
+        case UPDATE_REVIEW_REQUEST:
+            return {
+                ...state,
+                 updateReviewLoading: true
+            }
+        case UPDATE_REVIEW_SUCCESS:
+            const newallReviews = [];
+            state.allReviews.map((review) => {
+                if(action.payload._id===review._id)newallReviews.push(action.payload);
+                else newallReviews.push(review)
+            })
+            const newmyReview = [];
+            state.myReviews.map((review) => {
+                if(action.payload._id=== review._id) newmyReview.push(action.payload)
+                else newmyReview.push(review);
+            })
+         return {
+             ...state,
+             updateReviewLoading: false,
+             myReviews: newmyReview,
+             allReviews: newallReviews,
+         }
+        
+        case UPDATE_REVIEW_FAIL:
+            return {
+                ...state, 
+                updateReviewError: action.payload
+            }
+        case DELETE_A_REVIEW:
+            const newAllReviews = state.allReviews.filter((review)=> review._id !== action.payload)
+            const newMyReview = state.myReviews.filter ((review) => review._id !== action.payload)
+            return {
+                ...state,
+                allReviews: newAllReviews,
+                myReviews: newMyReview
+            }
         case CHANGE_LIKE_REQUEST:
             return {
                 ...state,
@@ -96,7 +131,9 @@ const allReviewsReducer = (state = { allReviews: [], myReviews: [] }, action) =>
                 allReviews: reviews,
                 myReviews: newMyreviews,
             };
-
+        
+        
+    
         case CHANGE_LIKE_FAIL:
             return {
                 ...state,
@@ -108,6 +145,64 @@ const allReviewsReducer = (state = { allReviews: [], myReviews: [] }, action) =>
 
     }
 
+}
+
+// RecentReviewReducer 
+const recentReviewReducer = (state = {}, action) => {
+    switch(action.type){
+        case GET_RECENT_REVIEW_REQUEST:
+            return {
+                loading: true
+            }
+        case GET_RECENT_REVIEW_SUCCESS:
+            return {
+                loading:false,
+                recentReviews: action.payload
+            }
+        case GET_RECENT_REVIEW_FAIL:
+            return {
+                loading: false,
+                error: action.payload
+            }
+        case ADD_MY_NEW_REVIEW: 
+            return {
+                recentReviews: [action.payload, ...state.recentReviews]
+            }
+        case UPDATE_REVIEW_SUCCESS: 
+            const newrecentReview = [];
+            state.recentReviews.map((review) => {
+                if(review._id===action.payload._id)newrecentReview.push(action.payload)
+                else newrecentReview.push(review)
+            })
+            return {
+                ...state, 
+                recentReviews: newrecentReview
+            }
+        case CHANGE_LIKE_IN_SEARCH_REVIEW:
+            const newRecentReview = [];
+            state.recentReviews.map((review) => {
+                if (review._id === action.payload.postId) {
+                    if (action.payload.message === "Increase Like") {
+                        newRecentReview.push({ ...review, "likes": review.likes + 1 });
+                    } else if (action.payload.message === "Decrease Like") {
+                        newRecentReview.push({ ...review, "likes": review.likes - 1 });
+                    } else {
+                        newRecentReview.push(review);
+                    }
+                } else
+                    newRecentReview.push(review);
+            });
+            return {
+                recentReviews: newRecentReview
+            }
+        case DELETE_A_REVIEW:
+            const newRecentReviews = state.recentReviews.filter((review)=> review._id!==action.payload)
+            return {
+                recentReviews: newRecentReviews
+            }
+        default:
+             return state
+    }
 }
 
 // createReviews
@@ -167,116 +262,21 @@ const searchReviewReducer = (state = { reviews: [] }, action) => {
             });
 
             return { reviews: newReviews }
+        case UPDATE_REVIEW_SUCCESS:
+            const newSearchReviews = [];
+            state.reviews.map((review) => {
+                if(review._id === action.payload._id) newSearchReviews.push(action.payload)
+                else newSearchReviews.push(review)
+            })
+            return {
+                ...state, 
+                reviews: newSearchReviews
+            }
+
         default:
             return state;
 
     }
 }
 
-export { allReviewsReducer, createReviewReducer, searchReviewReducer }
-
-/*
- const  review =(state = initialState , action) => {
-    switch (action.type) {
-
-        case 'FETCH_ALL':
-            return {
-                ...state,
-                allreviews:action.payload[1],
-                myreviews:action.payload[0]
-            };
-        case 'SIGNUP':
-            return{
-                ...state,
-                userInfo: [],
-                signupSuccess:true
-
-            };
-        case 'SIGNUPFAILS':
-            return{
-                ...state,
-                signupMessage: action.payload
-            };
-        case 'SIGNUPTOLOGIN':
-            return{
-                ...state,
-                signupSuccess:false
-            };
-        case 'SIGNIN':
-            return {
-                ...state,
-                loggedIn:true
-            };
-        case 'SIGNINFAILS':
-            return {
-                ...state,
-                message: action.payload
-            };
-        case 'SET_CURRENT_USER':
-            return {
-                ...state,
-                loggedIn:true
-            };
-        case 'LOGOUT':
-            return {
-                ...state,
-                loggedIn:false
-            };
-        case 'CREATE_REVIEW':
-            return {
-                ...state,
-                allreviews: [...state.allreviews, action.payload],
-                myreviews: [ ...state.myreviews , action.payload]
-            };
-        case 'CURRENT_REVIEW':
-            return {
-                ...state,
-                currentReview: action.payload
-            };
-        case 'IncreaseLike':
-            const reviews=[];
-            const userInfo=JSON.parse(state.userInfo);
-            // changing all reviews
-            state.allreviews.map((review)=>{
-                if(review._id===action.payload.postId){
-                    if(action.payload.message==="Increase Like"){
-                        userInfo.likes.push(review._id);
-                        reviews.push({...review,"likes":review.likes+1});
-                    }else if(action.payload.message==="Decrease Like"){
-                        reviews.push({...review,"likes":review.likes-1});
-                        userInfo.likes= userInfo.likes.filter((id)=> id!= review._id);
-                    }else {
-                        reviews.push(review);
-                    }
-                }else
-                    reviews.push(review);
-            });
-            // chainging my reviews
-            const newMyreviews=[]
-            state.myreviews.map((review)=>{
-                if(review._id===action.payload.postId){
-                    if(action.payload.message==="Increase Like"){
-                        newMyreviews.push({...review,"likes":review.likes+1});
-                    }else if(action.payload.message==="Decrease Like"){
-                        newMyreviews.push({...review,"likes":review.likes-1});
-                    }else {
-                        newMyreviews.push(review);
-                    }
-                }else
-                newMyreviews.push(review);
-            });
-            localStorage.setItem("users", JSON.stringify(userInfo))
-            return {
-                ...state,
-                allreviews:reviews,
-                myreviews:newMyreviews,
-                userInfo:JSON.stringify(userInfo),
-
-            };
-        default:
-            return state;
-    }
-}
-
-export default review
-*/
+export { allReviewsReducer, createReviewReducer, searchReviewReducer,recentReviewReducer }

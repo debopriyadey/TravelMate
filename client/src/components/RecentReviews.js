@@ -21,17 +21,8 @@ const useStyles = makeStyles((theme) => ({
 
 export default function TopReviews() {
     const classes = useStyles();
-    const [allRecentReview, setAllRecentReview] = useState([])
-
-    const { allReviews, loading, error } = useSelector(state => state.reviews)
-
-    useEffect(() => {
-        recentReview().then(res => setAllRecentReview(res.data));
-    }, [])
-
-    
-
-
+    const allRecentReviews = useSelector(state => state.recentReviews)
+    const { recentReviews, loading, error } = allRecentReviews
     return (
         <div className={classes.root} id="recent-review">
             <div className="container">
@@ -49,7 +40,7 @@ export default function TopReviews() {
                         (
                             <Grid container spacing={3} className={classes.container}>
                                 {
-                                    allRecentReview.slice(0, 6).map((review) => (
+                                   recentReviews &&  recentReviews.slice(0, 6).map((review) => (
                                         <Grid key={review._id}>
                                             <RecentCard places={review} />
                                         </Grid>

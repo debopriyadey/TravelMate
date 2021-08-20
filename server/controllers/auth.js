@@ -58,7 +58,7 @@ const signin = (req, res, next ) => {
             bcrypt.compare(password, savedUser.password)
                 .then((doMatch) => {
                     if (doMatch) {
-                        const token = jwt.sign({ _id: savedUser._id },process.env.JWT_SECRET);
+                        const token = jwt.sign({ _id: savedUser._id, name: savedUser.name },process.env.JWT_SECRET);
                         savedUser.token = token;
                         savedUser.save().then((user) => {
                             res.cookie('token', token, {

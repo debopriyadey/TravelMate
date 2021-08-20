@@ -10,8 +10,7 @@ import { Link, useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 
 
-import { increaseLike } from '../actions/reviewActions';
-import { deleteReview } from '../api/index';
+import { deleteReview, increaseLike } from '../actions/reviewActions';
 
 
 function Alert(props) {
@@ -103,14 +102,11 @@ export default function ReviewCard({ places }) {
     }, [places.likes])
 
 
-    const render = () => {
-        history.push(`/currentreview/${places._id}`);
-    }
+    
 
 
-    const handelSubmit = async (e) => {
-        sessionStorage.setItem("currentreview", JSON.stringify(places))
-        render()
+    const handelSubmit = (e) => {
+        history.push(`/currentreview/${places._id}`, places);
     }
 
     const handleCloseLogin = (event, reason) => {
@@ -143,13 +139,12 @@ export default function ReviewCard({ places }) {
 
     const handelUpdate = (e) => {
         e.preventDefault()
-        sessionStorage.setItem('toUpdate', JSON.stringify(places))
-        history.push(`/update`)
+        history.push(`/update`, places)
     }
 
-    const handleDelete = async (e) => {
-        await deleteReview(places._id)
-        window.location.reload()
+    const handleDelete =  (e) => {
+        e.preventDefault();
+        deleteReview(places._id)
     }
 
 

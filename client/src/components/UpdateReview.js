@@ -9,7 +9,7 @@ import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 
 import "../css/reviewForm.css";
 import NavBar from './NavBar'
-import { updateReview } from '../api';
+import { updateReview } from '../actions/reviewActions';
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -83,16 +83,16 @@ const useStyles = makeStyles(theme => ({
 }));
 
 
-export default function UpdateReview() {
-    const toUpdate = JSON.parse(sessionStorage.getItem('toUpdate'))
-    const initialFValues = {
-        title: toUpdate.title,
-        review: toUpdate.review,
-        tags: toUpdate.tags,
+export default function UpdateReview(props) {
+    const toUpdate = props.location.state;
+    let tags='' ;
+    for(let i=1;i<toUpdate.tags.length;i++) {
+        if(i===1)tags= toUpdate.tags[i];
+        else tags =tags + ',' + toUpdate.tags[i];
     }
-
+    toUpdate.tags= tags;
     const history = useHistory();
-    const [reviewData, setData] = useState(initialFValues);
+    const [reviewData, setData] = useState(toUpdate);
     const classes = useStyles();
 
     const dispatch = useDispatch();
@@ -103,8 +103,9 @@ export default function UpdateReview() {
 
     const handeleSubmit = async (e) => {
         e.preventDefault();
-        const { data } = await updateReview(toUpdate._id, reviewData)
-        render()
+        reviewData.tags = reviewData.title + ',' +reviewData.tags
+        dispatch(updateReview(reviewData, props.history))
+        // render()
     }
 
     React.useEffect(() => {
@@ -113,6 +114,7 @@ export default function UpdateReview() {
             var appendToResult = $results.insertAdjacentHTML.bind($results, 'afterend');
 
             window.TeleportAutocomplete.init('.my-input').on('change', function (value) {
+                if(value)
                 setData({...reviewData, tags: value.title})
                 appendToResult('<pre>' + JSON.stringify(value, null, 2) + '</pre>');
             });

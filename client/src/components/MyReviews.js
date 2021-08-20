@@ -63,7 +63,16 @@ const useStyles = makeStyles((theme) => ({
 
 export default function MyReviews() {
     const { user } = useSelector((state) => state.userInfo);
-    const reviewsPost = useSelector((state) => state.reviews.myReviews);
+    const {allReviews} = useSelector((state) => state.reviews);
+    const reviewsPost = []
+    if (user._id) {
+        allReviews.forEach(element => {
+            if (element.creator === user._id) {
+                reviewsPost.push(element);
+            }
+        });
+
+    }
 
     const classes = useStyles();
     return (

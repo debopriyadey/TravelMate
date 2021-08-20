@@ -1,7 +1,7 @@
 import axios from 'axios';
 // const baseUrl ='https://traveldires.herokuapp.com';
-const baseUrl = 'https://projecthack20travelmate.herokuapp.com';
-// const baseUrl = 'http://localhost:5000';
+const baseUrl = 'http://localhost:5000';
+// const baseUrl = 'https://projecthack20travelmate.herokuapp.com';
 
 // post
 export const fetchPost = () => axios.get(`${baseUrl}/fetchreviews`,{}, {withCredentials: true});

@@ -144,7 +144,7 @@ export default function ReviewCard({ places }) {
 
     const handleDelete =  (e) => {
         e.preventDefault();
-        deleteReview(places._id)
+       dispatch( deleteReview(places._id))
     }
 
 

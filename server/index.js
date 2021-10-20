@@ -32,10 +32,9 @@ app.use(errorHandler);
 
 
 const PORT = process.env.PORT || 5000
-const dbURI ="mongodb://localhost/travellersdiary";
+const dbURI = process.env.DBURL;
 
-// const dbURI = "mongodb+srv://docsarea:1234@cluster0.egnnh.mongodb.net/travellersdiary?retryWrites=true&w=majority";
-// const dbURI ="mongodb://localhost/travellersdiary";
+
 mongoose.connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(result => app.listen(PORT, () => console.log("server running on port 5000")))
   .catch((err) => console.log(err.message));

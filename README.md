@@ -1,21 +1,5 @@
+#TravelMate
 
-# TravelMate
-to solve the cookie error: 
-1. added preflight headers
-2. added cor options
-3. in client in post request added withcredential true
+A little bit about TravellMate
 
---- 
-## Unsolved errors
-[+] access token and refrsh token
-[+] server error handeling
-[+] route for top reviews
-[+] footer update
-[+] elastic search
-[+] createreview window open without login
-[+] if we create user profile for view then we have to search from many reviews to find the review that particular user has written, we can store the review object id in user data and then just itterate only on those and print them
-[+] Remember me
-[-] 1 refresh to fetch new revies on homepage
-[-] error handling in email
-[-] Time complexity of item load.
-[-] after login 1 refresh required
+This website is build with the aim of helping people to decide and plan their travel destination in a more effective way. People will have access to hundreds of review on different places given by our users which can be searched without creating an account on this website. These reviews are helping people plan their vacation in structured way.
